@@ -1,6 +1,8 @@
 package hva.app.main;
 
 import hva.HotelManager;
+import hva.app.exceptions.FileOpenFailedException;
+import hva.exceptions.UnavailableFileException;
 import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;

@@ -57,4 +57,7 @@ public class HotelManager {
         _hotel.importFile(filename);
     }
 
+    public Hotel getHotel () {
+        return _hotel;
+    }
 }

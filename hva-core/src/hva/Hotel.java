@@ -3,6 +3,10 @@ package hva;
 import java.io.Serial;
 import java.io.Serializable;
 
+import hva.exceptions.ImportFileException;
+import hva.exceptions.UnrecognizedEntryException;
+import java.io.IOException;
+
 //FIXME import other Java classes
 //FIXME import project classes
 
