@@ -26,12 +26,12 @@ public class Hotel implements Serializable {
      * @throws ImportFileException
      */
     void importFile(String filename) throws ImportFileException {
-	try {
+	/*try {
             // FIXME open import file and create the associated objects
 	    // ....
-        } catch (IOException | UnrecognizedEntryException /* FIXME maybe other exceptions */ e) {
+        } catch (IOException | UnrecognizedEntryException e) {
             throw new ImportFileException(filename, e);
-        }
+        }*/
     }
 
 }
