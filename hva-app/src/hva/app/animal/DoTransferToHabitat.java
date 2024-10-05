@@ -1,5 +1,7 @@
 package hva.app.animal;
 
+import java.text.Normalizer.Form;
+
 import hva.Hotel;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
@@ -15,6 +17,13 @@ class DoTransferToHabitat extends Command<Hotel> {
     @Override
     protected final void execute() throws CommandException {
         //FIXME implement command
+
+        //adicionado por mim
+        String animalId = Form.requestString(Prompt.animalId());
+        String habitatId = Form.requestString(Prompt.habitatId());
+
+        _receiver.trasnferAnimal(animalId, habitatId);
+
     }
 
 }

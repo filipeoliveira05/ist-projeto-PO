@@ -1,6 +1,7 @@
 package hva.app.animal;
 
 import hva.Hotel;
+import java.text.Normalizer;
 import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
@@ -16,6 +17,15 @@ class DoRegisterAnimal extends Command<Hotel> {
     @Override
     protected final void execute() throws CommandException {
         //FIXME implement command
+
+        //adicionado por mim
+        String animalName = Form.requestString(Prompt.animalName());
+        String speciesId = Form.requestString(Prompt.speciesId());
+        String habitatId = Form.requestString(Prompt.habitatId());
+
+        _receiver.registerAnimal(animalName, speciesId, habitatId);
+
+        //_display.popup(Message.animalRegistered(animalName));  --> mensagem de confi
     }
 
 }
