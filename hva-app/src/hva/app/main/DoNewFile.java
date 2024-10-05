@@ -13,6 +13,10 @@ class DoNewFile extends Command<HotelManager> {
 
     @Override
     protected final void execute() throws CommandException {
-        //FIXME implement command
+        if (_receiver.changed() && Form.confirm(Message.saveBeforeExit())) {
+            Do_313_Save cmd = new Do_313_Save(_receiver);
+            cmd.execute();
+          }
+          _receiver.reset();
     }
 }

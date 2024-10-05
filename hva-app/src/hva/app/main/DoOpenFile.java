@@ -1,5 +1,8 @@
 package hva.app.main;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import hva.HotelManager;
 import hva.app.exceptions.FileOpenFailedException;
 import hva.exceptions.UnavailableFileException;
@@ -15,10 +18,10 @@ class DoOpenFile extends Command<HotelManager> {
 
     @Override
     protected final void execute() throws CommandException {
-        /*try {
-            //FIXME implement command
-        } catch (UnavailableFileException e) {
-            throw new FileOpenFailedException(e);
-        }*/
+      try {
+        _receiver.load(stringField("fileName"));
+      } catch (UnavailableFileException ufe) {
+        throw new FileOpenFailedException(ufe.getFilename());
+      }
     }
 }
