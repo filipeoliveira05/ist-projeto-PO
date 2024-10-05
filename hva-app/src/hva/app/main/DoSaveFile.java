@@ -17,7 +17,7 @@ class DoSaveFile extends Command<HotelManager> {
 
     @Override
     protected final void execute() {
-    	try {
+    	/*try {
         try {
           _receiver.save();
         } catch (MissingFileAssociationException ex) {
@@ -25,14 +25,14 @@ class DoSaveFile extends Command<HotelManager> {
         }
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }*/
     }
 
     private void saveAs() throws IOException {
-      try {
+      /*try {
         _receiver.saveAs(Form.requestString(Prompt.newSaveAs()));
       } catch (MissingFileAssociationException e) {
         saveAs();
-      }
+      }*/
     }
 }
