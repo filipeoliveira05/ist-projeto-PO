@@ -41,12 +41,12 @@ public class HotelManager {
      * @throws IOException if there is some error while serializing the state of the network to disk.
      */
     public void save() throws FileNotFoundException, MissingFileAssociationException, IOException {
-        if (_filename == null || _filename.equals(""))
+        /*if (_filename == null || _filename.equals(""))
       throw new UnnamedDBException();
     try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(_filename)))) {
       oos.writeObject(_hotel);
       _hotel.setChanged(false);
-    }
+    }*/
     }
 
     /**

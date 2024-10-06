@@ -18,10 +18,10 @@ class DoOpenFile extends Command<HotelManager> {
 
     @Override
     protected final void execute() throws CommandException {
-      /*try {
-        _receiver.load(stringField("fileName"));
-      } catch (UnavailableFileException ufe) {
-        throw new FileOpenFailedException(ufe.getFilename());
-      }*/
+      if (_receiver.changed() && Form.confirm(Message.saveBeforeExit())) {
+        Do_313_Save cmd = new Do_313_Save(_receiver);
+        cmd.execute();
+      }
+      _receiver.reset();
     }
 }
