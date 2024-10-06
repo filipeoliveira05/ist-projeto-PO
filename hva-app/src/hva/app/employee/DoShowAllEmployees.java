@@ -14,6 +14,8 @@ class DoShowAllEmployees extends Command<Hotel> {
     @Override
     protected void execute() throws CommandException {
         //FIXME implement command
+
+        _receiver.showAllEmployees();
     }
 
 }

@@ -20,7 +20,7 @@ class DoShowSatisfactionOfAnimal extends Command<Hotel> {
 
         //adicionado por mim
 
-        String animalId = Form.requestString(Prompt.animalId());
+        String animalId = Form.requestString(Prompt.animalKey());
         int satisfaction = _receiver.getAnimalSatisfaction(animalId, satisfaction);
 
         

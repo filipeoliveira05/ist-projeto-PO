@@ -19,10 +19,10 @@ class DoTransferToHabitat extends Command<Hotel> {
         //FIXME implement command
 
         //adicionado por mim
-        String animalId = Form.requestString(Prompt.animalId());
-        String habitatId = Form.requestString(Prompt.habitatId());
+        String animalId = Form.requestString(Prompt.animalKey());
+        String habitatId = Form.requestString(Prompt.habitatKey()); //Prompt nao definida
 
-        _receiver.trasnferAnimal(animalId, habitatId);
+        _receiver.transferAnimal(animalId, habitatId);
 
     }
 

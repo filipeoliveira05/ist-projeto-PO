@@ -20,8 +20,8 @@ class DoRegisterAnimal extends Command<Hotel> {
 
         //adicionado por mim
         String animalName = Form.requestString(Prompt.animalName());
-        String speciesId = Form.requestString(Prompt.speciesId());
-        String habitatId = Form.requestString(Prompt.habitatId());
+        String speciesId = Form.requestString(Prompt.speciesKey());
+        String habitatId = Form.requestString(Prompt.habitatKey()); //Prompt n definida
 
         _receiver.registerAnimal(animalName, speciesId, habitatId);
 
