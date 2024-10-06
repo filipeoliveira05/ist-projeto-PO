@@ -1,5 +1,7 @@
 package hva.app.habitat;
 
+import java.text.Normalizer.Form;
+
 import hva.Hotel;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
@@ -15,6 +17,13 @@ class DoRegisterHabitat extends Command<Hotel> {
     @Override
     protected void execute() throws CommandException {
         //FIXME implement command
+
+        String habitatName = Form.requestString(Prompt.habitatName());
+        double area = Form.requestString(Prompt.habitatArea());
+
+        _receiver.registerHabitat(habitatName, area);
+
+
     }
 
 }

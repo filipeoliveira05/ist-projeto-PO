@@ -1,5 +1,7 @@
 package hva.app.habitat;
 
+import java.text.Normalizer.Form;
+
 import hva.Hotel;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
@@ -15,6 +17,11 @@ class DoChangeHabitatArea extends Command<Hotel> {
     @Override
     protected void execute() throws CommandException {
         //FIXME implement command
+
+        String habitatId = Form.requestString(Prompt.habitatKey());
+        double newArea = Form.requestReal(Prompt.habitatArea());
+
+        _receiver.changeHabitatArea(habitatId, newArea);
     }
 
 }
