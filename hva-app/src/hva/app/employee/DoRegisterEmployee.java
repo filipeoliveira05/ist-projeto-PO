@@ -1,26 +1,37 @@
 package hva.app.employee;
 
-import hva.Hotel;
 import java.text.Normalizer;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME import other classes if needed
+import hva.Hotel;
+import hva.exceptions.DuplicateEmployeeKeyException;
 
 class DoRegisterEmployee extends Command<Hotel> {
 
     DoRegisterEmployee(Hotel receiver) {
         super(Label.REGISTER_EMPLOYEE, receiver);
-        //FIXME add command fields if needed
     }
 
     @Override
     protected void execute() throws CommandException {
-        //FIXME implement command
+        String employeeId = Form.requestString(Prompt.employeeKey());
 
-        String name = Form.requestString(Prompt.employeeName());
-        String role = Form.requestString(Prompt.employeeType());
+        // Verifica duplicidade de funcionário
+        try {
+            _receiver.checkDuplicateEmployee(employeeId);
+        } catch (DuplicateEmployeeKeyException e) {
+            throw e;
+        }
 
-        _receiver.registerEmployee(name, role);
+        String employeeName = Form.requestString(Prompt.employeeName());
+
+        // Pergunta pelo tipo de funcionário
+        String employeeType;
+        do {
+            employeeType = Form.requestString(Prompt.employeeType()).toUpperCase();
+        } while (!employeeType.equals("VET") && !employeeType.equals("TRT"));
+
+        _receiver.registerEmployee(employeeId, employeeName, employeeType);  // Registra o funcionário
+        _display.popup(Message.employeeRegistered(employeeName));
     }
-
 }

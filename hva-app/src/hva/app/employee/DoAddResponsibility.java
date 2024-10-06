@@ -1,28 +1,26 @@
 package hva.app.employee;
 
 import java.text.Normalizer.Form;
-
-import hva.Hotel;
 import pt.tecnico.uilib.menus.Command;
-import pt.tecnico.uilib.menus.CommandException;
-//FIXME import other classes if needed
+import hva.Hotel;
+import hva.exceptions.NoResponsibilityException;
 
 class DoAddResponsibility extends Command<Hotel> {
 
     DoAddResponsibility(Hotel receiver) {
         super(Label.ADD_RESPONSABILITY, receiver);
-        //FIXME add command fields if needed
     }
 
     @Override
-    protected void execute() throws CommandException {
-        //FIXME implement command
-
+    protected void execute() throws CommandException{
         String employeeId = Form.requestString(Prompt.employeeKey());
-        String responsibility = Form.requestString(Prompt.responsibilityKey());  
+        String responsibility = Form.requestString(Prompt.responsibilityKey());
 
-        _receiver.addResponsabilityToEmployee(employeeId, responsibility);
-        
+        try {
+            _receiver.addResponsibilityToEmployee(employeeId, responsibility);
+            _display.popup(Message.responsibilityAdded(employeeId, responsibility));
+        } catch (NoResponsibilityException e) {
+            _display.popup(Message.noResponsibility());
+        }
     }
-
 }

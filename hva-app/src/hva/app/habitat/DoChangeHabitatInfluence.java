@@ -11,17 +11,22 @@ class DoChangeHabitatInfluence extends Command<Hotel> {
 
     DoChangeHabitatInfluence(Hotel receiver) {
         super(Label.CHANGE_HABITAT_INFLUENCE, receiver);
-        //FIXME add command fields if needed
     }
 
     @Override
     protected void execute() throws CommandException {
-        //FIXME implement command
-
         String habitatId = Form.requestString(Prompt.habitatKey());
-        double newInfluence = Form.requestString(Prompt.habitatInfluence());
+        String speciesId = Form.requestString("Identificador único da espécie:");
+        String influence;
+        
+        do {
+            influence = Form.requestString(Prompt.habitatInfluence()).toUpperCase();
+        } while (!influence.equals("POS") && !influence.equals("NEG") && !influence.equals("NEU"));
 
-        _receiver.changeHabitatInfluence(habitatId, newInfluence);
+        _receiver.changeHabitatInfluence(habitatId, speciesId, influence);  // Altera a influência
+        _display.popup(Message.habitatInfluenceChanged(habitatId, speciesId, influence));
+
+
+        //FALTA EXCECAO com message NOASSOCIATION
     }
-
 }

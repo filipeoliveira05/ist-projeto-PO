@@ -23,6 +23,7 @@ class DoTransferToHabitat extends Command<Hotel> {
         String habitatId = Form.requestString("Insira o identificador do habitat destino"); 
 
         _receiver.transferAnimal(animalId, habitatId);
+        _display.popup(Message.animalTransferred(animalId, habitatId));
 
     }
 

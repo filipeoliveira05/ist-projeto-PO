@@ -19,7 +19,8 @@ class DoShowSatisfactionOfEmployee extends Command<Hotel> {
         //FIXME implement command
 
         String employeeId = Form.requestString(Prompt.employeeKey());
-        int satisfaction = _receiver.getEmployeeSatisfaction(employeeId);
+        int satisfaction = Math.round(_receiver.calculateEmployeeSatisfaction(employeeId));
+
     }
 
 }

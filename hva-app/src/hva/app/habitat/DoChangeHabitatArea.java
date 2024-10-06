@@ -22,6 +22,7 @@ class DoChangeHabitatArea extends Command<Hotel> {
         double newArea = Form.requestReal(Prompt.habitatArea());
 
         _receiver.changeHabitatArea(habitatId, newArea);
+        _display.popup(Message.habitatAreaChanged(habitatId, newArea));
     }
 
 }

@@ -1,6 +1,9 @@
 package hva.app.vaccine;
 
 import hva.Hotel;
+import hva.app.exceptions.DuplicateVaccineKeyException;
+import hva.app.exceptions.UnknownSpeciesKeyException;
+
 import java.text.Normalizer;
 import java.text.Normalizer.Form;
 
@@ -12,18 +15,27 @@ class DoRegisterVaccine extends Command<Hotel> {
 
     DoRegisterVaccine(Hotel receiver) {
         super(Label.REGISTER_VACCINE, receiver);
-	//FIXME add command fields if needed
     }
 
     @Override
     protected final void execute() throws CommandException {
-        //FIXME implement command
+        String vaccineId = Form.requestString(Prompt.vaccineKey());
+
+        // Verifica duplicidade de vacina
+        try {
+            _receiver.checkDuplicateVaccine(vaccineId);
+        } catch (DuplicateVaccineKeyException e) {
+            throw e;
+        }
 
         String vaccineName = Form.requestString(Prompt.vaccineName());
-        String speciesId = Form.requestString(Prompt.listOfSpeciesKeys());
+        String speciesList = Form.requestString(Prompt.listOfSpeciesKeys());
 
-        _receiver.registerVaccine(vaccineName, speciesId);
-    
+        try {
+            _receiver.registerVaccine(vaccineId, vaccineName, speciesList.split(","));
+            _display.popup(Message.vaccineRegistered(vaccineName));
+        } catch (UnknownSpeciesKeyException e) {
+            throw e;
+        }
     }
-
 }

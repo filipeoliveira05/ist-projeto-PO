@@ -23,7 +23,8 @@ class DoShowSatisfactionOfAnimal extends Command<Hotel> {
         String animalId = Form.requestString(Prompt.animalKey());
         int satisfaction = _receiver.getAnimalSatisfaction(animalId, satisfaction);
 
-        
+        _display.popup(Message.animalSatisfaction(animalId, satisfaction));
+
     }
 
 }
