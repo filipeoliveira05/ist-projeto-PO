@@ -1,5 +1,20 @@
 package hva;
 
+import hva.exceptions.DuplicateAnimalKeyException;
+import hva.exceptions.DuplicateEmployeeKeyException;
+import hva.exceptions.DuplicateHabitatKeyException;
+import hva.exceptions.DuplicateTreeKeyException;
+import hva.exceptions.DuplicateVaccineKeyException;
+import hva.exceptions.ImportFileException;
+import hva.exceptions.MissingFileAssociationException;
+import hva.exceptions.NoResponsibilityException;
+import hva.exceptions.UnavailableFileException;
+import hva.exceptions.UnknownSpeciesKeyException;
+import hva.exceptions.UnknownVeterinarianKeyException;
+import hva.exceptions.UnrecognizedEntryException;
+import hva.exceptions.VeterinarianNotAuthorizedException;
+
+
 import java.io.*;
 import hva.exceptions.*;
 //FIXME import other Java classes
@@ -10,6 +25,9 @@ import hva.exceptions.*;
  */
 public class HotelManager {
 
+    /** The network manager. */
+    private String _filename = "";
+    
     /** This is the current hotel. */
     private Hotel _hotel = new Hotel();
 
@@ -23,7 +41,12 @@ public class HotelManager {
      * @throws IOException if there is some error while serializing the state of the network to disk.
      */
     public void save() throws FileNotFoundException, MissingFileAssociationException, IOException {
-        // FIXME implement serialization method
+        if (_filename == null || _filename.equals(""))
+      throw new UnnamedDBException();
+    try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(_filename)))) {
+      oos.writeObject(_hotel);
+      _hotel.setChanged(false);
+    }
     }
 
     /**

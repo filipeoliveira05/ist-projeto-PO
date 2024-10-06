@@ -1,11 +1,22 @@
 package hva;
 
+import hva.exceptions.DuplicateAnimalKeyException;
+import hva.exceptions.DuplicateEmployeeKeyException;
+import hva.exceptions.DuplicateHabitatKeyException;
+import hva.exceptions.DuplicateTreeKeyException;
+import hva.exceptions.DuplicateVaccineKeyException;
+import hva.exceptions.ImportFileException; //SERÁ QUE É PRECISO ESTA AQUI????
+import hva.exceptions.NoResponsibilityException;
+import hva.exceptions.UnknownSpeciesKeyException;
+import hva.exceptions.UnknownVeterinarianKeyException;
+import hva.exceptions.UnrecognizedEntryException;
+import hva.exceptions.VeterinarianNotAuthorizedException;
+
+import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;
-
-import hva.exceptions.ImportFileException;
-import hva.exceptions.UnrecognizedEntryException;
-import java.io.IOException;
+import java.util.Map;
+import java.util.TreeMap;
 
 //FIXME import other Java classes
 //FIXME import project classes
