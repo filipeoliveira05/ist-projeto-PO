@@ -9,6 +9,10 @@ public interface Message {
         return "O animal '" + key + "' não existe.";
     }
 
+    /**
+    * @param key animal key
+    * @return string reporting a duplicate animal
+    */
     static String duplicateAnimalKey(String key) {
         return "O animal '" + key + "' já existe.";
     }
