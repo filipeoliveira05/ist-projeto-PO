@@ -33,6 +33,17 @@ public class HotelManager {
 
     // FIXME maybe add more fields if needed
 
+
+
+
+    /**
+    * @see Hotel#registerAnimal(String, String, String, String)
+    */
+    public void registerAnimal(String id, String name, String idSpecies, 
+                          String idHabitat) throws DuplicateAnimalKeyException {
+        this._hotel.registerAnimal(id, name, idSpecies, idHabitat);
+    }
+
     /**
      * Saves the serialized application's state into the file associated to the current network.
      *
@@ -71,13 +82,20 @@ public class HotelManager {
     }
 
     /**
-     * Read text input file.
-     *
-     * @param filename name of the text input file
-     * @throws ImportFileException
-     */
-    public void importFile(String filename) throws ImportFileException {
-        _hotel.importFile(filename);
+    * Imports data from a plaintext file where each line represents a single
+    * object.
+    *
+    * @param textFile the name or path of the text file to import data from
+    * @throws ImportFileException if any I/O error occurs, such as the file not
+    *                             existing, or if the file contains malformed
+    *                             data
+    */
+    public void importFile(String textFile) throws ImportFileException {
+        try {
+            this._hotel.importFile(textFile);
+        }   catch (IOException e) {
+            throw new ImportFileException(textFile);
+        }
     }
 
     public Hotel getHotel () {
