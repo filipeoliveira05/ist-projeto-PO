@@ -17,15 +17,11 @@ class DoSaveFile extends Command<HotelManager> {
 
     @Override
     protected final void execute() {
-    	/*try {
-        try {
-          _receiver.save();
-        } catch (MissingFileAssociationException ex) {
-          saveAs();
-        }
-      } catch (IOException e) {
-        e.printStackTrace();
-      }*/
+    	/*if (_receiver.changed() && Form.confirm(Prompt.saveBeforeExit())) {
+          DoSaveFile cmd = new DoSaveFile(_receiver);
+          cmd performCommand();
+      }
+      _receiver.reset();*/
     }
 
     private void saveAs() throws IOException {
