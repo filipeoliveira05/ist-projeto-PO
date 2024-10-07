@@ -13,6 +13,6 @@ public interface Message {
     static String animalVaccinated(String animalId, String vaccineId) {
         return "Animal " + animalId + " vacinado com a vacina " + vaccineId + ".";
     }
-    }
 }
+
 
