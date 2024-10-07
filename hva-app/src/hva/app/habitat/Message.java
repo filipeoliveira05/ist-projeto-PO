@@ -22,5 +22,3 @@ public interface Message {
         return "Árvore " + treeId + " plantada com sucesso no habitat " + habitatId + ".";
     }
 }
-
-}
