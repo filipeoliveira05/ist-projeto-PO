@@ -46,7 +46,7 @@ class DoVaccinateAnimal extends Command<Hotel> {
 
         // Se a vacina não for adequada ao animal, exibe uma mensagem de aviso, mas ainda vacina
         if (!success) {
-            _display.popup(Message.wrongVaccine());
+            _display.popup(Message.wrongVaccine(vaccineId, animalId));
         }
 
         // Exibe mensagem de sucesso para a vacinação
