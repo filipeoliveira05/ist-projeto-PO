@@ -6,6 +6,7 @@ public interface Message {
         return "Não existe  associação entre o habitat '" + idHabitat + "' e a espécie'" + idSpecies + "' ";
     }
 
+    /*
     static String habitatRegistered(String habitatName) {
         return "Habitat " + habitatName + " registrado com sucesso!";
     }
@@ -21,4 +22,5 @@ public interface Message {
     static String treeAddedToHabitat(String treeId, String habitatId) {
         return "Árvore " + treeId + " plantada com sucesso no habitat " + habitatId + ".";
     }
+    */
 }

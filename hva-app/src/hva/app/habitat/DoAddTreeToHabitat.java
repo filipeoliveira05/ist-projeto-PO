@@ -15,6 +15,7 @@ class DoAddTreeToHabitat extends Command<Hotel> {
 
     @Override
     protected void execute() throws CommandException {
+        /*
         String habitatId = Form.requestString(Prompt.habitatKey());
         String treeId = Form.requestString(Prompt.treeKey());
 
@@ -37,5 +38,6 @@ class DoAddTreeToHabitat extends Command<Hotel> {
 
         _receiver.addTreeToHabitat(habitatId, treeId, treeName, treeAge, treeDifficulty, treeType);  // Planta a árvore
         _display.popup(Message.treeAddedToHabitat(treeId, habitatId));
+        */
     }
 }

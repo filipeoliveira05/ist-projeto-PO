@@ -17,14 +17,14 @@ class DoTransferToHabitat extends Command<Hotel> {
     @Override
     protected final void execute() throws CommandException {
         //FIXME implement command
-
+        /*
         //adicionado por mim
         String animalId = Form.requestString(Prompt.animalKey());
         String habitatId = Form.requestString("Insira o identificador do habitat destino"); 
 
         _receiver.transferAnimal(animalId, habitatId);
         _display.popup(Message.animalTransferred(animalId, habitatId));
-
+        */
     }
 
 }

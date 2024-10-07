@@ -15,6 +15,7 @@ class DoChangeHabitatInfluence extends Command<Hotel> {
 
     @Override
     protected void execute() throws CommandException {
+        /*
         String habitatId = Form.requestString(Prompt.habitatKey());
         String speciesId = Form.requestString("Identificador único da espécie:");
         String influence;
@@ -28,5 +29,6 @@ class DoChangeHabitatInfluence extends Command<Hotel> {
 
 
         //FALTA EXCECAO com message NOASSOCIATION
+        */
     }
 }

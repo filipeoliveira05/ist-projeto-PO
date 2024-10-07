@@ -44,5 +44,4 @@ public class Hotel implements Serializable {
             throw new ImportFileException(filename, e);
         }*/
     }
-
 }

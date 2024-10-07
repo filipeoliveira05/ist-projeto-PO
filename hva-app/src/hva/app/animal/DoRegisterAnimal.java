@@ -16,7 +16,7 @@ class DoRegisterAnimal extends Command<Hotel> {
 
     @Override
     protected final void execute() throws CommandException {
-        String animalId = Form.requestString(Prompt.animalKey());
+        /*String animalId = Form.requestString(Prompt.animalKey());
 
         // Verifica se o animal já existe
         try {
@@ -37,7 +37,7 @@ class DoRegisterAnimal extends Command<Hotel> {
         String habitatId = Form.requestString("Insira o identificador do habitat:");
         _receiver.registerAnimal(animalId, animalName, speciesId, habitatId);
 
-        _display.popup(Message.animalRegistered(animalName));
+        _display.popup(Message.animalRegistered(animalName));*/
     }
 }
 

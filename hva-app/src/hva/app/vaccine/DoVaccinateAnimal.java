@@ -18,6 +18,8 @@ class DoVaccinateAnimal extends Command<Hotel> {
     @Override
     protected final void execute() throws CommandException {
         //FIXME implement command
+
+        /*
         // Solicita o identificador da vacina
         String vaccineId = Form.requestString(Prompt.vaccineKey());
 
@@ -51,5 +53,6 @@ class DoVaccinateAnimal extends Command<Hotel> {
 
         // Exibe mensagem de sucesso para a vacinação
         _display.popup(Message.animalVaccinated(animalId, vaccineId));
+        */
     }
 }

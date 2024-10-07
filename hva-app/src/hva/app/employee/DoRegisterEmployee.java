@@ -14,6 +14,7 @@ class DoRegisterEmployee extends Command<Hotel> {
 
     @Override
     protected void execute() throws CommandException {
+        /*
         String employeeId = Form.requestString(Prompt.employeeKey());
 
         // Verifica duplicidade de funcionário
@@ -33,5 +34,6 @@ class DoRegisterEmployee extends Command<Hotel> {
 
         _receiver.registerEmployee(employeeId, employeeName, employeeType);  // Registra o funcionário
         _display.popup(Message.employeeRegistered(employeeName));
+        */
     }
 }

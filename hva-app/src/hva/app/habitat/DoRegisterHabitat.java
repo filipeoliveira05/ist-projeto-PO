@@ -16,6 +16,7 @@ class DoRegisterHabitat extends Command<Hotel> {
 
     @Override
     protected void execute() throws CommandException {
+        /*
         String habitatId = Form.requestString(Prompt.habitatKey());
 
         // Verifica duplicidade de habitat
@@ -30,5 +31,6 @@ class DoRegisterHabitat extends Command<Hotel> {
 
         _receiver.registerHabitat(habitatId, habitatName, habitatArea);  // Registra o habitat
         _display.popup(Message.habitatRegistered(habitatName));
+        */
     }
 }

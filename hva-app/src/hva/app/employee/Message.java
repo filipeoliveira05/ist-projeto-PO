@@ -1,6 +1,7 @@
 package hva.app.employee;
 
 public class Message {
+    /*
     static String employeeRegistered(String employeeName) {
         return "Funcionário " + employeeName + " registrado com sucesso!";
     }
@@ -20,4 +21,5 @@ public class Message {
     static String noResponsibility() {
         return "A responsabilidade não existe.";
     }
+    */
 }

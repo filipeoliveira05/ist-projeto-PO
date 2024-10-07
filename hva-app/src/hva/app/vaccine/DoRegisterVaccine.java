@@ -19,6 +19,7 @@ class DoRegisterVaccine extends Command<Hotel> {
 
     @Override
     protected final void execute() throws CommandException {
+        /*
         String vaccineId = Form.requestString(Prompt.vaccineKey());
 
         // Verifica duplicidade de vacina
@@ -37,5 +38,6 @@ class DoRegisterVaccine extends Command<Hotel> {
         } catch (UnknownSpeciesKeyException e) {
             throw e;
         }
+        */
     }
 }

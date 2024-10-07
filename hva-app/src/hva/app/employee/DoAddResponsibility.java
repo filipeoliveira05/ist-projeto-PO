@@ -2,6 +2,7 @@ package hva.app.employee;
 
 import java.text.Normalizer.Form;
 import pt.tecnico.uilib.menus.Command;
+import pt.tecnico.uilib.menus.CommandException;
 import hva.Hotel;
 import hva.exceptions.NoResponsibilityException;
 
@@ -13,6 +14,7 @@ class DoAddResponsibility extends Command<Hotel> {
 
     @Override
     protected void execute() throws CommandException{
+        /*
         String employeeId = Form.requestString(Prompt.employeeKey());
         String responsibility = Form.requestString(Prompt.responsibilityKey());
 
@@ -22,5 +24,6 @@ class DoAddResponsibility extends Command<Hotel> {
         } catch (NoResponsibilityException e) {
             _display.popup(Message.noResponsibility());
         }
+        */
     }
 }

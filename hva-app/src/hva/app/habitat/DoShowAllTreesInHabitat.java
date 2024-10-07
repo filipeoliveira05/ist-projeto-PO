@@ -18,9 +18,11 @@ class DoShowAllTreesInHabitat extends Command<Hotel> {
     protected void execute() throws CommandException {
         //FIXME implement command
         
+        /*
         String habitatId = Form.requestString(Prompt.habitatKey());
 
         _receiver.showAllTreesInHabitat(habitatId);
+        */
 
     }
 

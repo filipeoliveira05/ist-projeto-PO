@@ -5,7 +5,8 @@ public interface Message {
     static String wrongVaccine(String vaccineKey, String animalKey) {
         return "A vacina '" + vaccineKey + "' não é apropiada para o animal '" + animalKey + "'.";}
 
-    static String vaccineRegistered(String vaccineName) {
+    /*
+        static String vaccineRegistered(String vaccineName) {
         return "Vacina " + vaccineName + " registada com sucesso!";
     }
     
@@ -13,6 +14,7 @@ public interface Message {
     static String animalVaccinated(String animalId, String vaccineId) {
         return "Animal " + animalId + " vacinado com a vacina " + vaccineId + ".";
     }
+    */
 }
 
 

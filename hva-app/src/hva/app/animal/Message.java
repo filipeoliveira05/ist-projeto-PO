@@ -1,6 +1,7 @@
 package hva.app.animal;
 
 public class Message {
+    /*
     static String animalRegistered(String animalName) {
         return "Animal " + animalName + " registrado com sucesso!";
     }
@@ -12,4 +13,5 @@ public class Message {
     static String animalSatisfaction(String animalId, int satisfaction) {
         return "Satisfação do animal " + animalId + ": " + satisfaction;
     }
+    */
 }

@@ -18,13 +18,14 @@ class DoShowSatisfactionOfAnimal extends Command<Hotel> {
     protected final void execute() throws CommandException {
         //FIXME implement command
 
+        /*
         //adicionado por mim
 
         String animalId = Form.requestString(Prompt.animalKey());
         int satisfaction = _receiver.getAnimalSatisfaction(animalId, satisfaction);
 
         _display.popup(Message.animalSatisfaction(animalId, satisfaction));
-
+        */
     }
 
 }
