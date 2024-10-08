@@ -1,7 +1,6 @@
 package hva.app.main;
 
-import hva.core.Hotel;
-import hva.core.HotelManager;
+import hva.HotelManager;
 import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
@@ -14,12 +13,12 @@ class DoNewFile extends Command<HotelManager> {
 
     @Override
     protected final void execute() throws CommandException {
-        if (_receiver.dirty() && Form.confirm(Message.saveBeforeExit())) {
+        if (_receiver.dirty() && Form.confirm(Prompt.saveBeforeExit())) {
             DoSaveFile cmd = new DoSaveFile(_receiver);
             cmd.execute();
             }
             _receiver.reset();
-          }
+        }
         
 }
     
