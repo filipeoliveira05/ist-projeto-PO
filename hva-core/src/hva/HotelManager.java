@@ -53,6 +53,16 @@ public class HotelManager {
         this._hotel.registerTree(id, name, age, difficulty, type);
     }
 
+
+    /**
+    * @see Hotel#registerHabitat(String, String, int)
+    */
+    public void registerHabitat(String id, String name, int area) 
+                             throws DuplicateHabitatKeyException {
+        this._hotel.registerHabitat(id, name, area);
+    }
+
+
     /**
      * Saves the serialized application's state into the file associated to the current network.
      *
