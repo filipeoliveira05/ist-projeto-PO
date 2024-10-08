@@ -24,7 +24,9 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -45,14 +47,12 @@ public class Hotel implements Serializable {
     /**
     * Stores the hotel's animals, sorted by their key.
     */
-    private final Map<String, Animal> animals = new TreeMap<>(
-            new NaturalTextComparator());
+    private Map<String, Animal> _animals = new HashMap<>();
 
     /**
     * Stores the hotel's trees, sorted by their key.
     */
-    private final Map<String, Tree> trees = new TreeMap<>(
-        new NaturalTextComparator());
+    private Map<String, Tree> _trees = new HashMap<>();
 
     
     
@@ -94,7 +94,7 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of animals
     */
     public Collection<Animal> getAllAnimals() {
-        return this.animals.values();
+        return Collections.unmodifiableCollection(_animals.values());
     }
 
 
@@ -104,7 +104,7 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of trees
     */
     public Collection<Tree> getAllTrees() {
-        return this.trees.values();
+        return Collections.unmodifiableCollection(_trees.values());
     }
 
 
@@ -116,7 +116,7 @@ public class Hotel implements Serializable {
     * @return The {@link Animal} associated with the given key
     */
     public Animal getAnimal(String key) {
-        Animal a = this.animals.get(key);
+        Animal a = this._animals.get(key);
         return a;
     }
 
@@ -129,7 +129,7 @@ public class Hotel implements Serializable {
     * @return The {@link Tree} associated with the given key
     */
     public Tree getTree(String key) {
-        Tree t = this.trees.get(key);
+        Tree t = this._trees.get(key);
         return t;
     }
 
@@ -140,15 +140,16 @@ public class Hotel implements Serializable {
     * Import data from a plain text file.
     *
     * @param textFile The name of the file to be loaded
-    * @throws IOException           if any sort of IO error occurs, such as the
-    *                               file not existing, or is a directory
+    * @throws ImportFileException
     */
-    void importFile(String textFile) throws IOException {
+    public void importFile(String textFile) throws ImportFileException {
         try (BufferedReader s = new BufferedReader(new FileReader(textFile))) {
             String line;
             while ((line = s.readLine()) != null) {
                 importFromFields(line.split("\\|"));
             }
+        }   catch (IOException e) {
+            throw new ImportFileException();
         }
     }
 
@@ -187,7 +188,7 @@ public class Hotel implements Serializable {
         try {
             this.registerAnimal(fields[1], fields[2], fields[3], fields[4]);
         }   catch (DuplicateAnimalKeyException e) {
-            
+            e.printStackTrace();
         }
     }
 
@@ -206,12 +207,12 @@ public class Hotel implements Serializable {
     */
     public Animal registerAnimal(String id, String name, String idSpecies, 
                           String idHabitat) throws DuplicateAnimalKeyException {
-        if (this.animals.containsKey(id)) {
+        if (this._animals.containsKey(id)) {
             throw new DuplicateAnimalKeyException(id);
         }
 
         Animal a = new Animal(id, name, idSpecies, idHabitat);
-        this.animals.put(id, a);
+        this._animals.put(id, a);
         this.dirty();
         return a;
     }
@@ -232,7 +233,7 @@ public class Hotel implements Serializable {
         try {
             this.registerTree(fields[1], fields[2], fields[3], fields[4], fields[5]);
         }   catch (DuplicateTreeKeyException e) {
-            
+            e.printStackTrace();
         }
     }*/
 
@@ -253,7 +254,7 @@ public class Hotel implements Serializable {
     *                                     already exists
     */
     public Tree registerTree(String id, String name, int age, int difficulty, String type) throws DuplicateTreeKeyException {
-        if (this.trees.containsKey(id)) {
+        if (this._trees.containsKey(id)) {
             throw new DuplicateTreeKeyException(id);
         }
 
@@ -266,7 +267,7 @@ public class Hotel implements Serializable {
         }
 
         if (t != null) {
-            this.trees.put(id, t);
+            this._trees.put(id, t);
             this.dirty();
         }
 
