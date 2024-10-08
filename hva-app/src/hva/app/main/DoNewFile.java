@@ -15,11 +15,11 @@ class DoNewFile extends Command<HotelManager> {
     protected final void execute() throws CommandException {
         if (_receiver.getHotel() != null) {
             // Se houver alterações não salvas, pergunta ao usuário se deseja salvar
-            if (_receiver.isDirty() && Form.confirm(Prompt.saveBeforeExit())) {
+            if (_receiver.getHotel().isDirty() && Form.confirm(Prompt.saveBeforeExit())) {
                 try {
                     _receiver.save(); // Salva o estado atual
                 } catch (Exception e) {
-                    throw new CommandException("Erro ao salvar antes de criar um novo arquivo: " + e.getMessage());
+                    throw new CommandException("Erro ao salvar antes de criar um novo arquivo: "); //+ e.getMessage()
                 }
             }
         }
