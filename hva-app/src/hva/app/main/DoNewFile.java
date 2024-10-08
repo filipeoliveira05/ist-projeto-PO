@@ -19,7 +19,7 @@ class DoNewFile extends Command<HotelManager> {
                 try {
                     _receiver.save(); // Salva o estado atual
                 } catch (Exception e) {
-                    throw new CommandException("Erro ao salvar antes de criar um novo arquivo: "); //+ e.getMessage()
+                    throw new SaveCommandException("Erro ao salvar antes de criar um novo arquivo.");
                 }
             }
         }
