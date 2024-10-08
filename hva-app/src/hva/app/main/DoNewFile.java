@@ -1,6 +1,7 @@
 package hva.app.main;
 
-import hva.HotelManager;
+import hva.core.Hotel;
+import hva.core.HotelManager;
 import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
@@ -13,20 +14,15 @@ class DoNewFile extends Command<HotelManager> {
 
     @Override
     protected final void execute() throws CommandException {
-        if (_receiver.getHotel() != null) {
-            // Se houver alterações não salvas, pergunta ao usuário se deseja salvar
-            if (_receiver.getHotel().isDirty() && Form.confirm(Prompt.saveBeforeExit())) {
-                try {
-                    _receiver.save(); // Salva o estado atual
-                } catch (Exception e) {
-                    throw new SaveCommandException("Erro ao salvar antes de criar um novo arquivo.");
-                }
+        if (_receiver.dirty() && Form.confirm(Message.saveBeforeExit())) {
+            DoSaveFile cmd = new DoSaveFile(_receiver);
+            cmd.execute();
             }
-        }
-
-        // Reseta o estado atual da aplicação, criando uma nova aplicação vazia
-        _receiver.reset(); // Limpa todos os dados e prepara uma nova instância
-    
-    }
+            _receiver.reset();
+          }
+        
 }
+    
+
+
     
