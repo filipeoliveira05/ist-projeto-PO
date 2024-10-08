@@ -9,7 +9,7 @@ import pt.tecnico.uilib.menus.CommandException;
 
 class DoNewFile extends Command<HotelManager> {
     DoNewFile(HotelManager receiver) {
-        super(Label.NEW_FILE, receiver);
+        super(false, Label.NEW_FILE, receiver);
     }
 
     @Override
