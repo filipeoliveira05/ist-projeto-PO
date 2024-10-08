@@ -114,16 +114,10 @@ public class HotelManager {
     * object.
     *
     * @param textFile the name or path of the text file to import data from
-    * @throws ImportFileException if any I/O error occurs, such as the file not
-    *                             existing, or if the file contains malformed
-    *                             data
+    * @throws ImportFileException
     */
     public void importFile(String textFile) throws ImportFileException {
-        try {
-            this._hotel.importFile(textFile);
-        }   catch (IOException e) {
-            throw new ImportFileException(textFile);
-        }
+        _hotel.importFile(textFile);
     }
 
     public Hotel getHotel () {
