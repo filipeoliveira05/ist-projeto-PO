@@ -162,7 +162,7 @@ public class Hotel implements Serializable {
     private void importFromFields(String[] fields) {
         switch (fields[0]) {
             //case "ESPECIE" -> this.importSpecie(fields);
-            case "ARVORE" -> this.importTree(fields);
+            //case "ARVORE" -> this.importTree(fields);
             //case "HABITAT" -> this.importHabitat(fields);
             case "ANIMAL" -> this.importAnimal(fields);
             //case "TRATADOR" -> this.importCaretaker(fields);
@@ -228,13 +228,13 @@ public class Hotel implements Serializable {
     * @param fields The fields of the tree to import, that were split by the
     *               separator
     */
-    private void importTree(String[] fields) {
+    /*private void importTree(String[] fields) {
         try {
             this.registerTree(fields[1], fields[2], fields[3], fields[4], fields[5]);
         }   catch (DuplicateTreeKeyException e) {
             
         }
-    }
+    }*/
 
 
 
