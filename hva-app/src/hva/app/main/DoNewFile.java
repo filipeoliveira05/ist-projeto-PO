@@ -15,7 +15,7 @@ class DoNewFile extends Command<HotelManager> {
     protected final void execute() throws CommandException {
         if (_receiver.getHotel() != null) {
             // Se houver alterações não salvas, pergunta ao usuário se deseja salvar
-            if (_receiver.changed() && Form.confirm(Prompt.saveBeforeExit())) {
+            if (_receiver.isDirty() && Form.confirm(Prompt.saveBeforeExit())) {
                 try {
                     _receiver.save(); // Salva o estado atual
                 } catch (Exception e) {
@@ -25,7 +25,8 @@ class DoNewFile extends Command<HotelManager> {
         }
 
         // Reseta o estado atual da aplicação, criando uma nova aplicação vazia
-        _receiver.reset(); // deve limpar todos os dados e preparar para uma nova instância
+        _receiver.reset(); // Limpa todos os dados e prepara uma nova instância
+    
     }
 }
     

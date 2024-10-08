@@ -22,7 +22,7 @@ class DoOpenFile extends Command<HotelManager> {
         try{
           _receiver.load(stringField("fileName"));
         } catch (UnavailableFileException ufe) {
-          throw new FileOpenFailedException(ufe.getFilename());
+          throw new FileOpenFailedException(ufe);    //ufe.getfilename() antes
         }
 
 

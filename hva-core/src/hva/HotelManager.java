@@ -129,4 +129,14 @@ public class HotelManager {
     public Hotel getHotel () {
         return _hotel;
     }
+
+
+    //UTILIZADA NO DONEWFILE, COM O OBJETIVO DE CRIAR UMA NOVA APP VAZIA
+    public void reset() {
+        // Cria uma nova instância do hotel
+        _hotel = new Hotel(); // Isso reseta o estado do hotel
+        
+        // Se precisar, você pode adicionar aqui outras inicializações necessárias
+        // Por exemplo, inicializar variáveis ou configurar o estado da aplicação
+    }
 }
