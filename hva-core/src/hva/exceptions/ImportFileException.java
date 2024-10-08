@@ -8,10 +8,6 @@ public class ImportFileException extends Exception {
     private static final long serialVersionUID = 202407081733L;
 
     private static final String ERROR_MESSAGE = "Erro a processar ficheiro de import: ";
-
-    public ImportFileException() {
-        // do nothing
-    }
     
     public ImportFileException(String filename) {
         super(ERROR_MESSAGE + filename);
