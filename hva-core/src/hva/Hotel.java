@@ -12,6 +12,9 @@ import hva.exceptions.UnknownVeterinarianKeyException;
 import hva.exceptions.UnrecognizedEntryException;
 import hva.exceptions.VeterinarianNotAuthorizedException;
 import hva.animal.Animal;
+import hva.tree.Tree;
+import hva.tree.CaducaTree;
+import hva.tree.PereneTree;
 import hva.util.NaturalTextComparator;
 
 import java.io.BufferedReader;
@@ -44,6 +47,12 @@ public class Hotel implements Serializable {
     */
     private final Map<String, Animal> animals = new TreeMap<>(
             new NaturalTextComparator());
+
+    /**
+    * Stores the hotel's trees, sorted by their key.
+    */
+    private final Map<String, Tree> trees = new TreeMap<>(
+        new NaturalTextComparator());
 
     
     
@@ -89,6 +98,15 @@ public class Hotel implements Serializable {
     }
 
 
+    /**
+    * Get all trees known to the hotel, perene or caduca, sorted by their key
+    *
+    * @return A sorted {@link Collection} of trees
+    */
+    public Collection<Tree> getAllTrees() {
+        return this.trees.values();
+    }
+
 
     /**
     * Get a animal by its key. Two animals are the same if their keys are the
@@ -102,6 +120,18 @@ public class Hotel implements Serializable {
         return a;
     }
 
+
+    /**
+    * Get a tree by its key. Two trees are the same if their keys are the
+    * same
+    *
+    * @param key The key of the tree to get
+    * @return The {@link Tree} associated with the given key
+    */
+    public Tree getTree(String key) {
+        Tree t = this.trees.get(key);
+        return t;
+    }
 
 
 
@@ -132,7 +162,7 @@ public class Hotel implements Serializable {
     private void importFromFields(String[] fields) {
         switch (fields[0]) {
             //case "ESPECIE" -> this.importSpecie(fields);
-            //case "ARVORE" -> this.importTree(fields);
+            case "ARVORE" -> this.importTree(fields);
             //case "HABITAT" -> this.importHabitat(fields);
             case "ANIMAL" -> this.importAnimal(fields);
             //case "TRATADOR" -> this.importCaretaker(fields);
@@ -150,7 +180,7 @@ public class Hotel implements Serializable {
     * A correct animal entry has the following format:
     * {@code ANIMAL|id|name|idSpecies|idHabitat}
     *
-    * @param fields The fields of the partner to import, that were split by the
+    * @param fields The fields of the animal to import, that were split by the
     *               separator
     */
     private void importAnimal(String[] fields) {
@@ -189,11 +219,59 @@ public class Hotel implements Serializable {
 
 
 
+    /**
+    * Parse and import a tree entry from a plain text file.
+    * <p>
+    * A correct tree entry has the following format:
+    * {@code ÁRVORE|id|name|age|difficulty|type}
+    *
+    * @param fields The fields of the tree to import, that were split by the
+    *               separator
+    */
+    private void importTree(String[] fields) {
+        try {
+            this.registerTree(fields[1], fields[2], fields[3], fields[4], fields[5]);
+        }   catch (DuplicateTreeKeyException e) {
+            
+        }
+    }
 
 
 
 
+    /**
+    * Register a new tree in this hotel, which will be created from the
+    * given parameters.
+    *
+    * @param id      The key of the tree
+    * @param name    The name of the tree
+    * @param age     The age of the tree
+    * @param difficulty The base cleaning difficulty of the tree
+    * @param type    The type of the tree (caduca or perene)
+    * @return The {@link Tree} that was just created
+    * @throws DuplicateTreeKeyException if a tree with the given key
+    *                                     already exists
+    */
+    public Tree registerTree(String id, String name, int age, int difficulty, String type) throws DuplicateTreeKeyException {
+        if (this.trees.containsKey(id)) {
+            throw new DuplicateTreeKeyException(id);
+        }
 
+        Tree t = null;
+
+        if (type.equals("PERENE")) {
+            t = new PereneTree(id, name, age, difficulty, type);
+        } else if (type.equals("CADUCA")) {
+            t = new CaducaTree(id, name, age, difficulty, type);
+        }
+
+        if (t != null) {
+            this.trees.put(id, t);
+            this.dirty();
+        }
+
+        return t;
+    }
 
 
 
