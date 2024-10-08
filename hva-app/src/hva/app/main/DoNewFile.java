@@ -13,10 +13,19 @@ class DoNewFile extends Command<HotelManager> {
 
     @Override
     protected final void execute() throws CommandException {
-        /*if (_receiver.changed() && Form.confirm(Message.saveBeforeExit())) {
-            Do_313_Save cmd = new Do_313_Save(_receiver);
-            cmd.execute();
-          }
-          _receiver.reset();*/
+        if (_receiver.getHotel() != null) {
+            // Se houver alterações não salvas, pergunta ao usuário se deseja salvar
+            if (_receiver.changed() && Form.confirm(Prompt.saveBeforeExit())) {
+                try {
+                    _receiver.save(); // Salva o estado atual
+                } catch (Exception e) {
+                    throw new CommandException("Erro ao salvar antes de criar um novo arquivo: " + e.getMessage());
+                }
+            }
         }
+
+        // Reseta o estado atual da aplicação, criando uma nova aplicação vazia
+        _receiver.reset(); // deve limpar todos os dados e preparar para uma nova instância
     }
+}
+    
