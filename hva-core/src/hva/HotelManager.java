@@ -44,6 +44,15 @@ public class HotelManager {
         this._hotel.registerAnimal(id, name, idSpecies, idHabitat);
     }
 
+
+    /**
+    * @see Hotel#registerTree(String, String, int, int, String)
+    */
+    public void registerTree(String id, String name, int age, int difficulty, 
+                             String type) throws DuplicateTreeKeyException {
+        this._hotel.registerTree(id, name, age, difficulty, type);
+    }
+
     /**
      * Saves the serialized application's state into the file associated to the current network.
      *
