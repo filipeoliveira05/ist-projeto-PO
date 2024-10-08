@@ -15,6 +15,7 @@ import hva.animal.Animal;
 import hva.tree.Tree;
 import hva.tree.CaducaTree;
 import hva.tree.PereneTree;
+import hva.habitat.Habitat;
 import hva.util.NaturalTextComparator;
 
 import java.io.BufferedReader;
@@ -53,6 +54,11 @@ public class Hotel implements Serializable {
     * Stores the hotel's trees, sorted by their key.
     */
     private Map<String, Tree> _trees = new HashMap<>();
+
+    /**
+    * Stores the hotel's habitats, sorted by their key.
+    */
+    private Map<String, Habitat> _habitats = new HashMap<>();
 
     
     
@@ -149,7 +155,7 @@ public class Hotel implements Serializable {
                 importFromFields(line.split("\\|"));
             }
         }   catch (IOException e) {
-            throw new ImportFileException();
+            throw new ImportFileException(textFile);
         }
     }
 
@@ -163,7 +169,7 @@ public class Hotel implements Serializable {
     private void importFromFields(String[] fields) {
         switch (fields[0]) {
             //case "ESPECIE" -> this.importSpecie(fields);
-            //case "ARVORE" -> this.importTree(fields);
+            case "ARVORE" -> this.importTree(fields);
             //case "HABITAT" -> this.importHabitat(fields);
             case "ANIMAL" -> this.importAnimal(fields);
             //case "TRATADOR" -> this.importCaretaker(fields);
@@ -229,13 +235,13 @@ public class Hotel implements Serializable {
     * @param fields The fields of the tree to import, that were split by the
     *               separator
     */
-    /*private void importTree(String[] fields) {
+    private void importTree(String[] fields) {
         try {
-            this.registerTree(fields[1], fields[2], fields[3], fields[4], fields[5]);
+            this.registerTree(fields[1], fields[2], Integer.parseInt(fields[3]), Integer.parseInt(fields[4]), fields[5]);
         }   catch (DuplicateTreeKeyException e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
 
 
@@ -277,9 +283,48 @@ public class Hotel implements Serializable {
 
 
 
+    /**
+    * Parse and import a habitat entry from a plain text file.
+    * <p>
+    * A correct habitat entry has the following format:
+    * {@code ANIMAL|id|name|area|idTree1,...,idTreeN}
+    *
+    * @param fields The fields of the habitat to import, that were split by the
+    *               separator
+    */
+    private void importHabitat(String[] fields) {
+        try {
+            this.registerHabitat(fields[1], fields[2], Integer.parseInt(fields[3]));
+        }   catch (DuplicateHabitatKeyException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
+
+    /**
+    * Register a new habitat in this hotel, which will be created from the
+    * given parameters.
+    *
+    * @param id      The key of the habitat
+    * @param name    The name of the habitat
+    * @param area    The area of the habitats's species
+    * @return The {@link Habitat} that was just created
+    * @throws DuplicateHabitatKeyException if a habitat with the given key
+    *                                     already exists
+    */
+    public Habitat registerHabitat(String id, String name, int area) 
+                                   throws DuplicateHabitatKeyException {
+        if (this._habitats.containsKey(id)) {
+            throw new DuplicateHabitatKeyException(id);
+        }
+
+        Habitat h = new Habitat(id, name, area);
+        this._habitats.put(id, h);
+        this.dirty();
+        return h;
+    }
 
 
     /*
