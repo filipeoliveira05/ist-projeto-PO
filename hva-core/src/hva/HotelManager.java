@@ -140,4 +140,13 @@ public class HotelManager {
         // Se precisar, você pode adicionar aqui outras inicializações necessárias
         // Por exemplo, inicializar variáveis ou configurar o estado da aplicação
     }
+
+
+
+    /**
+    * @return changed?
+    */
+    public boolean dirty() {
+        return _hotel.isDirty();
+    }
 }
