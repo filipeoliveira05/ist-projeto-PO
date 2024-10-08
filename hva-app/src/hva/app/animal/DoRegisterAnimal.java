@@ -16,7 +16,7 @@ class DoRegisterAnimal extends Command<Hotel> {
         addStringField("id", Prompt.animalKey());
         addStringField("name", Prompt.animalName());
         addStringField("idSpecies", Prompt.speciesKey());
-        addStringField("idHabitat", Prompt.habitatKey());
+        addStringField("idHabitat", hva.app.habitat.Prompt.habitatKey());
     }
 
     @Override
