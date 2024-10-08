@@ -67,6 +67,16 @@ public class HotelManager {
       oos.writeObject(_hotel);
       _hotel.setChanged(false);
     }*/
+        if (_filename == null || _filename.isBlank())
+            throw new MissingFileAssociationException();
+
+        if (_hotel.isDirty()) {
+            try (ObjectOutputStream out = new ObjectOutputStream(
+                new BufferedOutputStream(new FileOutputStream(_filename)))) {
+              out.writeObject(_hotel);
+                }
+                _hotel.clean();
+        }
     }
 
     /**
@@ -78,6 +88,8 @@ public class HotelManager {
      */
     public void saveAs(String filename) throws FileNotFoundException, MissingFileAssociationException, IOException {
         // FIXME implement serialization method
+        _filename = filename;
+        save();
     }
 
     /**
@@ -88,6 +100,13 @@ public class HotelManager {
      */
     public void load(String filename) throws UnavailableFileException {
         // FIXME implement serialization method
+        try (ObjectInputStream in = new ObjectInputStream(
+                new BufferedInputStream(new FileInputStream(filename)))) {
+            _hotel = (Hotel) in.readObject();
+            this._filename = filename;
+        } catch (IOException | ClassNotFoundException e) {
+          throw new UnavailableFileException(filename);
+        }
     }
 
     /**
