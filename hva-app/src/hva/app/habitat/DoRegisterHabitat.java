@@ -12,7 +12,7 @@ class DoRegisterHabitat extends Command<Hotel> {
         super(Label.REGISTER_HABITAT, receiver);
         addStringField("id", Prompt.habitatKey());
         addStringField("name", Prompt.habitatName());
-        addStringField("area", Prompt.habitatArea());
+        addIntegerField("area", Prompt.habitatArea());
     }
 
     @Override
@@ -21,7 +21,7 @@ class DoRegisterHabitat extends Command<Hotel> {
             _receiver.registerHabitat(
                     stringField("id"),
                     stringField("name"),
-                    stringField("area")
+                    integerField("area")
             );
           } catch (hva.exceptions.DuplicateHabitatKeyException e) {
             throw new DuplicateHabitatKeyException(e.getKey());
