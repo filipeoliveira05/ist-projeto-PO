@@ -1,9 +1,13 @@
 package hva.app.habitat;
 
+import java.util.Map;
+import java.util.Collection;
+import java.util.Collections;
+
 import hva.Hotel;
+import hva.habitat.Habitat;
 import pt.tecnico.uilib.menus.Command;
-import pt.tecnico.uilib.menus.CommandException;
-//FIXME import other classes if needed
+
 
 class DoShowAllHabitats extends Command<Hotel> {
 
@@ -13,6 +17,17 @@ class DoShowAllHabitats extends Command<Hotel> {
 
     @Override
     protected void execute() {
-        _display.popup(_receiver.getAllHabitats());
+        Collection<Habitat> habitats = _receiver.getAllHabitats();
+
+        for (Habitat habitat : habitats) {
+            String habitatInfo = "HABITAT|"
+                                + habitat.getId() + "|"
+                                + habitat.getName() + "|"
+                                + habitat.getArea() + "|"
+                                + habitat.getNumberTrees();
+            _display.addLine(habitatInfo);
+        }
+
+        _display.display();
     }
 }
