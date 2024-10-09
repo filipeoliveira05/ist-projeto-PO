@@ -39,17 +39,17 @@ public class Habitat implements Serializable{
 
     //Getter for id
     public String getId() {
-        return id;
+        return this.id;
     }
 
     // Getter for name
     public String getName() {
-        return name;
+        return this.name;
     }
 
     // Getter for age
     public int getArea() {
-        return area;
+        return this.area;
     }
 
     
