@@ -9,6 +9,7 @@ import hva.habitat.Habitat;
 import hva.tree.CaducaTree;
 import hva.tree.PereneTree;
 import hva.tree.Tree;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -101,6 +102,17 @@ public class Hotel implements Serializable {
     }
 
 
+
+    /**
+    * Get all habitats known to the hotel sorted by their key
+    *
+    * @return A sorted {@link Collection} of habitats
+    */
+    public Collection<Habitat> getAllHabitats() {
+        return Collections.unmodifiableCollection(_habitats.values());
+    }
+
+
     /**
     * Get a animal by its key. Two animals are the same if their keys are the
     * same
@@ -171,7 +183,7 @@ public class Hotel implements Serializable {
         switch (fields[0]) {
             //case "ESPECIE" -> this.importSpecie(fields);
             case "ARVORE" -> this.importTree(fields);
-            //case "HABITAT" -> this.importHabitat(fields);
+            case "HABITAT" -> this.importHabitat(fields);
             case "ANIMAL" -> this.importAnimal(fields);
             //case "TRATADOR" -> this.importCaretaker(fields);
             //case "VETERINARIO" -> this.importVet(fields);
