@@ -19,6 +19,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
+import java.util.List;
+import java.util.ArrayList;
 
 //FIXME import other Java classes
 //FIXME import project classes
