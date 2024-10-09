@@ -1,11 +1,11 @@
 package hva;
 
-import hva.animal.Animal;
 import hva.exceptions.DuplicateAnimalKeyException;
 import hva.exceptions.DuplicateHabitatKeyException;
 import hva.exceptions.DuplicateTreeKeyException;
 import hva.exceptions.ImportFileException;
-import hva.habitat.Habitat; //SERÁ QUE É PRECISO ESTA AQUI????
+import hva.animal.Animal;
+import hva.habitat.Habitat;
 import hva.tree.CaducaTree;
 import hva.tree.PereneTree;
 import hva.tree.Tree;
@@ -124,6 +124,20 @@ public class Hotel implements Serializable {
     public Tree getTree(String key) {
         Tree t = this._trees.get(key);
         return t;
+    }
+
+
+
+    /**
+    * Get a habitat by its key. Two habitats are the same if their keys are the
+    * same
+    *
+    * @param key The key of the habitat to get
+    * @return The {@link Habitat} associated with the given key
+    */
+    public Habitat getHabitat(String key) {
+        Habitat h = this._habitats.get(key);
+        return h;
     }
 
 
@@ -285,12 +299,14 @@ public class Hotel implements Serializable {
         }   catch (DuplicateHabitatKeyException e) {
             e.printStackTrace();
         }
+        
+        Habitat h = getHabitat(fields[1]);
         if (fields.length > 4) {
             // O campo 4 contém os IDs das árvores, separados por vírgula
             String[] treeIds = fields[4].split(",");
             for (String treeId : treeIds) {
                 Tree t = getTree(treeId);
-                addTree(t);
+                h.addTree(t);
             }
         }     
 
