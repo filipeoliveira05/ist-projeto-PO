@@ -52,5 +52,8 @@ public class Habitat implements Serializable{
         return this.area;
     }
 
+    public int getNumberTrees () {
+        return trees.size();
+    }
     
 }
