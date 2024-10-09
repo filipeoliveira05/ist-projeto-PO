@@ -130,7 +130,7 @@ public class HotelManager {
         _hotel.importFile(textFile);
     }
 
-    public Hotel getHotel () {
+    public Hotel getHotel() {
         return _hotel;
     }
 
