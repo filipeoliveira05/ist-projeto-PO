@@ -91,7 +91,8 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of animals
     */
     public Collection<Animal> getAllAnimals() {
-        return Collections.unmodifiableCollection(_animals.values());
+        Map<String, Animal> sortedAnimals = new TreeMap<> (_animals);
+        return Collections.unmodifiableCollection(sortedAnimals.values());
     }
 
 
@@ -101,7 +102,8 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of trees
     */
     public Collection<Tree> getAllTrees() {
-        return Collections.unmodifiableCollection(_trees.values());
+        Map<String, Tree> sortedTrees = new TreeMap<> (_trees);
+        return Collections.unmodifiableCollection(sortedTrees.values());
     }
 
 
@@ -112,7 +114,8 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of habitats
     */
     public Collection<Habitat> getAllHabitats() {
-        return Collections.unmodifiableCollection(_habitats.values());
+        Map<String, Habitat> sortedHabitats = new TreeMap<> (_habitats);
+        return Collections.unmodifiableCollection(sortedHabitats.values());
     }
 
 
