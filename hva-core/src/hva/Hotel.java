@@ -1,36 +1,23 @@
 package hva;
 
+import hva.animal.Animal;
 import hva.exceptions.DuplicateAnimalKeyException;
-import hva.exceptions.DuplicateEmployeeKeyException;
 import hva.exceptions.DuplicateHabitatKeyException;
 import hva.exceptions.DuplicateTreeKeyException;
-import hva.exceptions.DuplicateVaccineKeyException;
-import hva.exceptions.ImportFileException; //SERÁ QUE É PRECISO ESTA AQUI????
-import hva.exceptions.NoResponsibilityException;
-import hva.exceptions.UnknownSpeciesKeyException;
-import hva.exceptions.UnknownVeterinarianKeyException;
-import hva.exceptions.UnrecognizedEntryException;
-import hva.exceptions.VeterinarianNotAuthorizedException;
-import hva.animal.Animal;
-import hva.tree.Tree;
+import hva.exceptions.ImportFileException;
+import hva.habitat.Habitat; //SERÁ QUE É PRECISO ESTA AQUI????
 import hva.tree.CaducaTree;
 import hva.tree.PereneTree;
-import hva.habitat.Habitat;
-import hva.util.NaturalTextComparator;
-
+import hva.tree.Tree;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 //FIXME import other Java classes
 //FIXME import project classes
@@ -298,6 +285,15 @@ public class Hotel implements Serializable {
         }   catch (DuplicateHabitatKeyException e) {
             e.printStackTrace();
         }
+        if (fields.length > 4) {
+            // O campo 4 contém os IDs das árvores, separados por vírgula
+            String[] treeIds = fields[4].split(",");
+            for (String treeId : treeIds) {
+                Tree t = getTree(treeId);
+                addTree(t);
+            }
+        }     
+
     }
 
 

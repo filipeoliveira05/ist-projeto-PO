@@ -1,22 +1,9 @@
 package hva.tree;
 
-import hva.exceptions.DuplicateTreeKeyException;
 import hva.util.NaturalTextComparator;
-
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.PriorityQueue;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 public class Tree implements Serializable{
     
@@ -41,6 +28,28 @@ public class Tree implements Serializable{
         this.age = age;
         this.difficulty = difficulty;
      }
+
+    //Getter for id
+    public String getId() {
+        return id;
+    }
+
+    // Getter for name
+    public String getName() {
+        return name;
+    }
+
+    // Getter for age
+    public int getAge() {
+        return age;
+    }
+
+    // Getter for difficulty
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    
 
 
 }   

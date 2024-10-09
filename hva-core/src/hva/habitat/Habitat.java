@@ -1,27 +1,12 @@
 package hva.habitat;
 
-import hva.exceptions.DuplicateHabitatKeyException;
+import hva.tree.Tree;
 import hva.util.NaturalTextComparator;
-import hva.tree.Tree;
-import hva.tree.Tree;
-import hva.tree.CaducaTree;
-import hva.tree.PereneTree;
-
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 import java.util.HashMap;
-import java.util.Optional;
-import java.util.PriorityQueue;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
+import java.util.Map;
 
 public class Habitat implements Serializable{
     
@@ -46,4 +31,26 @@ public class Habitat implements Serializable{
         this.area = area;
         this.trees = new HashMap<>();
         }
+
+
+    public void addTree(Tree tree){
+        trees.put(tree.getId(), tree);
+    }
+
+    //Getter for id
+    public String getId() {
+        return id;
+    }
+
+    // Getter for name
+    public String getName() {
+        return name;
+    }
+
+    // Getter for age
+    public int getArea() {
+        return area;
+    }
+
+    
 }
