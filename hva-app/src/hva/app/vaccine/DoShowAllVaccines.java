@@ -1,22 +1,34 @@
 package hva.app.vaccine;
 
+import java.util.Map;
+import java.util.Collection;
+import java.util.Collections;
+
 import hva.Hotel;
+import hva.vaccine.Vaccine;
+
 import pt.tecnico.uilib.menus.Command;
-import pt.tecnico.uilib.menus.CommandException;
-//FIXME import other classes if needed
+
 
 class DoShowAllVaccines extends Command<Hotel> {
 
     DoShowAllVaccines(Hotel receiver) {
         super(Label.SHOW_ALL_VACCINES, receiver);
-	//FIXME add command fields if needed
     }
 
     @Override
-    protected final void execute() {
-        //FIXME implement command
-        /*
-        _receiver.showAllVaccines();
-        */
+    protected void execute() {
+        Collection<Vaccine> vaccines = _receiver.getAllVaccines();
+
+        for (Vaccine vaccine : vaccines) {
+            String vaccineInfo = "VACINA|"
+                                + vaccine.getId() + "|"
+                                + vaccine.getName() + "|"
+                                + vaccine.getNumberApplications() + "|"
+                                + vaccine.getSpeciesIdsAsString();
+            _display.addLine(vaccineInfo);
+        }
+
+        _display.display();
     }
 }
