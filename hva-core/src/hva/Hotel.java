@@ -1,14 +1,22 @@
 package hva;
 
+import hva.exceptions.UnknownSpeciesKeyException;
+import hva.exceptions.DuplicateVaccineKeyException;
 import hva.exceptions.DuplicateAnimalKeyException;
 import hva.exceptions.DuplicateHabitatKeyException;
 import hva.exceptions.DuplicateTreeKeyException;
+import hva.exceptions.DuplicateEmployeeKeyException;
 import hva.exceptions.ImportFileException;
+import hva.vaccine.Vaccine;
+import hva.species.Species;
 import hva.animal.Animal;
 import hva.habitat.Habitat;
 import hva.tree.CaducaTree;
 import hva.tree.PereneTree;
 import hva.tree.Tree;
+import hva.employee.Employee;
+import hva.employee.CaretakerEmployee;
+import hva.employee.VetEmployee;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -35,7 +43,16 @@ public class Hotel implements Serializable {
     @Serial
     private static final long serialVersionUID = 202407081733L;
 
-    
+    /**
+    * Stores the hotel's vaccines, sorted by their key.
+    */
+    private Map<String, Vaccine> _vaccines = new HashMap<>();
+
+    /**
+    * Stores the hotel's species, sorted by their key.
+    */
+    private Map<String, Species> _species = new HashMap<>();
+
     /**
     * Stores the hotel's animals, sorted by their key.
     */
@@ -50,6 +67,22 @@ public class Hotel implements Serializable {
     * Stores the hotel's habitats, sorted by their key.
     */
     private Map<String, Habitat> _habitats = new HashMap<>();
+
+    /**
+    * Stores the hotel's employees, sorted by their key.
+    */
+    private Map<String, Employee> _employees = new HashMap<>();
+
+    /**
+    * Stores the hotel's veterinarians, sorted by their key.
+    */
+    private Map<String, VetEmployee> _vets = new HashMap<>();
+
+    /**
+    * Stores the hotel's caretakers, sorted by their key.
+    */
+    private Map<String, CaretakerEmployee> _caretakers = new HashMap<>();
+
 
     
     
@@ -82,6 +115,29 @@ public class Hotel implements Serializable {
     */
     private void dirty() {
         this.dirty = true;
+    }
+
+
+    /**
+    * Get all species known to the hotel sorted by their key
+    *
+    * @return A sorted {@link Collection} of species
+    */
+    public Collection<Species> getAllSpecies() {
+        Map<String, Species> sortedSpecies = new TreeMap<> (_species);
+        return Collections.unmodifiableCollection(sortedSpecies.values());
+    }
+
+
+
+    /**
+    * Get all vaccines known to the hotel sorted by their key
+    *
+    * @return A sorted {@link Collection} of vaccines
+    */
+    public Collection<Vaccine> getAllVaccines() {
+        Map<String, Vaccine> sortedVaccines = new TreeMap<> (_vaccines);
+        return Collections.unmodifiableCollection(sortedVaccines.values());
     }
 
 
@@ -119,6 +175,55 @@ public class Hotel implements Serializable {
     }
 
 
+
+    /**
+    * Get all veterinarians known to the hotel sorted by their key
+    *
+    * @return A sorted {@link Collection} of veterinarians
+    */
+    public Collection<VetEmployee> getAllVets() {
+        Map<String, VetEmployee> sortedVets = new TreeMap<> (_vets);
+        return Collections.unmodifiableCollection(sortedVets.values());
+    }
+
+
+    /**
+    * Get all caretakers known to the hotel sorted by their key
+    *
+    * @return A sorted {@link Collection} of caretakers
+    */
+    public Collection<CaretakerEmployee> getAllCaretakers() {
+        Map<String, CaretakerEmployee> sortedCaretakers = new TreeMap<> (_caretakers);
+        return Collections.unmodifiableCollection(sortedCaretakers.values());
+    }
+
+
+    /**
+    * Get a species by its key. Two species are the same if their keys are the
+    * same
+    *
+    * @param key The key of the species to get
+    * @return The {@link Species} associated with the given key
+    */
+    public Species getSpecies(String key) {
+        Species s = this._species.get(key);
+        return s;
+    }
+    
+
+    /**
+    * Get a vaccine by its key. Two vaccines are the same if their keys are the
+    * same
+    *
+    * @param key The key of the vaccine to get
+    * @return The {@link Vaccine} associated with the given key
+    */
+    public Vaccine getVaccine(String key) {
+        Vaccine v = this._vaccines.get(key);
+        return v;
+    }
+    
+    
     /**
     * Get a animal by its key. Two animals are the same if their keys are the
     * same
@@ -145,7 +250,6 @@ public class Hotel implements Serializable {
     }
 
 
-
     /**
     * Get a habitat by its key. Two habitats are the same if their keys are the
     * same
@@ -156,6 +260,32 @@ public class Hotel implements Serializable {
     public Habitat getHabitat(String key) {
         Habitat h = this._habitats.get(key);
         return h;
+    }
+
+
+    /**
+    * Get a veterinarian by its key. Two veterinarians are the same if their keys are the
+    * same
+    *
+    * @param key The key of the veterinarian to get
+    * @return The {@link VetEmployee} associated with the given key
+    */
+    public VetEmployee getVet(String key) {
+        VetEmployee v = this._vets.get(key);
+        return v;
+    }
+
+
+    /**
+    * Get a caretaker by its key. Two caretakers are the same if their keys are the
+    * same
+    *
+    * @param key The key of the caretaker to get
+    * @return The {@link CaretakerEmployee} associated with the given key
+    */
+    public CaretakerEmployee getCaretaker(String key) {
+        CaretakerEmployee c = this._caretakers.get(key);
+        return c;
     }
 
 
@@ -179,6 +309,8 @@ public class Hotel implements Serializable {
     }
 
 
+
+
     /**
     * Parse and import an entry (line) from a plain text file.
     *
@@ -187,16 +319,103 @@ public class Hotel implements Serializable {
     */
     private void importFromFields(String[] fields) {
         switch (fields[0]) {
-            //case "ESPECIE" -> this.importSpecie(fields);
+            case "ESPECIE" -> this.importSpecies(fields);
             case "ARVORE" -> this.importTree(fields);
             case "HABITAT" -> this.importHabitat(fields);
             case "ANIMAL" -> this.importAnimal(fields);
-            //case "TRATADOR" -> this.importCaretaker(fields);
-            //case "VETERINARIO" -> this.importVet(fields);
-            //case "VACINA" -> this.importVaccine(fields);
+            case "TRATADOR" -> this.importCaretaker(fields);
+            case "VETERINARIO" -> this.importVet(fields);
+            case "VACINA" -> this.importVaccine(fields);
         }
     }
 
+
+
+    /**
+    * Parse and import a species entry from a plain text file.
+    *
+    * A correct species entry has the following format:
+    * {@code ESPECIE|id|name}
+    *
+    * @param fields The fields of the SPECIES to import, that were split by the
+    *               separator
+    */
+    private void importSpecies(String[] fields) {
+        this.registerSpecies(fields[1], fields[2]);
+    }
+
+
+    /**
+    * Register a new species in this hotel, which will be created from the
+    * given parameters.
+    *
+    * @param id      The key of the species
+    * @param name    The name of the species
+    * @return The {@link Species} that was just created
+    */
+    public Species registerSpecies(String id, String name) {
+        Species s = new Species(id, name);
+        this._species.put(id, s);
+        this.dirty();
+        return s;
+    }
+
+
+    public void addMultipleSpecies (String idVaccine, String listSpeciesIds) {
+        Vaccine v = getVaccine(idVaccine);
+        String[] speciesIds = listSpeciesIds.split(",");
+        for (String speciesId : speciesIds) {
+            Species s = getSpecies(speciesId);
+            v.addSpecies(s);
+        }
+    }
+
+
+
+    /**
+    * Parse and import a vaccine entry from a plain text file.
+    *
+    * A correct vaccine entry has the following format:
+    * {@code VACINA|id|name|idSpecies1,...,idSpeciesN}
+    *
+    * @param fields The fields of the vaccine to import, that were split by the
+    *               separator
+    */
+    private void importVaccine(String[] fields) {
+        try {
+            this.registerVaccine(fields[1], fields[2]);
+        }   catch (DuplicateVaccineKeyException e) {
+            e.printStackTrace();
+        }
+        
+        if (fields.length > 3) {
+            addMultipleSpecies(fields[1], fields[3]);
+        }
+
+    }
+
+
+    /**
+    * Register a new vaccine in this hotel, which will be created from the
+    * given parameters.
+    *
+    * @param id      The key of the vaccine
+    * @param name    The name of the vaccine
+    * @return The {@link Vaccine} that was just created
+    * @throws DuplicateVaccineKeyException if a vaccine with the given key
+    *                                     already exists
+    */
+    public Vaccine registerVaccine(String id, String name) 
+                                   throws DuplicateVaccineKeyException {
+        if (this._vaccines.containsKey(id)) {
+            throw new DuplicateVaccineKeyException(id);
+        }
+
+        Vaccine v = new Vaccine(id, name);
+        this._vaccines.put(id, v);
+        this.dirty();
+        return v;
+    }
 
 
 
@@ -261,8 +480,6 @@ public class Hotel implements Serializable {
             e.printStackTrace();
         }
     }
-
-
 
 
     /**
@@ -331,8 +548,6 @@ public class Hotel implements Serializable {
     }
 
 
-
-
     /**
     * Register a new habitat in this hotel, which will be created from the
     * given parameters.
@@ -357,18 +572,108 @@ public class Hotel implements Serializable {
     }
 
 
-    /*
-     * Read text input file and create domain entities.
-     *
-     * @param filename name of the text input file
-     * @throws ImportFileException
-     
-    void importFile(String filename) throws ImportFileException {
-	/*try {
-            // FIXME open import file and create the associated objects
-	    // ....
-        } catch (IOException | UnrecognizedEntryException e) {
-            throw new ImportFileException(filename, e);
+
+
+    /**
+    * Parse and import a caretaker entry from a plain text file.
+    *
+    * A correct caretaker entry has the following format:
+    * {@code TRATADOR|id|name|idHabitat1,...,idHabitatN}
+    *
+    * @param fields The fields of the caretaker to import, that were split by 
+    *               the separator
+    */
+    private void importCaretaker(String[] fields) {
+        try {
+            this.registerCaretaker(fields[1], fields[2]);
+        }   catch (DuplicateEmployeeKeyException e) {
+            e.printStackTrace();
         }
-    }*/
+        
+        CaretakerEmployee c = getCaretaker(fields[1]);
+        if (fields.length > 3) {
+            String[] habitatIds = fields[3].split(",");
+            for (String habitatId : habitatIds) {
+                Habitat h = getHabitat(habitatId);
+                c.addHabitat(h);
+            }
+        }  
+    }
+
+
+    /**
+    * Register a new caretaker in this hotel, which will be created from the
+    * given parameters.
+    *
+    * @param id      The key of the caretaker
+    * @param name    The name of the caretaker
+    * @return The {@link CaretakerEmployee} that was just created
+    * @throws DuplicateEmployeeKeyException if a caretaker with the given key
+    *                                       already exists
+    */
+    public CaretakerEmployee registerCaretaker(String id, String name) 
+                                   throws DuplicateEmployeeKeyException {
+        if (this._caretakers.containsKey(id)) {
+            throw new DuplicateEmployeeKeyException(id);
+        }
+
+        CaretakerEmployee c = new CaretakerEmployee(id, name);
+        this._caretakers.put(id, c);
+        this._employees.put(id, c);
+        this.dirty();
+        return c;
+    }
+
+
+    
+    /**
+    * Parse and import a veterinarian entry from a plain text file.
+    *
+    * A correct veterinarian entry has the following format:
+    * {@code VETERINÁRIO|id|name|idSpecies1,...,idSpeciesN}
+    *
+    * @param fields The fields of the veterinarian to import, that were split by 
+    *               the separator
+    */
+    private void importVet(String[] fields) {
+        try {
+            this.registerVet(fields[1], fields[2]);
+        }   catch (DuplicateEmployeeKeyException e) {
+            e.printStackTrace();
+        }
+        
+        VetEmployee v = getVet(fields[1]);
+        if (fields.length > 3) {
+            String[] speciesIds = fields[3].split(",");
+            for (String speciesId : speciesIds) {
+                Species s = getSpecies(speciesId);
+                v.addSpecies(s);
+            }
+        }  
+    }
+
+
+    /**
+    * Register a new veterinarian in this hotel, which will be created from the
+    * given parameters.
+    *
+    * @param id      The key of the veterinarian
+    * @param name    The name of the veterinarian
+    * @return The {@link VetEmployee} that was just created
+    * @throws DuplicateEmployeeKeyException if a veterinarian with the given key
+    *                                       already exists
+    */
+    public VetEmployee registerVet(String id, String name) 
+                                   throws DuplicateEmployeeKeyException {
+        if (this._vets.containsKey(id)) {
+            throw new DuplicateEmployeeKeyException(id);
+        }
+
+        VetEmployee v = new VetEmployee(id, name);
+        this._vets.put(id, v);
+        this._employees.put(id, v);
+        this.dirty();
+        return v;
+    }
+    
 }
