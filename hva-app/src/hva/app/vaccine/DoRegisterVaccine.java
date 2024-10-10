@@ -22,7 +22,7 @@ class DoRegisterVaccine extends Command<Hotel> {
             _receiver.registerVaccine(
                     stringField("id"),
                     stringField("name"));
-            _receiver.addMultipleSpecies(stringField("id"), stringField("species"));
+            //_receiver.addMultipleSpecies(stringField("id"), stringField("species"));
           } catch (hva.exceptions.DuplicateVaccineKeyException e) {
             throw new DuplicateVaccineKeyException(e.getKey());
           }
