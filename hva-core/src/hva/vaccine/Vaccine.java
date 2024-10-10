@@ -50,7 +50,7 @@ public class Vaccine implements Serializable{
     }
 
     public String getSpeciesIdsAsString() {
-        return String.join(", ", speciess.keySet());
+        return String.join(",", speciess.keySet());
     }
     
 }
