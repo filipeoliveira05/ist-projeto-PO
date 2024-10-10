@@ -23,7 +23,7 @@ class DoShowAllEmployees extends Command<Hotel> {
         Collection<CaretakerEmployee> caretakerEmployees = _receiver.getAllCaretakers();
 
         for (CaretakerEmployee caretaker : caretakerEmployees) {
-            String caretakerInfo = "TRATADOR|"
+            String caretakerInfo = "TRT|"
                                 + caretaker.getId() + "|"
                                 + caretaker.getName();
             
@@ -40,7 +40,7 @@ class DoShowAllEmployees extends Command<Hotel> {
         Collection<VetEmployee> vetEmployees = _receiver.getAllVets();
 
         for (VetEmployee vet : vetEmployees) {
-            String vetInfo = "VETERINÁRIO|"
+            String vetInfo = "VET|"
                                 + vet.getId() + "|"
                                 + vet.getName();
             
