@@ -4,12 +4,9 @@ import hva.exceptions.DuplicateEmployeeKeyException;
 import hva.habitat.Habitat;
 
 import java.io.Serial;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.HashMap;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
+
 
 public class CaretakerEmployee extends Employee{
 
@@ -22,30 +19,32 @@ public class CaretakerEmployee extends Employee{
     private final String type;
     private Map<String, Habitat> responsabilitiesHabitats;
     
+
     public CaretakerEmployee(String id, String name) {
         super(id, name);
         this.type = "TRT";
         this.responsabilitiesHabitats = new HashMap<>();
     }
 
+
     public void addHabitat(Habitat habitat){
         responsabilitiesHabitats.put(habitat.getId(), habitat);
     }
+
 
     public String getResponsabilitiesHabitatsAsString() {
         return String.join(", ", responsabilitiesHabitats.keySet());
     }
 
-    // Sobrescreve para retornar true
+
     @Override
     public boolean isCaretaker() {
         return true;
     }
 
-    // Sobrescreve para garantir que retorne false
+
     @Override
     public boolean isVet() {
         return false;
-    }
-    
+    } 
 }

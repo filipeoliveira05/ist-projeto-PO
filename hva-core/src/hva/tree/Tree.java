@@ -2,7 +2,6 @@ package hva.tree;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Comparator;
 
 public class Tree implements Serializable{
     
@@ -25,27 +24,23 @@ public class Tree implements Serializable{
         this.difficulty = difficulty;
      }
 
-    //Getter for id
+
     public String getId() {
         return id;
     }
 
-    // Getter for name
+
     public String getName() {
         return name;
     }
 
-    // Getter for age
+
     public int getAge() {
         return age;
     }
 
-    // Getter for difficulty
+
     public int getDifficulty() {
         return difficulty;
     }
-
-    
-
-
 }   

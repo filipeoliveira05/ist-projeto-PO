@@ -3,12 +3,6 @@ package hva.tree;
 import hva.exceptions.DuplicateTreeKeyException;
 
 import java.io.Serial;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.TreeMap;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 public class PereneTree extends Tree {
 
@@ -20,9 +14,9 @@ public class PereneTree extends Tree {
 
     private final String type;
     
+
     public PereneTree(String id, String name, int age, int difficulty, String type) {
         super(id, name, age, difficulty);
         this.type = type;
     }
-
 }

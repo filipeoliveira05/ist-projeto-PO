@@ -3,12 +3,6 @@ package hva.tree;
 import hva.exceptions.DuplicateTreeKeyException;
 
 import java.io.Serial;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.TreeMap;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 public class CaducaTree extends Tree{
 
@@ -19,6 +13,7 @@ public class CaducaTree extends Tree{
     private static final long serialVersionUID = 202410081411L;
 
     private final String type;
+    
     
     public CaducaTree(String id, String name, int age, int difficulty, String type) {
         super(id, name, age, difficulty);
