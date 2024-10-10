@@ -27,6 +27,9 @@ public class Species implements Serializable{
         this.animals = new HashMap<>();
         }
 
+    public void addAnimal(Animal animal) {
+        animals.put(animal.getId(), animal);
+    }
 
     //Getter for id
     public String getId() {
