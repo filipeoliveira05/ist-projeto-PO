@@ -388,10 +388,12 @@ public class Hotel implements Serializable {
         
         Vaccine v = getVaccine(fields[1]);
         if (fields.length > 3) {
-            String[] speciesIds = fields[4].split(",");
+            String[] speciesIds = fields[3].split(",");
             for (String speciesId : speciesIds) {
                 Species s = getSpecies(speciesId);
+                if (s != null) {
                 v.addSpecies(s);
+                }
             }
         }
 
@@ -650,7 +652,9 @@ public class Hotel implements Serializable {
             String[] speciesIds = fields[3].split(",");
             for (String speciesId : speciesIds) {
                 Species s = getSpecies(speciesId);
-                v.addSpecies(s);
+                if (s != null) {
+                    v.addSpecies(s);
+                }
             }
         }  
     }
