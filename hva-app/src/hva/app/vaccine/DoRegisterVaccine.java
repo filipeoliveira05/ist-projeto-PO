@@ -18,6 +18,7 @@ class DoRegisterVaccine extends Command<Hotel> {
 
     @Override
     protected void execute() throws CommandException {
+        //FIXME implement command
         try {
             _receiver.registerVaccine(
                     stringField("id"),

@@ -14,16 +14,6 @@ class DoAddResponsibility extends Command<Hotel> {
 
     @Override
     protected void execute() throws CommandException{
-        /*
-        String employeeId = Form.requestString(Prompt.employeeKey());
-        String responsibility = Form.requestString(Prompt.responsibilityKey());
-
-        try {
-            _receiver.addResponsibilityToEmployee(employeeId, responsibility);
-            _display.popup(Message.responsibilityAdded(employeeId, responsibility));
-        } catch (NoResponsibilityException e) {
-            _display.popup(Message.noResponsibility());
-        }
-        */
+        //FIXME implement command
     }
 }

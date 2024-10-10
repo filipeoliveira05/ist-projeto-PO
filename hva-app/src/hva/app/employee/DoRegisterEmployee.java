@@ -14,26 +14,6 @@ class DoRegisterEmployee extends Command<Hotel> {
 
     @Override
     protected void execute() throws CommandException {
-        /*
-        String employeeId = Form.requestString(Prompt.employeeKey());
-
-        // Verifica duplicidade de funcionário
-        try {
-            _receiver.checkDuplicateEmployee(employeeId);
-        } catch (DuplicateEmployeeKeyException e) {
-            throw e;
-        }
-
-        String employeeName = Form.requestString(Prompt.employeeName());
-
-        // Pergunta pelo tipo de funcionário
-        String employeeType;
-        do {
-            employeeType = Form.requestString(Prompt.employeeType()).toUpperCase();
-        } while (!employeeType.equals("VET") && !employeeType.equals("TRT"));
-
-        _receiver.registerEmployee(employeeId, employeeName, employeeType);  // Registra o funcionário
-        _display.popup(Message.employeeRegistered(employeeName));
-        */
+        //FIXME implement command
     }
 }

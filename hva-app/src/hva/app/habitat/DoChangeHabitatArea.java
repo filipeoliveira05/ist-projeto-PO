@@ -17,13 +17,6 @@ class DoChangeHabitatArea extends Command<Hotel> {
     @Override
     protected void execute() throws CommandException {
         //FIXME implement command
-        /* 
-        String habitatId = Form.requestString(Prompt.habitatKey());
-        double newArea = Form.requestReal(Prompt.habitatArea());
-
-        _receiver.changeHabitatArea(habitatId, newArea);
-        _display.popup(Message.habitatAreaChanged(habitatId, newArea));
-        */
     }
 
 }

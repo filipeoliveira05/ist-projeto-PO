@@ -17,20 +17,6 @@ class DoRemoveResponsibility extends Command<Hotel> {
 
     @Override
     protected void execute() throws CommandException {
-        //FIXME implement command
-
-        /*
-        String employeeId = Form.requestString(Prompt.employeeKey());
-        String responsibility = Form.requestString(Prompt.responsibilityKey());
-
-        try{
-            _receiver.removeResponsibilityFromEmployee(employeeId, responsibility);
-            _display.popup(Message.responsibilityRemoved(employeeId, responsibility));
-        } catch (NoResponsibilityException e) {
-            _display.popup(Message.noResponsibility());
-        }
-        */
-        
+        //FIXME implement command      
     }
-
 }
