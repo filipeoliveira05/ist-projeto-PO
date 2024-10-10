@@ -326,12 +326,12 @@ public class Hotel implements Serializable {
     */
     private void importFromFields(String[] fields) {
         switch (fields[0]) {
-            case "ESPECIE" -> this.importSpecies(fields);
+            case "ESPÉCIE" -> this.importSpecies(fields);
             case "ARVORE" -> this.importTree(fields);
             case "HABITAT" -> this.importHabitat(fields);
             case "ANIMAL" -> this.importAnimal(fields);
             case "TRATADOR" -> this.importCaretaker(fields);
-            case "VETERINARIO" -> this.importVet(fields);
+            case "VETERINÁRIO" -> this.importVet(fields);
             case "VACINA" -> this.importVaccine(fields);
         }
     }
