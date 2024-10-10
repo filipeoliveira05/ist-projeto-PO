@@ -13,7 +13,7 @@ public class Species implements Serializable{
     * Serial number for serialization.
     */
     @Serial
-    private static final long serialVersionUID = 202410101444L;
+    private static final long serialVersionUID = 202410101445L;
 
 
     private String id;
