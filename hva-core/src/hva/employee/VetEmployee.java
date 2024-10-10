@@ -31,4 +31,8 @@ public class VetEmployee extends Employee{
     public void addSpecies(Species species){
         responsabilitiesSpecies.put(species.getId(), species);
     }
+
+    public String getResponsabilitiesSpeciesAsString() {
+        return String.join(", ", responsabilitiesSpecies.keySet());
+    }
 }
