@@ -2,6 +2,7 @@ package hva.habitat;
 
 import hva.tree.Tree;
 import hva.util.NaturalTextComparator;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Comparator;
