@@ -51,5 +51,9 @@ public class Vaccine implements Serializable{
     public int getNumberApplications() {
         return this.numberApplications;
     }
+
+    public String getSpeciesIdsAsString() {
+        return String.join(", ", speciess.keySet());
+    }
     
 }
