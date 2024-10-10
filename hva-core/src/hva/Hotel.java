@@ -175,6 +175,16 @@ public class Hotel implements Serializable {
     }
 
 
+    /**
+    * Get all employees known to the hotel sorted by their key
+    *
+    * @return A sorted {@link Collection} of employees
+    */
+    public Collection<Employee> getAllEmployees() {
+        Map<String, Employee> sortedEmployees = new TreeMap<> (_employees);
+        return Collections.unmodifiableCollection(sortedEmployees.values());
+    }
+
 
     /**
     * Get all veterinarians known to the hotel sorted by their key
