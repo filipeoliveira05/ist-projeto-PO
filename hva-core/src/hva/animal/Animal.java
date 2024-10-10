@@ -1,7 +1,6 @@
 package hva.animal;
 
 import hva.exceptions.DuplicateAnimalKeyException;
-import hva.util.NaturalTextComparator;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -27,8 +26,6 @@ public class Animal implements Serializable{
     private static final long serialVersionUID = 202410072133L;
 
 
-    private static final Comparator<String> ID_COMPARATOR 
-            = new NaturalTextComparator();
     private String id;
     private String name;
     private String idSpecies;

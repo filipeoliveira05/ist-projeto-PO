@@ -2,7 +2,6 @@ package hva.employee;
 
 import hva.exceptions.DuplicateEmployeeKeyException;
 import hva.exceptions.NoResponsibilityException;
-import hva.util.NaturalTextComparator;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -29,8 +28,7 @@ public class Employee implements Serializable{
     private static final long serialVersionUID = 202410081520L;
 
 
-    private static final Comparator<String> ID_COMPARATOR 
-            = new NaturalTextComparator();
+
     private String id;
     private String name;
     

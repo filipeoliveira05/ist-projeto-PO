@@ -1,7 +1,6 @@
 package hva.vaccine;
 
 import hva.species.Species;
-import hva.util.NaturalTextComparator;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Comparator;
@@ -17,8 +16,6 @@ public class Vaccine implements Serializable{
     private static final long serialVersionUID = 202410101444L;
 
 
-    private static final Comparator<String> ID_COMPARATOR 
-            = new NaturalTextComparator();
     private String id;
     private String name;
     private int numberApplications;
