@@ -17,8 +17,6 @@ import hva.exceptions.VeterinarianNotAuthorizedException;
 
 import java.io.*;
 import hva.exceptions.*;
-//FIXME import other Java classes
-//FIXME import other project classes
 
 /**
  * Class that represents the hotel application.
@@ -31,33 +29,12 @@ public class HotelManager {
     /** This is the current hotel. */
     private Hotel _hotel = new Hotel();
 
-    // FIXME maybe add more fields if needed
-
-
 
     /**
     * @see Hotel#registerSpecies(String, String)
     */
     public void registerSpecies(String id, String name) {
         this._hotel.registerSpecies(id, name);
-    }
-
-
-        /**
-    * @see Hotel#registerVaccine(String, String)
-    */
-    public void registerVaccine(String id, String name) 
-                                throws DuplicateVaccineKeyException {
-        this._hotel.registerVaccine(id, name);
-    }
-
-
-    /**
-    * @see Hotel#registerAnimal(String, String, String, String)
-    */
-    public void registerAnimal(String id, String name, String idSpecies, 
-                          String idHabitat) throws DuplicateAnimalKeyException {
-        this._hotel.registerAnimal(id, name, idSpecies, idHabitat);
     }
 
 
@@ -80,6 +57,15 @@ public class HotelManager {
 
 
     /**
+    * @see Hotel#registerAnimal(String, String, String, String)
+    */
+    public void registerAnimal(String id, String name, String idSpecies, 
+                          String idHabitat) throws DuplicateAnimalKeyException {
+        this._hotel.registerAnimal(id, name, idSpecies, idHabitat);
+    }
+
+
+    /**
     * @see Hotel#registerCaretaker(String, String)
     */
     public void registerCaretaker(String id, String name) 
@@ -97,23 +83,29 @@ public class HotelManager {
     }
 
 
+    /**
+    * @see Hotel#registerVaccine(String, String)
+    */
+    public void registerVaccine(String id, String name) 
+                                throws DuplicateVaccineKeyException {
+        this._hotel.registerVaccine(id, name);
+    }
 
 
 
     /**
-     * Saves the serialized application's state into the file associated to the current network.
+     * Saves the serialized application's state into the file associated to the 
+     * current network.
      *
-     * @throws FileNotFoundException if for some reason the file cannot be created or opened.
-     * @throws MissingFileAssociationException if the current network does not have a file.
-     * @throws IOException if there is some error while serializing the state of the network to disk.
+     * @throws FileNotFoundException if for some reason the file cannot be 
+     *                               created or opened.
+     * @throws MissingFileAssociationException if the current network does not 
+     *                                         have a file.
+     * @throws IOException if there is some error while serializing the state 
+     *                     of the network to disk.
      */
-    public void save() throws FileNotFoundException, MissingFileAssociationException, IOException {
-        /*if (_filename == null || _filename.equals(""))
-      throw new UnnamedDBException();
-    try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(_filename)))) {
-      oos.writeObject(_hotel);
-      _hotel.setChanged(false);
-    }*/
+    public void save() throws FileNotFoundException, 
+                              MissingFileAssociationException, IOException {
         if (_filename == null || _filename.isBlank())
             throw new MissingFileAssociationException();
 
@@ -126,27 +118,35 @@ public class HotelManager {
         }
     }
 
+
+
     /**
-     * Saves the serialized application's state into the file associated to the current network.
+     * Saves the serialized application's state into the file associated to the
+     * current network.
      *
-     * @throws FileNotFoundException if for some reason the file cannot be created or opened.
-     * @throws MissingFileAssociationException if the current network does not have a file.
-     * @throws IOException if there is some error while serializing the state of the network to disk.
+     * @throws FileNotFoundException if for some reason the file cannot be 
+     *                               created or opened.
+     * @throws MissingFileAssociationException if the current network does not
+     *                                         have a file.
+     * @throws IOException if there is some error while serializing the state 
+     *                     of the network to disk.
      */
-    public void saveAs(String filename) throws FileNotFoundException, MissingFileAssociationException, IOException {
-        // FIXME implement serialization method
+    public void saveAs(String filename) throws FileNotFoundException,
+                                MissingFileAssociationException, IOException {
         _filename = filename;
         save();
     }
 
+
+
     /**
-     * @param filename name of the file containing the serialized application's state
-     *        to load.
-     * @throws UnavailableFileException if the specified file does not exist or there is
-     *         an error while processing this file.
+     * @param filename name of the file containing the serialized application's 
+     *                 state to load.
+     * @throws UnavailableFileException if the specified file does not exist 
+     *                                  or there is an error while processing 
+     *                                  this file.
      */
     public void load(String filename) throws UnavailableFileException {
-        // FIXME implement serialization method
         try (ObjectInputStream in = new ObjectInputStream(
                 new BufferedInputStream(new FileInputStream(filename)))) {
             _hotel = (Hotel) in.readObject();
@@ -155,6 +155,8 @@ public class HotelManager {
           throw new UnavailableFileException(filename);
         }
     }
+
+
 
     /**
     * Imports data from a plaintext file where each line represents a single
@@ -167,19 +169,17 @@ public class HotelManager {
         _hotel.importFile(textFile);
     }
 
+
+
     public Hotel getHotel() {
         return _hotel;
     }
 
 
-    //UTILIZADA NO DONEWFILE, COM O OBJETIVO DE CRIAR UMA NOVA APP VAZIA
+   
     public void reset() {
-        // Cria uma nova instância do hotel
         _hotel = new Hotel();
-        _filename = null; // Isso reseta o estado do hotel
-        
-        // Se precisar, você pode adicionar aqui outras inicializações necessárias
-        // Por exemplo, inicializar variáveis ou configurar o estado da aplicação
+        _filename = null;
     }
 
 
