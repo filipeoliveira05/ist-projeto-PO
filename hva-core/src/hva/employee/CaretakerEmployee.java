@@ -35,5 +35,17 @@ public class CaretakerEmployee extends Employee{
     public String getResponsabilitiesHabitatsAsString() {
         return String.join(", ", responsabilitiesHabitats.keySet());
     }
+
+    // Sobrescreve para retornar true
+    @Override
+    public boolean isCaretaker() {
+        return true;
+    }
+
+    // Sobrescreve para garantir que retorne false
+    @Override
+    public boolean isVet() {
+        return false;
+    }
     
 }

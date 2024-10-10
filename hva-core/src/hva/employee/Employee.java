@@ -52,4 +52,14 @@ public class Employee implements Serializable{
         return this.name;
     }
 
+    // Método para verificar se é um Caretaker (padrão false, será sobrescrito)
+    public boolean isCaretaker() {
+        return false;
+    }
+
+    // Método para verificar se é um Vet (padrão false, será sobrescrito)
+    public boolean isVet() {
+        return false;
+    }
+
 }   

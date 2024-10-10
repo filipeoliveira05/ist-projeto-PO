@@ -35,4 +35,16 @@ public class VetEmployee extends Employee{
     public String getResponsabilitiesSpeciesAsString() {
         return String.join(", ", responsabilitiesSpecies.keySet());
     }
+
+    // Sobrescreve para retornar true
+    @Override
+    public boolean isVet() {
+        return true;
+    }
+
+    // Sobrescreve para garantir que retorne false
+    @Override
+    public boolean isCaretaker() {
+        return false;
+    }
 }
