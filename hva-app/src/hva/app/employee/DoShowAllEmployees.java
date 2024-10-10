@@ -36,7 +36,6 @@ class DoShowAllEmployees extends Command<Hotel> {
 
         
 
-
         Collection<VetEmployee> vetEmployees = _receiver.getAllVets();
 
         for (VetEmployee vet : vetEmployees) {
