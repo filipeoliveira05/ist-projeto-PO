@@ -28,12 +28,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.List;
-import java.util.ArrayList;
+
 
 
 public class Hotel implements Serializable {
     
+    /**
+    * Serial number for serialization.
+    */
     @Serial
     private static final long serialVersionUID = 202407081733L;
 
@@ -85,10 +87,6 @@ public class Hotel implements Serializable {
     */
     private boolean dirty = false;
 
-
-
-
-
     /**
     * Get whether the hotel has been modified since it was last cleaned. The
     * hotel is cleaned when it is saved to disk.
@@ -126,7 +124,6 @@ public class Hotel implements Serializable {
     }
 
 
-
     /**
     * Get all vaccines known to the hotel sorted by their key
     *
@@ -160,7 +157,6 @@ public class Hotel implements Serializable {
     }
 
 
-
     /**
     * Get all habitats known to the hotel sorted by their key
     *
@@ -173,7 +169,7 @@ public class Hotel implements Serializable {
 
 
     /**
-    * Get all employees known to the hotel sorted by their key
+    * Get all employees known to the hotel, caretakers or vets, sorted by key
     *
     * @return A sorted {@link Collection} of employees
     */
@@ -271,8 +267,8 @@ public class Hotel implements Serializable {
 
 
     /**
-    * Get a veterinarian by its key. Two veterinarians are the same if their keys are the
-    * same
+    * Get a veterinarian by its key. Two veterinarians are the same if their 
+    * keys are the same
     *
     * @param key The key of the veterinarian to get
     * @return The {@link VetEmployee} associated with the given key
@@ -284,8 +280,8 @@ public class Hotel implements Serializable {
 
 
     /**
-    * Get a caretaker by its key. Two caretakers are the same if their keys are the
-    * same
+    * Get a caretaker by its key. Two caretakers are the same if their keys are 
+    * the same
     *
     * @param key The key of the caretaker to get
     * @return The {@link CaretakerEmployee} associated with the given key
@@ -344,7 +340,7 @@ public class Hotel implements Serializable {
     * A correct species entry has the following format:
     * {@code ESPECIE|id|name}
     *
-    * @param fields The fields of the SPECIES to import, that were split by the
+    * @param fields The fields of the species to import, that were split by the
     *               separator
     */
     private void importSpecies(String[] fields) {
@@ -371,107 +367,8 @@ public class Hotel implements Serializable {
 
 
     /**
-    * Parse and import a vaccine entry from a plain text file.
-    *
-    * A correct vaccine entry has the following format:
-    * {@code VACINA|id|name|idSpecies1,...,idSpeciesN}
-    *
-    * @param fields The fields of the vaccine to import, that were split by the
-    *               separator
-    */
-    private void importVaccine(String[] fields) {
-        try {
-            this.registerVaccine(fields[1], fields[2]);
-        }   catch (DuplicateVaccineKeyException e) {
-            e.printStackTrace();
-        }
-        
-        Vaccine v = getVaccine(fields[1]);
-        if (fields.length > 3) {
-            String[] speciesIds = fields[3].split(",");
-            for (String speciesId : speciesIds) {
-                Species s = getSpecies(speciesId);
-                if (s != null) {
-                v.addSpecies(s);
-                }
-            }
-        }
-
-    }
-
-
-    /**
-    * Register a new vaccine in this hotel, which will be created from the
-    * given parameters.
-    *
-    * @param id      The key of the vaccine
-    * @param name    The name of the vaccine
-    * @return The {@link Vaccine} that was just created
-    * @throws DuplicateVaccineKeyException if a vaccine with the given key
-    *                                     already exists
-    */
-    public Vaccine registerVaccine(String id, String name) 
-                                   throws DuplicateVaccineKeyException {
-        if (this._vaccines.containsKey(id)) {
-            throw new DuplicateVaccineKeyException(id);
-        }
-
-        Vaccine v = new Vaccine(id, name);
-        this._vaccines.put(id, v);
-        this.dirty();
-        return v;
-    }
-
-
-
-    /**
-    * Parse and import an animal entry from a plain text file.
-    * <p>
-    * A correct animal entry has the following format:
-    * {@code ANIMAL|id|name|idSpecies|idHabitat}
-    *
-    * @param fields The fields of the animal to import, that were split by the
-    *               separator
-    */
-    private void importAnimal(String[] fields) {
-        try {
-            this.registerAnimal(fields[1], fields[2], fields[3], fields[4]);
-        }   catch (DuplicateAnimalKeyException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    /**
-    * Register a new animal in this hotel, which will be created from the
-    * given parameters.
-    *
-    * @param id      The key of the animal
-    * @param name    The name of the animal
-    * @param idSpecies The key of the animal's species
-    * @param idHabitat The key of the animal's habitat
-    * @return The {@link Animal} that was just created
-    * @throws DuplicateAnimalKeyException if an animal with the given key
-    *                                     already exists
-    */
-    public Animal registerAnimal(String id, String name, String idSpecies, 
-                          String idHabitat) throws DuplicateAnimalKeyException {
-        if (this._animals.containsKey(id)) {
-            throw new DuplicateAnimalKeyException(id);
-        }
-
-        Animal a = new Animal(id, name, idSpecies, idHabitat);
-        this._animals.put(id, a);
-        this.dirty();
-        return a;
-    }
-
-
-
-
-    /**
     * Parse and import a tree entry from a plain text file.
-    * <p>
+    *
     * A correct tree entry has the following format:
     * {@code ÁRVORE|id|name|age|difficulty|type}
     *
@@ -491,16 +388,17 @@ public class Hotel implements Serializable {
     * Register a new tree in this hotel, which will be created from the
     * given parameters.
     *
-    * @param id      The key of the tree
-    * @param name    The name of the tree
-    * @param age     The age of the tree
+    * @param id         The key of the tree
+    * @param name       The name of the tree
+    * @param age        The age of the tree
     * @param difficulty The base cleaning difficulty of the tree
-    * @param type    The type of the tree (caduca or perene)
+    * @param type       The type of the tree (caduca or perene)
     * @return The {@link Tree} that was just created
     * @throws DuplicateTreeKeyException if a tree with the given key
-    *                                     already exists
+    *                                   already exists
     */
     public Tree registerTree(String id, String name, int age, int difficulty, String type) throws DuplicateTreeKeyException {
+        //FIXME
         if (this._trees.containsKey(id)) {
             throw new DuplicateTreeKeyException(id);
         }
@@ -526,9 +424,9 @@ public class Hotel implements Serializable {
 
     /**
     * Parse and import a habitat entry from a plain text file.
-    * <p>
+    *
     * A correct habitat entry has the following format:
-    * {@code ANIMAL|id|name|area|idTree1,...,idTreeN}
+    * {@code HABITAT|id|name|area|idTree1,...,idTreeN}
     *
     * @param fields The fields of the habitat to import, that were split by the
     *               separator
@@ -548,8 +446,7 @@ public class Hotel implements Serializable {
                 Tree t = getTree(treeId);
                 h.addTree(t);
             }
-        }     
-
+        }
     }
 
 
@@ -559,10 +456,10 @@ public class Hotel implements Serializable {
     *
     * @param id      The key of the habitat
     * @param name    The name of the habitat
-    * @param area    The area of the habitats's species
+    * @param area    The area of the habitat
     * @return The {@link Habitat} that was just created
     * @throws DuplicateHabitatKeyException if a habitat with the given key
-    *                                     already exists
+    *                                      already exists
     */
     public Habitat registerHabitat(String id, String name, int area) 
                                    throws DuplicateHabitatKeyException {
@@ -574,6 +471,51 @@ public class Hotel implements Serializable {
         this._habitats.put(id, h);
         this.dirty();
         return h;
+    }
+
+
+
+
+    /**
+    * Parse and import an animal entry from a plain text file.
+    *
+    * A correct animal entry has the following format:
+    * {@code ANIMAL|id|name|idSpecies|idHabitat}
+    *
+    * @param fields The fields of the animal to import, that were split by the
+    *               separator
+    */
+    private void importAnimal(String[] fields) {
+        try {
+            this.registerAnimal(fields[1], fields[2], fields[3], fields[4]);
+        }   catch (DuplicateAnimalKeyException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+    * Register a new animal in this hotel, which will be created from the
+    * given parameters.
+    *
+    * @param id         The key of the animal
+    * @param name       The name of the animal
+    * @param idSpecies  The key of the animal's species
+    * @param idHabitat  The key of the animal's habitat
+    * @return The {@link Animal} that was just created
+    * @throws DuplicateAnimalKeyException if an animal with the given key
+    *                                     already exists
+    */
+    public Animal registerAnimal(String id, String name, String idSpecies, 
+                          String idHabitat) throws DuplicateAnimalKeyException {
+        if (this._animals.containsKey(id)) {
+            throw new DuplicateAnimalKeyException(id);
+        }
+
+        Animal a = new Animal(id, name, idSpecies, idHabitat);
+        this._animals.put(id, a);
+        this.dirty();
+        return a;
     }
 
 
@@ -630,6 +572,7 @@ public class Hotel implements Serializable {
     }
 
 
+
     
     /**
     * Parse and import a veterinarian entry from a plain text file.
@@ -682,5 +625,58 @@ public class Hotel implements Serializable {
         this.dirty();
         return v;
     }
-    
+
+
+
+
+    /**
+    * Parse and import a vaccine entry from a plain text file.
+    *
+    * A correct vaccine entry has the following format:
+    * {@code VACINA|id|name|idSpecies1,...,idSpeciesN}
+    *
+    * @param fields The fields of the vaccine to import, that were split by the
+    *               separator
+    */
+    private void importVaccine(String[] fields) {
+        try {
+            this.registerVaccine(fields[1], fields[2]);
+        }   catch (DuplicateVaccineKeyException e) {
+            e.printStackTrace();
+        }
+        
+        Vaccine v = getVaccine(fields[1]);
+        if (fields.length > 3) {
+            String[] speciesIds = fields[3].split(",");
+            for (String speciesId : speciesIds) {
+                Species s = getSpecies(speciesId);
+                if (s != null) {
+                v.addSpecies(s);
+                }
+            }
+        }
+    }
+
+
+    /**
+    * Register a new vaccine in this hotel, which will be created from the
+    * given parameters.
+    *
+    * @param id      The key of the vaccine
+    * @param name    The name of the vaccine
+    * @return The {@link Vaccine} that was just created
+    * @throws DuplicateVaccineKeyException if a vaccine with the given key
+    *                                      already exists
+    */
+    public Vaccine registerVaccine(String id, String name) 
+                                   throws DuplicateVaccineKeyException {
+        if (this._vaccines.containsKey(id)) {
+            throw new DuplicateVaccineKeyException(id);
+        }
+
+        Vaccine v = new Vaccine(id, name);
+        this._vaccines.put(id, v);
+        this.dirty();
+        return v;
+    }
 }
