@@ -24,9 +24,7 @@ class DoShowAllVaccines extends Command<Hotel> {
             String vaccineInfo = "VACINA|"
                                 + vaccine.getId() + "|"
                                 + vaccine.getName() + "|"
-                                + vaccine.getNumberApplications() + "|"
-                                + vaccine.getSpeciesIdsAsString();
-            _display.addLine(vaccineInfo);
+                                + vaccine.getNumberApplications();
 
             String speciesString = vaccine.getSpeciesIdsAsString();
             if (!speciesString.isEmpty()) {
