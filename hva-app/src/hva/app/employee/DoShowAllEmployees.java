@@ -1,9 +1,16 @@
 package hva.app.employee;
 
+import java.util.Map;
+import java.util.Collection;
+import java.util.Collections;
+
 import hva.Hotel;
+import hva.employee.Employee;
+import hva.employee.CaretakerEmployee;
+import hva.employee.VetEmployee;
+
 import pt.tecnico.uilib.menus.Command;
-import pt.tecnico.uilib.menus.CommandException;
-//FIXME import other classes if needed
+
 
 class DoShowAllEmployees extends Command<Hotel> {
 
@@ -12,11 +19,39 @@ class DoShowAllEmployees extends Command<Hotel> {
     }
 
     @Override
-    protected void execute() throws CommandException {
-        //FIXME implement command
-        /*
-        _receiver.showAllEmployees();
-        */
+    protected void execute() {
+        Collection<CaretakerEmployee> caretakerEmployees = _receiver.getAllCaretakers();
+
+        for (CaretakerEmployee caretaker : caretakerEmployees) {
+            String caretakerInfo = "TRATADOR|"
+                                + caretaker.getId() + "|"
+                                + caretaker.getName();
+            
+            String habitatsString = caretaker.getResponsabilitiesHabitatsAsString();
+            if (!habitatsString.isEmpty()) {
+                caretakerInfo += "|" + habitatsString;
+            }
+            _display.addLine(caretakerInfo);
+        }
+
+        
+
+
+        Collection<VetEmployee> vetEmployees = _receiver.getAllVets();
+
+        for (VetEmployee vet : vetEmployees) {
+            String vetInfo = "VETERINÁRIO|"
+                                + vet.getId() + "|"
+                                + vet.getName();
+            
+            String speciesString = vet.getResponsabilitiesSpeciesAsString();
+            if (!speciesString.isEmpty()) {
+                vetInfo += "|" + speciesString;
+            }
+            _display.addLine(vetInfo);
+        }
+
+        _display.display();
     }
 
 }
