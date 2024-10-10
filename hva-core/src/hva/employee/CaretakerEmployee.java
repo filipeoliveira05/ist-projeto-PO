@@ -31,4 +31,9 @@ public class CaretakerEmployee extends Employee{
     public void addHabitat(Habitat habitat){
         responsabilitiesHabitats.put(habitat.getId(), habitat);
     }
+
+    public String getResponsabilitiesHabitatsAsString() {
+        return String.join(", ", responsabilitiesHabitats.keySet());
+    }
+    
 }
