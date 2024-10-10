@@ -31,14 +31,8 @@ import java.util.TreeMap;
 import java.util.List;
 import java.util.ArrayList;
 
-//FIXME import other Java classes
-//FIXME import project classes
 
 public class Hotel implements Serializable {
-    
-    //FIXME define attributes
-    //FIXME define constructor(s)
-    //FIXME define methods
     
     @Serial
     private static final long serialVersionUID = 202407081733L;
@@ -85,7 +79,10 @@ public class Hotel implements Serializable {
 
 
     
-    
+    /**
+    * Whether the hotel is in a dirty state, that is, if it was modified
+    * since the last time it was saved (or created).
+    */
     private boolean dirty = false;
 
 
@@ -371,15 +368,6 @@ public class Hotel implements Serializable {
     }
 
 
-    public void addMultipleSpecies (String idVaccine, String listSpeciesIds) {
-        Vaccine v = getVaccine(idVaccine);
-        String[] speciesIds = listSpeciesIds.split(",");
-        for (String speciesId : speciesIds) {
-            Species s = getSpecies(speciesId);
-            v.addSpecies(s);
-        }
-    }
-
 
 
     /**
@@ -398,8 +386,13 @@ public class Hotel implements Serializable {
             e.printStackTrace();
         }
         
+        Vaccine v = getVaccine(fields[1]);
         if (fields.length > 3) {
-            addMultipleSpecies(fields[1], fields[3]);
+            String[] speciesIds = fields[4].split(",");
+            for (String speciesId : speciesIds) {
+                Species s = getSpecies(speciesId);
+                v.addSpecies(s);
+            }
         }
 
     }
