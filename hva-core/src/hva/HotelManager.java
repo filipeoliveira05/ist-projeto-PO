@@ -35,6 +35,22 @@ public class HotelManager {
 
 
 
+    /**
+    * @see Hotel#registerSpecies(String, String)
+    */
+    public void registerSpecies(String id, String name) {
+        this._hotel.registerSpecies(id, name);
+    }
+
+
+        /**
+    * @see Hotel#registerVaccine(String, String)
+    */
+    public void registerVaccine(String id, String name) 
+                                throws DuplicateVaccineKeyException {
+        this._hotel.registerVaccine(id, name);
+    }
+
 
     /**
     * @see Hotel#registerAnimal(String, String, String, String)
@@ -61,6 +77,27 @@ public class HotelManager {
                              throws DuplicateHabitatKeyException {
         this._hotel.registerHabitat(id, name, area);
     }
+
+
+    /**
+    * @see Hotel#registerCaretaker(String, String)
+    */
+    public void registerCaretaker(String id, String name) 
+                                  throws DuplicateEmployeeKeyException {
+        this._hotel.registerCaretaker(id, name);
+    }
+
+
+    /**
+    * @see Hotel#registerVet(String, String)
+    */
+    public void registerVet(String id, String name) 
+                            throws DuplicateEmployeeKeyException {
+        this._hotel.registerVet(id, name);
+    }
+
+
+
 
 
     /**
