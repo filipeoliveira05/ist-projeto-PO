@@ -398,17 +398,14 @@ public class Hotel implements Serializable {
     *                                   already exists
     */
     public Tree registerTree(String id, String name, int age, int difficulty, String type) throws DuplicateTreeKeyException {
-        //FIXME
         if (this._trees.containsKey(id)) {
             throw new DuplicateTreeKeyException(id);
         }
 
         Tree t = null;
-
-        if (type.equals("PERENE")) {
-            t = new PereneTree(id, name, age, difficulty, type);
-        } else if (type.equals("CADUCA")) {
-            t = new CaducaTree(id, name, age, difficulty, type);
+        switch (type.toUpperCase()) {
+            case "PERENE" -> t = new PereneTree(id, name, age, difficulty, type);
+            case "CADUCA" -> t = new CaducaTree(id, name, age, difficulty, type);
         }
 
         if (t != null) {
