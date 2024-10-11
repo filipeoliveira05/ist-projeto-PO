@@ -19,6 +19,7 @@ public class Animal implements Serializable{
     private String name;
     private String idSpecies;
     private String idHabitat;
+    private String healthHistory;
     
     
     public Animal(String id, String name, String idSpecies, String idHabitat) {
@@ -26,6 +27,7 @@ public class Animal implements Serializable{
         this.name = name;
         this.idSpecies = idSpecies;
         this.idHabitat = idHabitat;
+        this.healthHistory = "VOID";
     }
 
 
@@ -46,6 +48,10 @@ public class Animal implements Serializable{
 
     public String getIdHabitat() {
         return this.idHabitat;
+    }
+
+    public String getHealthHistory () {
+        return this.healthHistory;
     }
 }
 

@@ -25,7 +25,7 @@ class DoShowAllAnimals extends Command<Hotel> {
                                 + animal.getId() + "|"
                                 + animal.getName() + "|"
                                 + animal.getIdSpecies() + "|"
-                                + "VOID" + "|"
+                                + animal.getHealthHistory() + "|"
                                 + animal.getIdHabitat();
             _display.addLine(animalInfo);
         }
