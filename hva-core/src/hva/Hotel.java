@@ -17,6 +17,7 @@ import hva.tree.Tree;
 import hva.employee.Employee;
 import hva.employee.CaretakerEmployee;
 import hva.employee.VetEmployee;
+import hva.util.SortingUtils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -28,6 +29,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.Comparator;
 
 
 
@@ -174,8 +176,7 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of employees
     */
     public Collection<Employee> getAllEmployees() {
-        Map<String, Employee> sortedEmployees = new TreeMap<> (_employees);
-        return Collections.unmodifiableCollection(sortedEmployees.values());
+        return SortingUtils.getSortedCollection(_employees);
     }
 
 
