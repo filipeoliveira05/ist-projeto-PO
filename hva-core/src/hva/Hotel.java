@@ -34,7 +34,7 @@ import java.util.TreeMap;
 public class Hotel implements Serializable {
     
     /**
-    * Serial number for serialization.
+    * Serial number for serialization
     */
     @Serial
     private static final long serialVersionUID = 202407081733L;
