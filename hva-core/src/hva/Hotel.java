@@ -121,30 +121,7 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of species
     */
     public Collection<Species> getAllSpecies() {
-        Map<String, Species> sortedSpecies = new TreeMap<> (_species);
-        return Collections.unmodifiableCollection(sortedSpecies.values());
-    }
-
-
-    /**
-    * Get all vaccines known to the hotel sorted by their key
-    *
-    * @return A sorted {@link Collection} of vaccines
-    */
-    public Collection<Vaccine> getAllVaccines() {
-        Map<String, Vaccine> sortedVaccines = new TreeMap<> (_vaccines);
-        return Collections.unmodifiableCollection(sortedVaccines.values());
-    }
-
-
-    /**
-    * Get all animals known to the hotel sorted by their key
-    *
-    * @return A sorted {@link Collection} of animals
-    */
-    public Collection<Animal> getAllAnimals() {
-        Map<String, Animal> sortedAnimals = new TreeMap<> (_animals);
-        return Collections.unmodifiableCollection(sortedAnimals.values());
+        return SortingUtils.getSortedCollection(_species);
     }
 
 
@@ -154,8 +131,7 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of trees
     */
     public Collection<Tree> getAllTrees() {
-        Map<String, Tree> sortedTrees = new TreeMap<> (_trees);
-        return Collections.unmodifiableCollection(sortedTrees.values());
+        return SortingUtils.getSortedCollection(_trees);
     }
 
 
@@ -165,8 +141,18 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of habitats
     */
     public Collection<Habitat> getAllHabitats() {
-        Map<String, Habitat> sortedHabitats = new TreeMap<> (_habitats);
-        return Collections.unmodifiableCollection(sortedHabitats.values());
+        return SortingUtils.getSortedCollection(_habitats);
+    }
+
+
+    /**
+    * Get all animals known to the hotel sorted by their key
+    *
+    * @return A sorted {@link Collection} of animals
+    */
+    public Collection<Animal> getAllAnimals() {
+        return SortingUtils.getSortedCollection(_animals);
+
     }
 
 
@@ -181,25 +167,35 @@ public class Hotel implements Serializable {
 
 
     /**
-    * Get all veterinarians known to the hotel sorted by their key
-    *
-    * @return A sorted {@link Collection} of veterinarians
-    */
-    public Collection<VetEmployee> getAllVets() {
-        Map<String, VetEmployee> sortedVets = new TreeMap<> (_vets);
-        return Collections.unmodifiableCollection(sortedVets.values());
-    }
-
-
-    /**
     * Get all caretakers known to the hotel sorted by their key
     *
     * @return A sorted {@link Collection} of caretakers
     */
     public Collection<CaretakerEmployee> getAllCaretakers() {
-        Map<String, CaretakerEmployee> sortedCaretakers = new TreeMap<> (_caretakers);
-        return Collections.unmodifiableCollection(sortedCaretakers.values());
+        return SortingUtils.getSortedCollection(_caretakers);
     }
+
+
+    /**
+    * Get all veterinarians known to the hotel sorted by their key
+    *
+    * @return A sorted {@link Collection} of veterinarians
+    */
+    public Collection<VetEmployee> getAllVets() {
+        return SortingUtils.getSortedCollection(_vets);
+    }
+
+
+    /**
+    * Get all vaccines known to the hotel sorted by their key
+    *
+    * @return A sorted {@link Collection} of vaccines
+    */
+    public Collection<Vaccine> getAllVaccines() {
+        return SortingUtils.getSortedCollection(_vaccines);
+    }
+
+
 
 
     /**
@@ -212,32 +208,6 @@ public class Hotel implements Serializable {
     public Species getSpecies(String key) {
         Species s = this._species.get(key);
         return s;
-    }
-    
-
-    /**
-    * Get a vaccine by its key. Two vaccines are the same if their keys are the
-    * same
-    *
-    * @param key The key of the vaccine to get
-    * @return The {@link Vaccine} associated with the given key
-    */
-    public Vaccine getVaccine(String key) {
-        Vaccine v = this._vaccines.get(key);
-        return v;
-    }
-    
-    
-    /**
-    * Get a animal by its key. Two animals are the same if their keys are the
-    * same
-    *
-    * @param key The key of the animal to get
-    * @return The {@link Animal} associated with the given key
-    */
-    public Animal getAnimal(String key) {
-        Animal a = this._animals.get(key);
-        return a;
     }
 
 
@@ -268,15 +238,15 @@ public class Hotel implements Serializable {
 
 
     /**
-    * Get a veterinarian by its key. Two veterinarians are the same if their 
-    * keys are the same
+    * Get a animal by its key. Two animals are the same if their keys are the
+    * same
     *
-    * @param key The key of the veterinarian to get
-    * @return The {@link VetEmployee} associated with the given key
+    * @param key The key of the animal to get
+    * @return The {@link Animal} associated with the given key
     */
-    public VetEmployee getVet(String key) {
-        VetEmployee v = this._vets.get(key);
-        return v;
+    public Animal getAnimal(String key) {
+        Animal a = this._animals.get(key);
+        return a;
     }
 
 
@@ -290,6 +260,32 @@ public class Hotel implements Serializable {
     public CaretakerEmployee getCaretaker(String key) {
         CaretakerEmployee c = this._caretakers.get(key);
         return c;
+    }
+
+
+    /**
+    * Get a veterinarian by its key. Two veterinarians are the same if their 
+    * keys are the same
+    *
+    * @param key The key of the veterinarian to get
+    * @return The {@link VetEmployee} associated with the given key
+    */
+    public VetEmployee getVet(String key) {
+        VetEmployee v = this._vets.get(key);
+        return v;
+    }
+
+
+    /**
+    * Get a vaccine by its key. Two vaccines are the same if their keys are the
+    * same
+    *
+    * @param key The key of the vaccine to get
+    * @return The {@link Vaccine} associated with the given key
+    */
+    public Vaccine getVaccine(String key) {
+        Vaccine v = this._vaccines.get(key);
+        return v;
     }
 
 
