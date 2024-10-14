@@ -69,7 +69,7 @@ public class Hotel implements Serializable {
     /**
     * Stores the hotel's employees, sorted by their key.
     */
-    private Map<String, Employee> _employees = new HashMap<>();
+    private Map<String, Employee<?>> _employees = new HashMap<>();
 
     /**
     * Stores the hotel's veterinarians, sorted by their key.
@@ -164,11 +164,10 @@ public class Hotel implements Serializable {
     *
     * @return A sorted {@link Collection} of employees
     */
-    public Collection<Employee> getAllEmployees() {
+    public Collection<Employee<?>> getAllEmployees() {
         SortingUtils sortedEmployees = new SortingUtils();
         return sortedEmployees.getSortedCollection(_employees);
     }
-
 
     /**
     * Get all caretakers known to the hotel sorted by their key
@@ -408,8 +407,8 @@ public class Hotel implements Serializable {
 
         Tree t = null;
         switch (type.toUpperCase()) {
-            case "PERENE" -> t = new PereneTree(id, name, age, difficulty, type);
-            case "CADUCA" -> t = new CaducaTree(id, name, age, difficulty, type);
+            case "PERENE" -> t = new PereneTree(id, name, age, difficulty);
+            case "CADUCA" -> t = new CaducaTree(id, name, age, difficulty);
         }
 
         if (t != null) {
@@ -543,7 +542,7 @@ public class Hotel implements Serializable {
             String[] habitatIds = fields[3].split(",");
             for (String habitatId : habitatIds) {
                 Habitat h = getHabitat(habitatId);
-                c.addHabitat(h);
+                c.addResponsibility(habitatId, h);
             }
         }  
     }
@@ -597,7 +596,7 @@ public class Hotel implements Serializable {
             for (String speciesId : speciesIds) {
                 Species s = getSpecies(speciesId);
                 if (s != null) {
-                    v.addSpecies(s);
+                    v.addResponsibility(speciesId, s);
                 }
             }
         }  
