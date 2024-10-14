@@ -121,7 +121,8 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of species
     */
     public Collection<Species> getAllSpecies() {
-        return SortingUtils.getSortedCollection(_species);
+        SortingUtils sortedSpecies = new SortingUtils();
+        return sortedSpecies.getSortedCollection(_species);
     }
 
 
@@ -131,7 +132,8 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of trees
     */
     public Collection<Tree> getAllTrees() {
-        return SortingUtils.getSortedCollection(_trees);
+        SortingUtils sortedTrees = new SortingUtils();
+        return sortedTrees.getSortedCollection(_trees);
     }
 
 
@@ -141,7 +143,8 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of habitats
     */
     public Collection<Habitat> getAllHabitats() {
-        return SortingUtils.getSortedCollection(_habitats);
+        SortingUtils sortedHabitats = new SortingUtils();
+        return sortedHabitats.getSortedCollection(_habitats);
     }
 
 
@@ -151,8 +154,8 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of animals
     */
     public Collection<Animal> getAllAnimals() {
-        return SortingUtils.getSortedCollection(_animals);
-
+        SortingUtils sortedAnimals = new SortingUtils();
+        return sortedAnimals.getSortedCollection(_animals);
     }
 
 
@@ -162,7 +165,8 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of employees
     */
     public Collection<Employee> getAllEmployees() {
-        return SortingUtils.getSortedCollection(_employees);
+        SortingUtils sortedEmployees = new SortingUtils();
+        return sortedEmployees.getSortedCollection(_employees);
     }
 
 
@@ -172,7 +176,8 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of caretakers
     */
     public Collection<CaretakerEmployee> getAllCaretakers() {
-        return SortingUtils.getSortedCollection(_caretakers);
+        SortingUtils sortedCaretakers = new SortingUtils();
+        return sortedCaretakers.getSortedCollection(_caretakers);
     }
 
 
@@ -182,7 +187,8 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of veterinarians
     */
     public Collection<VetEmployee> getAllVets() {
-        return SortingUtils.getSortedCollection(_vets);
+        SortingUtils sortedVets = new SortingUtils();
+        return sortedVets.getSortedCollection(_vets);
     }
 
 
@@ -192,7 +198,8 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of vaccines
     */
     public Collection<Vaccine> getAllVaccines() {
-        return SortingUtils.getSortedCollection(_vaccines);
+        SortingUtils sortedVaccines = new SortingUtils();
+        return sortedVaccines.getSortedCollection(_vaccines);
     }
 
 
