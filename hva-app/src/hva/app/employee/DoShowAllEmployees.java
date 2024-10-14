@@ -20,35 +20,22 @@ class DoShowAllEmployees extends Command<Hotel> {
 
     @Override
     protected void execute() {
-        Collection<Employee> employees = _receiver.getAllEmployees();
-
-        for (Employee employee : employees) {
-            if (employee.isCaretaker()) {
-                CaretakerEmployee caretaker = (CaretakerEmployee) employee;
-                String caretakerInfo = "TRT|"
-                                    + caretaker.getId() + "|"
-                                    + caretaker.getName();
-
-                String habitatsString = caretaker.getResponsabilitiesHabitatsAsString();
-                if (!habitatsString.isEmpty()) {
-                    caretakerInfo += "|" + habitatsString;
-                }
-                _display.addLine(caretakerInfo);
+        Collection<Employee<?>> employees = _receiver.getAllEmployees();
+    
+        for (Employee<?> employee : employees) {
+            String employeeInfo = employee.getType() + "|"
+                                + employee.getId() + "|"
+                                + employee.getName();
+                                
+            String responsibilitiesString = employee.getResponsibilitiesAsString();
             
-            } else if (employee.isVet()) {
-                VetEmployee vet = (VetEmployee) employee;
-                String vetInfo = "VET|"
-                                + vet.getId() + "|"
-                                + vet.getName();
-
-                String speciesString = vet.getResponsabilitiesSpeciesAsString();
-                if (!speciesString.isEmpty()) {
-                    vetInfo += "|" + speciesString;
-                }
-                _display.addLine(vetInfo);
+            if (!responsibilitiesString.isEmpty()) {
+                employeeInfo += "|" + responsibilitiesString;
             }
+    
+            _display.addLine(employeeInfo);
         }
-
+    
         _display.display();
     }
 }
