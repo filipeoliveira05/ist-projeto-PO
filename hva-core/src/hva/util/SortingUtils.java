@@ -16,9 +16,7 @@ public class SortingUtils {
      */
     public <V> Collection<V> getSortedCollection(Map<String, V> map) {
         Map<String, V> sortedMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
-        
         sortedMap.putAll(map);
-        
         return Collections.unmodifiableCollection(sortedMap.values());
     }
 }
