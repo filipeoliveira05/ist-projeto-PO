@@ -4,7 +4,6 @@ import hva.HotelManager;
 import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME import other classes if needed
 
 class DoNewFile extends Command<HotelManager> {
     DoNewFile(HotelManager receiver) {
@@ -21,7 +20,3 @@ class DoNewFile extends Command<HotelManager> {
         }
         
 }
-    
-
-
-    
