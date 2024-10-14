@@ -146,7 +146,8 @@ public class HotelManager {
      *                                  or there is an error while processing 
      *                                  this file.
      */
-    public void load(String filename) throws UnavailableFileException {
+    public void load(String filename) throws UnavailableFileException, 
+                                      IOException, ClassNotFoundException {
         try (ObjectInputStream in = new ObjectInputStream(
                 new BufferedInputStream(new FileInputStream(filename)))) {
             _hotel = (Hotel) in.readObject();
