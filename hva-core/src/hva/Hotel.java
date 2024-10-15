@@ -17,7 +17,6 @@ import hva.tree.Tree;
 import hva.employee.Employee;
 import hva.employee.CaretakerEmployee;
 import hva.employee.VetEmployee;
-import hva.util.SortingUtils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -121,8 +120,9 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of species
     */
     public Collection<Species> getAllSpecies() {
-        SortingUtils sortedSpecies = new SortingUtils();
-        return sortedSpecies.getSortedCollection(_species);
+        Map<String, Species> sortedSpecies = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        sortedSpecies.putAll(_species);
+        return Collections.unmodifiableCollection(sortedSpecies.values());
     }
 
 
@@ -132,8 +132,9 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of trees
     */
     public Collection<Tree> getAllTrees() {
-        SortingUtils sortedTrees = new SortingUtils();
-        return sortedTrees.getSortedCollection(_trees);
+        Map<String, Tree> sortedTrees = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        sortedTrees.putAll(_trees);
+        return Collections.unmodifiableCollection(sortedTrees.values());
     }
 
 
@@ -143,8 +144,9 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of habitats
     */
     public Collection<Habitat> getAllHabitats() {
-        SortingUtils sortedHabitats = new SortingUtils();
-        return sortedHabitats.getSortedCollection(_habitats);
+        Map<String, Habitat> sortedHabitats = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        sortedHabitats.putAll(_habitats);
+        return Collections.unmodifiableCollection(sortedHabitats.values());
     }
 
 
@@ -154,8 +156,9 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of animals
     */
     public Collection<Animal> getAllAnimals() {
-        SortingUtils sortedAnimals = new SortingUtils();
-        return sortedAnimals.getSortedCollection(_animals);
+        Map<String, Animal> sortedAnimals = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        sortedAnimals.putAll(_animals);
+        return Collections.unmodifiableCollection(sortedAnimals.values());
     }
 
 
@@ -165,8 +168,9 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of employees
     */
     public Collection<Employee<?>> getAllEmployees() {
-        SortingUtils sortedEmployees = new SortingUtils();
-        return sortedEmployees.getSortedCollection(_employees);
+        Map<String, Employee<?>> sortedEmployees = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        sortedEmployees.putAll(_employees);
+        return Collections.unmodifiableCollection(sortedEmployees.values());
     }
 
     /**
@@ -175,8 +179,9 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of caretakers
     */
     public Collection<CaretakerEmployee> getAllCaretakers() {
-        SortingUtils sortedCaretakers = new SortingUtils();
-        return sortedCaretakers.getSortedCollection(_caretakers);
+        Map<String, CaretakerEmployee> sortedCaretakers = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        sortedCaretakers.putAll(_caretakers);
+        return Collections.unmodifiableCollection(sortedCaretakers.values());
     }
 
 
@@ -186,8 +191,9 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of veterinarians
     */
     public Collection<VetEmployee> getAllVets() {
-        SortingUtils sortedVets = new SortingUtils();
-        return sortedVets.getSortedCollection(_vets);
+        Map<String, VetEmployee> sortedVets = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        sortedVets.putAll(_vets);
+        return Collections.unmodifiableCollection(sortedVets.values());
     }
 
 
@@ -197,8 +203,9 @@ public class Hotel implements Serializable {
     * @return A sorted {@link Collection} of vaccines
     */
     public Collection<Vaccine> getAllVaccines() {
-        SortingUtils sortedVaccines = new SortingUtils();
-        return sortedVaccines.getSortedCollection(_vaccines);
+        Map<String, Vaccine> sortedVaccines = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        sortedVaccines.putAll(_vaccines);
+        return Collections.unmodifiableCollection(sortedVaccines.values());
     }
 
 
