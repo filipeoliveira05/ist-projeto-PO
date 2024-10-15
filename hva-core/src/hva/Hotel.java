@@ -1,6 +1,7 @@
 package hva;
 
 import hva.exceptions.UnknownSpeciesKeyException;
+import hva.exceptions.UnknownHabitatException;
 import hva.exceptions.DuplicateVaccineKeyException;
 import hva.exceptions.DuplicateAnimalKeyException;
 import hva.exceptions.DuplicateHabitatKeyException;
@@ -685,5 +686,26 @@ public class Hotel implements Serializable {
         this._vaccines.put(id, v);
         this.dirty();
         return v;
+    }
+
+
+
+
+    /**
+     * Changes the area of a habitat.
+     * 
+     * @param idHabitat The id of the habitat to change area
+     * @param newArea The new area to set for the habitat
+     * @throws UnknownHabitatKeyException if the habitat ID does not exist
+     */
+    public void changeHabitatArea(String idHabitat, int newArea) throws UnknownHabitatException {
+        Habitat habitat = _habitats.get(idHabitat);
+        
+        if (habitat == null) {
+            throw new UnknownHabitatException(idHabitat);
+        }
+        
+        habitat.setArea(newArea);
+        this.dirty();
     }
 }
