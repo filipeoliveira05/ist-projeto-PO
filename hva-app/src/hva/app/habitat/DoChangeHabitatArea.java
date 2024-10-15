@@ -3,20 +3,28 @@ package hva.app.habitat;
 import java.text.Normalizer.Form;
 
 import hva.Hotel;
+import hva.habitat.Habitat;
+import hva.exceptions.UnknownHabitatException;
+
+import hva.app.exceptions.UnknownHabitatKeyException;
+
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME import other classes if needed
 
 class DoChangeHabitatArea extends Command<Hotel> {
 
     DoChangeHabitatArea(Hotel receiver) {
         super(Label.CHANGE_HABITAT_AREA, receiver);
-        //FIXME add command fields if needed
+        addStringField("id", Prompt.habitatKey());
+        addIntegerField("area", Prompt.habitatArea());
     }
 
     @Override
     protected void execute() throws CommandException {
-        //FIXME implement command
+        try {
+            _receiver.changeHabitatArea(stringField("id"), integerField("area"));
+        } catch (UnknownHabitatException e) {
+            throw new UnknownHabitatKeyException(e.getKey());
+        }
     }
-
 }
