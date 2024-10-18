@@ -2,6 +2,7 @@ package hva;
 
 import hva.exceptions.UnknownSpeciesException;
 import hva.exceptions.UnknownHabitatException;
+import hva.exceptions.UnknownEmployeeException;
 import hva.exceptions.DuplicateVaccineKeyException;
 import hva.exceptions.DuplicateAnimalKeyException;
 import hva.exceptions.DuplicateHabitatKeyException;
@@ -777,34 +778,76 @@ public class Hotel implements Serializable {
      * @param idEmployee The id of the employee
      * @param idResponsibility The id of the responsibility
      * @throws NoResponsibilityException if the responsibility does not exist
+     * @throws UnknownEmployeeException if the employee does not exist
      */
-    public void addResponsibilityToEmployee(String idEmployee, String idResponsibility) throws NoResponsibilityException {
+    public void addResponsibilityToEmployee(String idEmployee, String idResponsibility) throws NoResponsibilityException, UnknownEmployeeException {
         Employee<?> employee = _employees.get(idEmployee);
-    
+
+        if (employee == null) {
+            throw new UnknownEmployeeException(idEmployee);
+        }
+
         if (employee.isVet()) {
             if (!_species.containsKey(idResponsibility)) {
                 throw new NoResponsibilityException(idEmployee, idResponsibility);
             }
-    
+
             if (employee.getResponsibilitiesAsString().contains(idResponsibility)) {
                 return;
             }
-            
+
             Species s = getSpecies(idResponsibility);
             ((VetEmployee) employee).addResponsibility(idResponsibility, s);
-    
+
         } else if (employee.isCaretaker()) {
             if (!_habitats.containsKey(idResponsibility)) {
                 throw new NoResponsibilityException(idEmployee, idResponsibility);
             }
-    
+
             if (employee.getResponsibilitiesAsString().contains(idResponsibility)) {
                 return;
             }
-    
+
             Habitat h = getHabitat(idResponsibility);
             ((CaretakerEmployee) employee).addResponsibility(idResponsibility, h);
         }
     }
+
+
+
+
+
+    /**
+    * Removes a responsibility from an employee based on their type.
+    * 
+    * @param idEmployee The id of the employee
+    * @param idResponsibility The id of the responsibility to remove
+    * @throws NoResponsibilityException if the responsibility does not exist
+    * @throws UnknownEmployeeException if the employee does not exist
+    */
+    public void removeResponsibilityOfEmployee(String idEmployee, String idResponsibility) throws NoResponsibilityException, UnknownEmployeeException {
+        Employee<?> employee = _employees.get(idEmployee);
+
+        if (employee == null) {
+            throw new UnknownEmployeeException(idEmployee);
+        }
+
+        if (employee.isVet()) {
+            if (!_species.containsKey(idResponsibility) || !employee.getResponsibilitiesAsString().contains(idResponsibility)) {
+                throw new NoResponsibilityException(idEmployee, idResponsibility);
+            }
+
+            employee.removeResponsibility(idResponsibility);
+
+        } else if (employee.isCaretaker()) {
+            if (!_habitats.containsKey(idResponsibility) || !employee.getResponsibilitiesAsString().contains(idResponsibility)) {
+                throw new NoResponsibilityException(idEmployee, idResponsibility);
+            }
+
+            employee.removeResponsibility(idResponsibility);
+        }
+    }
+
+
     
 }
