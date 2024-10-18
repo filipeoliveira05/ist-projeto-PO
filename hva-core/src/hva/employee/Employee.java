@@ -39,6 +39,12 @@ public abstract class Employee<T> implements Serializable {
         responsibilities.put(key, responsibility);
     }
 
+
+    public void removeResponsibility(String key) {
+        responsibilities.remove(key);
+    }
+
+
     public Collection<T> getResponsibilities() {
         return responsibilities.values();
     }
