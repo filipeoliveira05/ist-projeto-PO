@@ -1,8 +1,8 @@
 package hva.app.habitat;
 
 import hva.Hotel;
+
 import hva.app.exceptions.DuplicateHabitatKeyException;
-import hva.habitat.Habitat;
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
