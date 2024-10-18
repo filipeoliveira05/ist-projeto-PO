@@ -26,19 +26,19 @@ public abstract class Tree implements Serializable {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public int getAge() {
-        return age;
+        return this.age;
     }
 
     public int getDifficulty() {
-        return difficulty;
+        return this.difficulty;
     }
 
     public abstract String getType();
