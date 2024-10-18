@@ -6,6 +6,7 @@ import java.util.Collections;
 
 import hva.Hotel;
 import hva.habitat.Habitat;
+import hva.tree.Tree;
 
 import pt.tecnico.uilib.menus.Command;
 
@@ -19,7 +20,7 @@ class DoShowAllHabitats extends Command<Hotel> {
     @Override
     protected void execute() {
         Collection<Habitat> habitats = _receiver.getAllHabitats();
-
+        
         for (Habitat habitat : habitats) {
             String habitatInfo = "HABITAT|"
                                 + habitat.getId() + "|"
@@ -27,6 +28,22 @@ class DoShowAllHabitats extends Command<Hotel> {
                                 + habitat.getArea() + "|"
                                 + habitat.getNumberTrees();
             _display.addLine(habitatInfo);
+
+
+            Collection<Tree> treesInHabitat = habitat.getAllTreesInHabitat();
+
+            if (!treesInHabitat.isEmpty()) {
+                for (Tree tree : treesInHabitat) {
+                    String treeInfo = "ÁRVORE|"
+                                    + tree.getId() + "|"
+                                    + tree.getName() + "|"
+                                    + tree.getAge() + "|"
+                                    + tree.getDifficulty() + "|"
+                                    + tree.getType() + "|"
+                                    + "GERARFOLHAS"; //FIXME
+                    _display.addLine(treeInfo);
+                }
+            }
         }
 
         _display.display();
