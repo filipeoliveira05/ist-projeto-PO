@@ -8,6 +8,10 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
+
+import java.util.Collection;
+import java.util.Collections;
 
 public class Habitat implements Serializable{
     
@@ -83,6 +87,13 @@ public class Habitat implements Serializable{
     public int getNumberTrees () {
         return this.trees.size();
     }
+
+
+    public Collection<Tree> getAllTreesInHabitat() {
+        Map<String, Tree> sortedTreesInHabitat = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        sortedTreesInHabitat.putAll(trees);
+        return Collections.unmodifiableCollection(sortedTreesInHabitat.values());
+    }   
 
 
     /**
