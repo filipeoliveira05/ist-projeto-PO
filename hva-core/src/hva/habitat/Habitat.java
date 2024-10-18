@@ -81,7 +81,7 @@ public class Habitat implements Serializable{
 
     
     public int getNumberTrees () {
-        return trees.size();
+        return this.trees.size();
     }
 
 
