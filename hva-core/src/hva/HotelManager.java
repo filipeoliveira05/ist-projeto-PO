@@ -59,8 +59,8 @@ public class HotelManager {
     /**
     * @see Hotel#registerAnimal(String, String, String, String)
     */
-    public void registerAnimal(String id, String name, String idSpecies, 
-                          String idHabitat) throws DuplicateAnimalKeyException {
+    public void registerAnimal(String id, String name, String idSpecies, String idHabitat) 
+                            throws UnknownSpeciesException, UnknownHabitatException, DuplicateAnimalKeyException {
         this._hotel.registerAnimal(id, name, idSpecies, idHabitat);
     }
 
