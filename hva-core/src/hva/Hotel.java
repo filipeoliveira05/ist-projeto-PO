@@ -1,6 +1,6 @@
 package hva;
 
-import hva.exceptions.UnknownSpeciesKeyException;
+import hva.exceptions.UnknownSpeciesException;
 import hva.exceptions.UnknownHabitatException;
 import hva.exceptions.DuplicateVaccineKeyException;
 import hva.exceptions.DuplicateAnimalKeyException;
@@ -496,7 +496,7 @@ public class Hotel implements Serializable {
     private void importAnimal(String[] fields) {
         try {
             this.registerAnimal(fields[1], fields[2], fields[3], fields[4]);
-        }   catch (DuplicateAnimalKeyException e) {
+        }   catch (DuplicateAnimalKeyException | UnknownSpeciesException | UnknownHabitatException e) {
             e.printStackTrace();
         }
     }
@@ -511,11 +511,26 @@ public class Hotel implements Serializable {
     * @param idSpecies  The key of the animal's species
     * @param idHabitat  The key of the animal's habitat
     * @return The {@link Animal} that was just created
+    * @throws UnknownSpeciesException     if the species with the given key
+    *                                     doesn't exist
+    * @throws UnknownHabitatException     if the habitat with the given key
+    *                                     doesn't exist
     * @throws DuplicateAnimalKeyException if an animal with the given key
     *                                     already exists
     */
-    public Animal registerAnimal(String id, String name, String idSpecies, 
-                          String idHabitat) throws DuplicateAnimalKeyException {
+    public Animal registerAnimal(String id, String name, String idSpecies, String idHabitat) 
+                                throws UnknownSpeciesException, UnknownHabitatException, DuplicateAnimalKeyException {
+        
+        Species species = _species.get(idSpecies);
+        if (species == null) {
+            throw new UnknownSpeciesException(idSpecies);
+        }
+
+        Habitat habitat = _habitats.get(idHabitat);
+        if (habitat == null) {
+            throw new UnknownHabitatException(idHabitat);
+        }
+
         if (this._animals.containsKey(id)) {
             throw new DuplicateAnimalKeyException(id);
         }
@@ -696,7 +711,7 @@ public class Hotel implements Serializable {
      * 
      * @param idHabitat The id of the habitat to change area
      * @param newArea The new area to set for the habitat
-     * @throws UnknownHabitatKeyException if the habitat ID does not exist
+     * @throws UnknownHabitatException if the habitat ID does not exist
      */
     public void changeHabitatArea(String idHabitat, int newArea) throws UnknownHabitatException {
         Habitat habitat = _habitats.get(idHabitat);
