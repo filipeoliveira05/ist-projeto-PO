@@ -7,6 +7,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Collection;
 
 public abstract class Employee<T> implements Serializable {
 
@@ -36,6 +37,10 @@ public abstract class Employee<T> implements Serializable {
 
     public void addResponsibility(String key, T responsibility) {
         responsibilities.put(key, responsibility);
+    }
+
+    public Collection<T> getResponsibilities() {
+        return responsibilities.values();
     }
 
     public String getResponsibilitiesAsString() {
