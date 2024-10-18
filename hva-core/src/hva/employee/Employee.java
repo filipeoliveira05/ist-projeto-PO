@@ -39,7 +39,7 @@ public abstract class Employee<T> implements Serializable {
     }
 
     public String getResponsibilitiesAsString() {
-        return String.join(", ", responsibilities.keySet());
+        return String.join(",", responsibilities.keySet());
     }
 
     public abstract boolean isCaretaker();
