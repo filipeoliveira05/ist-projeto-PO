@@ -408,7 +408,8 @@ public class Hotel implements Serializable {
     * @throws DuplicateTreeKeyException if a tree with the given key
     *                                   already exists
     */
-    public Tree registerTree(String id, String name, int age, int difficulty, String type) throws DuplicateTreeKeyException {
+    public Tree registerTree(String id, String name, int age, int difficulty, String type) 
+                             throws DuplicateTreeKeyException {
         if (this._trees.containsKey(id)) {
             throw new DuplicateTreeKeyException(id);
         }
@@ -420,6 +421,49 @@ public class Hotel implements Serializable {
         }
 
         if (t != null) {
+            this._trees.put(id, t);
+            this.dirty();
+        }
+
+        return t;
+    }
+
+
+    /**
+    * Register a new tree in an habitat, which will be created from the
+    * given parameters.
+    *
+    * @param idHabitat  The key of the habitat to put the tree
+    * @param id         The key of the tree
+    * @param name       The name of the tree
+    * @param age        The age of the tree
+    * @param difficulty The base cleaning difficulty of the tree
+    * @param type       The type of the tree (caduca or perene)
+    * @return The {@link Tree} that was just created
+    * @throws DuplicateTreeKeyException if a tree with the given key
+    *                                   already exists
+    * @throws UnknownHabitatException   if the habitat with the given key
+    *                                   doesn't exist
+    */
+    public Tree registerTreeInHabitat(String idHabitat, String id, String name, int age, int difficulty, String type) 
+                             throws DuplicateTreeKeyException, UnknownHabitatException {
+        if (this._trees.containsKey(id)) {
+            throw new DuplicateTreeKeyException(id);
+        }
+
+        Habitat habitat = _habitats.get(idHabitat);
+        if (habitat == null) {
+            throw new UnknownHabitatException(idHabitat);
+        }
+
+        Tree t = null;
+        switch (type.toUpperCase()) {
+            case "PERENE" -> t = new PereneTree(id, name, age, difficulty);
+            case "CADUCA" -> t = new CaducaTree(id, name, age, difficulty);
+        }
+
+        if (t != null) {
+            habitat.addTree(t);
             this._trees.put(id, t);
             this.dirty();
         }
@@ -715,7 +759,6 @@ public class Hotel implements Serializable {
      */
     public void changeHabitatArea(String idHabitat, int newArea) throws UnknownHabitatException {
         Habitat habitat = _habitats.get(idHabitat);
-        
         if (habitat == null) {
             throw new UnknownHabitatException(idHabitat);
         }
