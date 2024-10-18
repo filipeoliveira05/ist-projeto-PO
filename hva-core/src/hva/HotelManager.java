@@ -48,6 +48,15 @@ public class HotelManager {
 
 
     /**
+    * @see Hotel#registerTreeInHabitat(String, String, String, int, int, String)
+    */
+    public void registerTreeInHabitat(String idHabitat, String id, String name, int age, int difficulty, 
+                             String type) throws DuplicateTreeKeyException, UnknownHabitatException {
+        this._hotel.registerTreeInHabitat(idHabitat, id, name, age, difficulty, type);
+    }
+
+
+    /**
     * @see Hotel#registerHabitat(String, String, int)
     */
     public void registerHabitat(String id, String name, int area) 
