@@ -7,6 +7,7 @@ import hva.exceptions.DuplicateAnimalKeyException;
 import hva.exceptions.DuplicateHabitatKeyException;
 import hva.exceptions.DuplicateTreeKeyException;
 import hva.exceptions.DuplicateEmployeeKeyException;
+import hva.exceptions.NoResponsibilityException;
 import hva.exceptions.ImportFileException;
 import hva.vaccine.Vaccine;
 import hva.species.Species;
@@ -627,7 +628,7 @@ public class Hotel implements Serializable {
     */
     public CaretakerEmployee registerCaretaker(String id, String name) 
                                    throws DuplicateEmployeeKeyException {
-        if (this._caretakers.containsKey(id)) {
+        if (this._employees.containsKey(id)) {
             throw new DuplicateEmployeeKeyException(id);
         }
 
@@ -682,7 +683,7 @@ public class Hotel implements Serializable {
     */
     public VetEmployee registerVet(String id, String name) 
                                    throws DuplicateEmployeeKeyException {
-        if (this._vets.containsKey(id)) {
+        if (this._employees.containsKey(id)) {
             throw new DuplicateEmployeeKeyException(id);
         }
 
@@ -766,4 +767,44 @@ public class Hotel implements Serializable {
         habitat.setArea(newArea);
         this.dirty();
     }
+
+
+
+
+    /**
+     * Adds a responsibility to an employee based on their type.
+     * 
+     * @param idEmployee The id of the employee
+     * @param idResponsibility The id of the responsibility
+     * @throws NoResponsibilityException if the responsibility does not exist
+     */
+    public void addResponsibilityToEmployee(String idEmployee, String idResponsibility) throws NoResponsibilityException {
+        Employee<?> employee = _employees.get(idEmployee);
+    
+        if (employee.isVet()) {
+            if (!_species.containsKey(idResponsibility)) {
+                throw new NoResponsibilityException(idEmployee, idResponsibility);
+            }
+    
+            if (employee.getResponsibilitiesAsString().contains(idResponsibility)) {
+                return;
+            }
+            
+            Species s = getSpecies(idResponsibility);
+            ((VetEmployee) employee).addResponsibility(idResponsibility, s);
+    
+        } else if (employee.isCaretaker()) {
+            if (!_habitats.containsKey(idResponsibility)) {
+                throw new NoResponsibilityException(idEmployee, idResponsibility);
+            }
+    
+            if (employee.getResponsibilitiesAsString().contains(idResponsibility)) {
+                return;
+            }
+    
+            Habitat h = getHabitat(idResponsibility);
+            ((CaretakerEmployee) employee).addResponsibility(idResponsibility, h);
+        }
+    }
+    
 }
