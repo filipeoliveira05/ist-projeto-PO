@@ -2,7 +2,7 @@ package hva.exceptions;
 
 import java.io.Serial;
 
-public class UnknownSpeciesKeyException extends Exception{
+public class UnknownSpeciesException extends Exception{
     
     /** Serial number for serialization. */
   @Serial
@@ -12,7 +12,7 @@ public class UnknownSpeciesKeyException extends Exception{
   private String key;
 
   /** @param key Unknown key provided. */
-  public UnknownSpeciesKeyException(String key) {
+  public UnknownSpeciesException(String key) {
     super();
     this.key = key;
   }
@@ -21,7 +21,7 @@ public class UnknownSpeciesKeyException extends Exception{
    * @param key   Unknown key provided.
    * @param cause What exception caused this one.
    */
-  public UnknownSpeciesKeyException(String key, Exception cause) {
+  public UnknownSpeciesException(String key, Exception cause) {
     super(cause);
     this.key = key;
   }
