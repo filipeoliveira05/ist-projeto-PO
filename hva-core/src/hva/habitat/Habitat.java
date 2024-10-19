@@ -58,6 +58,10 @@ public class Habitat implements Serializable{
         animals.put(animal.getId(), animal);
     }
 
+    public void removeAnimal(Animal animal) {
+        animals.remove(animal.getId(), animal);
+    }
+
 
     /**
     * Adds a new employee to the map of employees in the habitat

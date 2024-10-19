@@ -53,6 +53,10 @@ public class Animal implements Serializable{
     public String getHealthHistory () {
         return this.healthHistory;
     }
+
+    public void setHabitatId(String idHabitat) {
+        this.idHabitat = idHabitat;
+    }
 }
 
 

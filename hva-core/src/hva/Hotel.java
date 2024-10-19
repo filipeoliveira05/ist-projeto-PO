@@ -3,6 +3,8 @@ package hva;
 import hva.exceptions.UnknownSpeciesException;
 import hva.exceptions.UnknownHabitatException;
 import hva.exceptions.UnknownEmployeeException;
+import hva.exceptions.UnknownAnimalException;
+
 import hva.exceptions.DuplicateVaccineKeyException;
 import hva.exceptions.DuplicateAnimalKeyException;
 import hva.exceptions.DuplicateHabitatKeyException;
@@ -847,6 +849,30 @@ public class Hotel implements Serializable {
             employee.removeResponsibility(idResponsibility);
         }
     }
+    
+
+    public void transferAnimal(String animalId, String newHabitatId) throws UnknownHabitatException, UnknownAnimalException {
+        Animal animal = _animals.get(animalId);
+        if (animal == null) {
+            throw new UnknownAnimalException(animalId);
+        }
+
+        Habitat currentHabitat = _habitats.get(animal.getIdHabitat());
+        if (currentHabitat != null) {
+            currentHabitat.removeAnimal(animal);
+        }
+
+        Habitat newHabitat = _habitats.get(newHabitatId);
+        if (newHabitat == null) {
+            throw new UnknownHabitatException(newHabitatId);
+        }
+
+        animal.setHabitatId(newHabitatId);
+        newHabitat.addAnimal(animal);
+
+        this.dirty();
+    }
+
 
 
     
