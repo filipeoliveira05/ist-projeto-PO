@@ -852,6 +852,8 @@ public class Hotel implements Serializable {
     }
     
 
+
+
     public void transferAnimal(String animalId, String newHabitatId) throws UnknownHabitatException, UnknownAnimalException {
         Animal animal = _animals.get(animalId);
         if (animal == null) {
@@ -874,6 +876,9 @@ public class Hotel implements Serializable {
         this.dirty();
     }
 
+
+
+
     public int satisfactionAnimal(String idAnimal) throws UnknownAnimalException{
         Animal animal = _animals.get(idAnimal);
         if (animal == null) {
@@ -887,7 +892,7 @@ public class Hotel implements Serializable {
                (habitat.getArea() / habitat.getPopulation()) + getHabitatInfluence(animal, habitat);
     }
 
-    private int countSameSpecies(Animal animal, Habitat habitat) {
+    public int countSameSpecies(Animal animal, Habitat habitat) {
         int count = 0;
         Collection<Animal> animalsInHabitat = habitat.getAllAnimalsInHabitat();
 
@@ -900,7 +905,7 @@ public class Hotel implements Serializable {
         return count;
     }
 
-    private int countDifferentSpecies(Animal animal, Habitat habitat) {
+    public int countDifferentSpecies(Animal animal, Habitat habitat) {
         int count = 0;
         Collection<Animal> animalsInHabitat = habitat.getAllAnimalsInHabitat();
 
@@ -913,18 +918,43 @@ public class Hotel implements Serializable {
         return count;
     }
 
-    private int getHabitatInfluence(Animal animal, Habitat habitat) {
+    public int getHabitatInfluence(Animal animal, Habitat habitat) {
         // Implemente a lógica para determinar a influência do habitat
         // Retorne 20 para positivo, -20 para negativo, 0 para neutro
         // Esta é uma implementação simplificada, você pode ajustá-la conforme necessário
        
         return 0; // Neutro para habitats médios
     }
+
+
+
+
+
+    public Vaccine registerVaccineWithSpecies(String id, String name, String idSpecies) 
+                                           throws DuplicateVaccineKeyException, UnknownSpeciesException {
+        
+        if (this._vaccines.containsKey(id)) {
+            throw new DuplicateVaccineKeyException(id);
+        }
+        
+        String[] speciesIds = idSpecies.split(",");
+        for (String speciesId : speciesIds) {
+            if (!_species.containsKey(speciesId.trim())) {
+                throw new UnknownSpeciesException(speciesId.trim());
+            }
+        }
+        
+        Vaccine v = new Vaccine(id, name);
+        this._vaccines.put(id, v);
+        
+        for (String speciesId : speciesIds) {
+            Species s = getSpecies(speciesId);
+            if (s != null) {
+            v.addSpecies(s);   
+            }
+        }
+
+        this.dirty();
+        return v;
+    }
 }
-
-
-    
-
-
-
-    
