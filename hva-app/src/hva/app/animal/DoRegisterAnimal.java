@@ -39,7 +39,7 @@ class DoRegisterAnimal extends Command<Hotel> {
           
           } catch (UnknownSpeciesException e1) {
             String speciesName = Prompt.speciesName();
-            _receiver.registerSpecies(stringField("idspecies"), speciesName);
+            _receiver.registerSpecies(stringField("idSpecies"), speciesName);
             throw new UnknownSpeciesKeyException(e1.getKey());
           
           } catch (UnknownHabitatException e2) {
