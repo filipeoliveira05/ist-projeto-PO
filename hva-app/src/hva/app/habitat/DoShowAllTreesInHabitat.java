@@ -5,6 +5,11 @@ import java.text.Normalizer.Form;
 import hva.tree.Tree;
 import java.util.Collection;
 import java.util.Collections;
+import hva.habitat.Habitat;
+
+
+import hva.app.exceptions.UnknownHabitatKeyException;
+
 
 import hva.Hotel;
 import pt.tecnico.uilib.menus.Command;
@@ -22,9 +27,16 @@ class DoShowAllTreesInHabitat extends Command<Hotel> {
     @Override
     protected void execute() throws CommandException {
         //FIXME implement command
-        //String habitatId = stringField("idHabitat");
-        
-        Collection<Tree> treesInHabitat = _receiver.getHabitat(stringField("idHabitat")).getAllTreesInHabitat();
+        String habitatId = stringField("idHabitat");
+        Habitat habitat = _receiver.getHabitat(habitatId);
+
+        // Verifica se o habitat existe, caso contrário, lança a exceção apropriada
+        if (habitat == null) {
+            throw new UnknownHabitatKeyException(habitatId);
+        }
+
+        // Obtém todas as árvores do habitat
+        Collection<Tree> treesInHabitat = habitat.getAllTreesInHabitat();
 
             if (!treesInHabitat.isEmpty()) {
                 for (Tree tree : treesInHabitat) {
