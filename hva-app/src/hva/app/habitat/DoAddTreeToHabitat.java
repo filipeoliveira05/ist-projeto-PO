@@ -25,6 +25,7 @@ class DoAddTreeToHabitat extends Command<Hotel> {
 
     @Override
     protected void execute() throws CommandException {
+        //FIXME ciclo biológico
         try {
             _receiver.registerTreeInHabitat(
                     stringField("id"),
@@ -34,6 +35,18 @@ class DoAddTreeToHabitat extends Command<Hotel> {
                     integerField("difficultyTree"),
                     stringField("typeTree")
             );
+
+            String treeInfo = "ÁRVORE|"
+                            + stringField("idTree") + "|"
+                            + stringField("nameTree") + "|"
+                            + integerField("ageTree") + "|"
+                            + integerField("difficultyTree") + "|"
+                            + stringField("typeTree") + "|"
+                            + "GERARFOLHAS";
+
+            _display.addLine(treeInfo);
+            _display.display();
+
         } catch (hva.exceptions.DuplicateTreeKeyException e) {
             throw new DuplicateTreeKeyException(e.getKey());
           
