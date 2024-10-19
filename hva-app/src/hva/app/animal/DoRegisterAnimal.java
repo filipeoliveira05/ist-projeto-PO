@@ -12,8 +12,6 @@ import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 
 
-
-
 class DoRegisterAnimal extends Command<Hotel> {
 
     DoRegisterAnimal(Hotel receiver) {
