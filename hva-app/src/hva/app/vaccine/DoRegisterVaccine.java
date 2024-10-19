@@ -1,8 +1,11 @@
 package hva.app.vaccine;
 
 import hva.Hotel;
+import hva.exceptions.UnknownSpeciesException;
+
 import hva.app.exceptions.DuplicateVaccineKeyException;
-import hva.vaccine.Vaccine;
+import hva.app.exceptions.UnknownSpeciesKeyException;
+
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
@@ -18,15 +21,16 @@ class DoRegisterVaccine extends Command<Hotel> {
 
     @Override
     protected void execute() throws CommandException {
-        //FIXME implement command
         try {
-            _receiver.registerVaccine(
+            _receiver.registerVaccineWithSpecies(
                     stringField("id"),
-                    stringField("name"));
-            //_receiver.addMultipleSpecies(stringField("id"), stringField("species"));
+                    stringField("name"),
+                    stringField("species"));
           } catch (hva.exceptions.DuplicateVaccineKeyException e) {
             throw new DuplicateVaccineKeyException(e.getKey());
-          }
+          }  catch (UnknownSpeciesException e1) {
+            throw new UnknownSpeciesKeyException(e1.getKey());
+        }
         
     }
 }
