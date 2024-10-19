@@ -92,11 +92,21 @@ public class Habitat implements Serializable{
         return this.trees.size();
     }
 
+    public int getPopulation(){
+        return this.animals.size();
+    }
+
 
     public Collection<Tree> getAllTreesInHabitat() {
         Map<String, Tree> sortedTreesInHabitat = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         sortedTreesInHabitat.putAll(trees);
         return Collections.unmodifiableCollection(sortedTreesInHabitat.values());
+    }
+    
+    public Collection<Animal> getAllAnimalsInHabitat() {
+        Map<String, Animal> sortedAnimalsInHabitat = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        sortedAnimalsInHabitat.putAll(animals);
+        return Collections.unmodifiableCollection(sortedAnimalsInHabitat.values());
     }   
 
 
@@ -108,5 +118,6 @@ public class Habitat implements Serializable{
     public void setArea(int newArea) {
         this.area = newArea;
     }
+
 
 }

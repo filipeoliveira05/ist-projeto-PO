@@ -585,6 +585,7 @@ public class Hotel implements Serializable {
 
         Animal a = new Animal(id, name, idSpecies, idHabitat);
         this._animals.put(id, a);
+        habitat.addAnimal(a);
         this.dirty();
         return a;
     }
@@ -873,7 +874,57 @@ public class Hotel implements Serializable {
         this.dirty();
     }
 
+    public int satisfactionAnimal(String idAnimal) throws UnknownAnimalException{
+        Animal animal = _animals.get(idAnimal);
+        if (animal == null) {
+            throw new UnknownAnimalException(idAnimal);
+        }
+
+        String idHabitat = animal.getIdHabitat();
+        Habitat habitat = _habitats.get(idHabitat);
+
+        return 20 + 3 * countSameSpecies(animal, habitat) - 2 * countDifferentSpecies(animal, habitat) + 
+               (habitat.getArea() / habitat.getPopulation()) + getHabitatInfluence(animal, habitat);
+    }
+
+    private int countSameSpecies(Animal animal, Habitat habitat) {
+        int count = 0;
+        Collection<Animal> animalsInHabitat = habitat.getAllAnimalsInHabitat();
+
+        for (Animal otherAnimal : animalsInHabitat) {
+            if (otherAnimal.getIdSpecies().equals(animal.getIdSpecies()) && otherAnimal != animal) {
+                count++;
+            }
+        }
+        
+        return count;
+    }
+
+    private int countDifferentSpecies(Animal animal, Habitat habitat) {
+        int count = 0;
+        Collection<Animal> animalsInHabitat = habitat.getAllAnimalsInHabitat();
+
+        for (Animal otherAnimal : animalsInHabitat) {
+            if (!otherAnimal.getIdSpecies().equals(animal.getIdSpecies()) && otherAnimal != animal) {
+                count++;
+            }
+        }
+        
+        return count;
+    }
+
+    private int getHabitatInfluence(Animal animal, Habitat habitat) {
+        // Implemente a lógica para determinar a influência do habitat
+        // Retorne 20 para positivo, -20 para negativo, 0 para neutro
+        // Esta é uma implementação simplificada, você pode ajustá-la conforme necessário
+       
+        return 0; // Neutro para habitats médios
+    }
+}
 
 
     
-}
+
+
+
+    
