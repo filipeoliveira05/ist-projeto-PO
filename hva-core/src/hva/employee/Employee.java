@@ -7,7 +7,9 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.Collection;
+import java.util.Collections;
 
 public abstract class Employee<T> implements Serializable {
 
@@ -46,12 +48,17 @@ public abstract class Employee<T> implements Serializable {
 
 
     public Collection<T> getResponsibilities() {
-        return responsibilities.values();
+        Map<String, T> sortedResponsibilities = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        sortedResponsibilities.putAll(responsibilities);
+        return Collections.unmodifiableCollection(sortedResponsibilities.values());
     }
 
     public String getResponsibilitiesAsString() {
-        return String.join(",", responsibilities.keySet());
+        Map<String, T> sortedResponsibilities = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        sortedResponsibilities.putAll(responsibilities);  
+        return String.join(",", sortedResponsibilities.keySet());
     }
+    
 
     public abstract boolean isCaretaker();
     public abstract boolean isVet();
