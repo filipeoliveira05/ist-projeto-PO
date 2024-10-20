@@ -957,4 +957,75 @@ public class Hotel implements Serializable {
         this.dirty();
         return v;
     }
+
+    public int satisfactionEmployee(String idEmployee) throws UnknownEmployeeException{
+        Employee employee = _employees.get(idEmployee);
+
+        int satisfaction = 0;
+
+        if (employee == null) {
+            throw new UnknownEmployeeException(idEmployee);
+        }
+
+        
+        if (employee.isVet()){
+            satisfaction = 20 - workVet((VetEmployee) employee);
+        }
+
+        if (employee.isCaretaker()){
+            satisfaction = 300 - workCaretaker((CaretakerEmployee) employee);
+        }
+
+        return satisfaction;
+    }
+
+    public int workVet(VetEmployee vet) {
+        int totalWork = 0;
+        Collection<Species> responsibilities = vet.getResponsibilities();
+
+        for (Species species : responsibilities) {
+            int population = 0;
+            int numVets = 0;
+
+            for (Animal animal : getAllAnimals()) {
+                if (animal.getIdSpecies().equals(species.getId())) {
+                    population++;
+                }
+            }
+
+            for (Employee<?> emp : getAllEmployees()) {
+                if (emp.isVet() && ((VetEmployee) emp).getResponsibilities().contains(species)) {
+                    numVets++;
+                }
+            }
+
+            totalWork += population / numVets;
+        }
+
+        return totalWork;
+    }
+
+    public int workCaretaker(CaretakerEmployee caretaker) {
+        int totalWork = 0;
+        Collection<Habitat> responsibilities = caretaker.getResponsibilities();
+
+        for (Habitat habitat : responsibilities) {
+            int numCareTakers = 0;
+            int habitatWork = habitat.getArea() + 3 * habitat.getPopulation();
+
+            for (Tree tree : habitat.getAllTreesInHabitat()) {
+                habitatWork += tree.getDifficulty();
+            }
+
+            for (Employee<?> emp : getAllEmployees()) {
+                if (emp.isCaretaker() && ((CaretakerEmployee) emp).getResponsibilities().contains(habitat)) {
+                    numCareTakers++;
+                }
+            }
+
+            totalWork += habitatWork / numCareTakers;
+        }
+
+        return totalWork;
+    }
 }

@@ -41,4 +41,8 @@ public class Species implements Serializable{
     public String getName() {
         return this.name;
     }
+
+    public int getPopulation(){
+        return this.animals.size();
+    }
 }
