@@ -1,9 +1,14 @@
 package hva.app.vaccine;
 
+import java.util.List;
+import java.util.Collection;
+import java.util.Collections;
+
 import hva.Hotel;
+import hva.vaccine.Vaccination;
+
 import pt.tecnico.uilib.menus.Command;
-import pt.tecnico.uilib.menus.CommandException;
-//FIXME import other classes if needed
+
 
 class DoShowVaccinations extends Command<Hotel> {
 
@@ -12,7 +17,18 @@ class DoShowVaccinations extends Command<Hotel> {
     }
 
     @Override
-    protected final void execute() {
-        //FIXME implement command
+    protected void execute() {
+        List<Vaccination> vaccinations = _receiver.getAllVaccinations();
+
+        for (Vaccination vaccination : vaccinations) {
+            String vaccinationInfo = "REGISTO-VACINA|"
+                                   + vaccination.getIdVaccine() + "|"
+                                   + vaccination.getIdVet() + "|"
+                                   + vaccination.getIdSpecies();
+
+            _display.addLine(vaccinationInfo);
+        }
+
+        _display.display();
     }
 }

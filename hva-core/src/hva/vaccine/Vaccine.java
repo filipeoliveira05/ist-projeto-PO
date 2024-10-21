@@ -1,6 +1,7 @@
 package hva.vaccine;
 
 import hva.species.Species;
+import hva.vaccine.Vaccination;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -20,6 +21,7 @@ public class Vaccine implements Serializable{
     private String name;
     private int numberApplications;
     private Map<String, Species> speciess;
+    private Map<String, Vaccination> vaccinations;
     
     
     public Vaccine(String id, String name) {
@@ -27,6 +29,7 @@ public class Vaccine implements Serializable{
         this.name = name;
         this.numberApplications = 0;
         this.speciess = new HashMap<>();
+        this.vaccinations = new HashMap<>();
     }
 
 
@@ -46,7 +49,7 @@ public class Vaccine implements Serializable{
 
 
     public int getNumberApplications() {
-        return this.numberApplications;
+        return this.vaccinations.size();
     }
 
 

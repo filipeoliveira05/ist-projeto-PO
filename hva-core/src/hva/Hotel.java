@@ -3,7 +3,11 @@ package hva;
 import hva.exceptions.UnknownSpeciesException;
 import hva.exceptions.UnknownHabitatException;
 import hva.exceptions.UnknownEmployeeException;
+import hva.exceptions.UnknownVeterinarianException;
+import hva.exceptions.UnknownVaccineException;
 import hva.exceptions.UnknownAnimalException;
+
+import hva.exceptions.VeterinarianNotAuthorizedException;
 
 import hva.exceptions.DuplicateVaccineKeyException;
 import hva.exceptions.DuplicateSpeciesNameException;
@@ -14,6 +18,7 @@ import hva.exceptions.DuplicateEmployeeKeyException;
 import hva.exceptions.NoResponsibilityException;
 import hva.exceptions.ImportFileException;
 import hva.vaccine.Vaccine;
+import hva.vaccine.Vaccination;
 import hva.species.Species;
 import hva.animal.Animal;
 import hva.habitat.Habitat;
@@ -34,6 +39,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Comparator;
 
 
@@ -50,6 +59,11 @@ public class Hotel implements Serializable {
     * Stores the hotel's vaccines, sorted by their key.
     */
     private Map<String, Vaccine> _vaccines = new HashMap<>();
+
+    /**
+    * Stores the hotel's vaccinations, sorted by their key.
+    */
+    private List<Vaccination> _vaccinations = new ArrayList<>();
 
     /**
     * Stores the hotel's species, sorted by their key.
@@ -212,6 +226,16 @@ public class Hotel implements Serializable {
         Map<String, Vaccine> sortedVaccines = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         sortedVaccines.putAll(_vaccines);
         return Collections.unmodifiableCollection(sortedVaccines.values());
+    }
+
+
+    /**
+    * Get all vaccinations known to the hotel sorted by application
+    *
+    * @return A sorted {@link List} of vaccinnations
+    */
+    public List<Vaccination> getAllVaccinations() {
+        return Collections.unmodifiableList(_vaccinations);
     }
 
 
@@ -755,7 +779,7 @@ public class Hotel implements Serializable {
     */
     public Vaccine registerVaccine(String id, String name) 
                                    throws DuplicateVaccineKeyException {
-        if (this._vaccines.containsKey(id)) {
+        if (this._vaccines.containsKey(id.toLowerCase())) {
             throw new DuplicateVaccineKeyException(id);
         }
 
@@ -939,38 +963,7 @@ public class Hotel implements Serializable {
         return 0; // Neutro para habitats médios
     }
 
-
-
-
-
-    public Vaccine registerVaccineWithSpecies(String id, String name, String idSpecies) 
-                                           throws DuplicateVaccineKeyException, UnknownSpeciesException {
-        
-        if (this._vaccines.containsKey(id)) {
-            throw new DuplicateVaccineKeyException(id);
-        }
-        
-        String[] speciesIds = idSpecies.split(",");
-        for (String speciesId : speciesIds) {
-            if (!_species.containsKey(speciesId.trim())) {
-                throw new UnknownSpeciesException(speciesId.trim());
-            }
-        }
-        
-        Vaccine v = new Vaccine(id, name);
-        this._vaccines.put(id, v);
-        
-        for (String speciesId : speciesIds) {
-            Species s = getSpecies(speciesId);
-            if (s != null) {
-            v.addSpecies(s);   
-            }
-        }
-
-        this.dirty();
-        return v;
-    }
-
+    
     public int satisfactionEmployee(String idEmployee) throws UnknownEmployeeException{
         Employee employee = _employees.get(idEmployee);
 
@@ -1041,4 +1034,118 @@ public class Hotel implements Serializable {
 
         return totalWork;
     }
+
+
+
+
+    public Vaccine registerVaccineWithSpecies(String id, String name, String idSpecies) 
+                                           throws DuplicateVaccineKeyException, UnknownSpeciesException {
+        
+        if (this._vaccines.containsKey(id.toLowerCase())) {
+            throw new DuplicateVaccineKeyException(id);
+        }
+        
+        String[] speciesIds = idSpecies.split(",");
+        for (String speciesId : speciesIds) {
+            if (!_species.containsKey(speciesId.trim())) {
+                throw new UnknownSpeciesException(speciesId.trim());
+            }
+        }
+        
+        Vaccine v = new Vaccine(id, name);
+        this._vaccines.put(id.toLowerCase(), v);
+        
+        for (String speciesId : speciesIds) {
+            Species s = getSpecies(speciesId);
+            if (s != null) {
+            v.addSpecies(s);   
+            }
+        }
+
+        this.dirty();
+        return v;
+    }
+
+
+
+
+    public void vaccinateAnimal(String idVaccine, String idVet, String idAnimal) 
+            throws UnknownVaccineException, UnknownVeterinarianException, UnknownAnimalException, VeterinarianNotAuthorizedException {
+        
+        Vaccine vaccine = _vaccines.get(idVaccine);
+        if (vaccine == null) {
+            throw new UnknownVaccineException(idVaccine);
+        }
+
+        VetEmployee vet = _vets.get(idVet);
+        if (vet == null) {
+            throw new UnknownVeterinarianException(idVet);
+        }
+
+        Animal animal = _animals.get(idAnimal);
+        if (animal == null) {
+            throw new UnknownAnimalException(idAnimal);
+        }
+
+        String idSpecies = animal.getIdSpecies();
+        if (!vet.getResponsibilitiesAsString().contains(idSpecies)) {
+            throw new VeterinarianNotAuthorizedException(idVet, idSpecies);
+        }
+
+
+        if (vaccine.getSpeciesIdsAsString().contains(idSpecies)) {
+            animal.addHealthEvent(0);
+        } else {
+            int damage = calculateDamage(animal, vaccine);
+            animal.addHealthEvent(damage);
+        }
+
+        
+        Vaccination v = new Vaccination(idVaccine, idVet, idAnimal, idSpecies);
+        this._vaccinations.add(v);
+        animal.addVaccination(v);
+        this.dirty();
+    }
+
+
+    private int calculateDamage(Animal animal, Vaccine vaccine) {
+        String animalSpecies = animal.getIdSpecies(); 
+        Set<String> vaccineSpeciesNames = new HashSet<>();
+
+        for (String speciesId : vaccine.getSpeciesIdsAsString().split(",")) {
+            Species species = getSpecies(speciesId.trim());
+            if (species != null) {
+                vaccineSpeciesNames.add(species.getName());
+            }
+        }
+
+        int maxDamage = 0;
+
+        for (String vaccineSpecies : vaccineSpeciesNames) {
+            int damage = calculateMaxDamage(animalSpecies, vaccineSpecies);
+            maxDamage = Math.max(maxDamage, damage);
+        }
+
+        return maxDamage;
+    }
+
+
+    private int calculateMaxDamage(String animalSpecies, String vaccineSpecies) {
+        int maxLength = Math.max(animalSpecies.length(), vaccineSpecies.length());
+        int commonCharacters = countCommonCharacters(animalSpecies, vaccineSpecies);
+        return maxLength - commonCharacters;
+    }
+
+
+    private int countCommonCharacters(String species1, String species2) {
+        Set<Character> commonChars = new HashSet<>();
+        for (char c : species1.toCharArray()) {
+            if (species2.indexOf(c) >= 0) {
+                commonChars.add(c);
+            }
+        }
+        return commonChars.size();
+    }
+
+
 }

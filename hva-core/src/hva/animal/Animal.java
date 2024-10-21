@@ -1,6 +1,11 @@
 package hva.animal;
 
+import hva.vaccine.Vaccination;
+
 import hva.exceptions.DuplicateAnimalKeyException;
+
+import java.util.List;
+import java.util.ArrayList;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -20,6 +25,7 @@ public class Animal implements Serializable{
     private String idSpecies;
     private String idHabitat;
     private String healthHistory;
+    private List<Vaccination> vaccinations;
     
     
     public Animal(String id, String name, String idSpecies, String idHabitat) {
@@ -28,6 +34,7 @@ public class Animal implements Serializable{
         this.idSpecies = idSpecies;
         this.idHabitat = idHabitat;
         this.healthHistory = "VOID";
+        this.vaccinations = new ArrayList<>();
     }
 
 
@@ -57,6 +64,29 @@ public class Animal implements Serializable{
     public void setHabitatId(String idHabitat) {
         this.idHabitat = idHabitat;
     }
+
+
+    public void addVaccination(Vaccination vaccination) {
+        vaccinations.add(vaccination);
+    }
+
+
+    public void addHealthEvent(int damage) {
+        String event;
+        if (damage == 0) {
+            event = "NORMAL";
+        } else if (damage >= 1 && damage <= 4) {
+            event = "ACIDENTE";
+        } else if (damage >= 5) {
+            event = "ERRO";
+        } else {
+            event = "CONFUSÃO";
+        }
+
+        if (this.healthHistory.equals("VOID")) {
+            this.healthHistory = event;
+        } else {
+            this.healthHistory += "," + event;
+        }
+    }
 }
-
-

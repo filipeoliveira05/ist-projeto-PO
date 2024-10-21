@@ -2,7 +2,7 @@ package hva.exceptions;
 
 import java.io.Serial;
 
-public class UnknownVeterinarianKeyException extends Exception{
+public class UnknownVeterinarianException extends Exception{
     
     /** Serial number for serialization. */
   @Serial
@@ -12,7 +12,7 @@ public class UnknownVeterinarianKeyException extends Exception{
   private String key;
 
   /** @param key Unknown key provided. */
-  public UnknownVeterinarianKeyException(String key) {
+  public UnknownVeterinarianException(String key) {
     super();
     this.key = key;
   }
@@ -21,7 +21,7 @@ public class UnknownVeterinarianKeyException extends Exception{
    * @param key   Unknown key provided.
    * @param cause What exception caused this one.
    */
-  public UnknownVeterinarianKeyException(String key, Exception cause) {
+  public UnknownVeterinarianException(String key, Exception cause) {
     super(cause);
     this.key = key;
   }

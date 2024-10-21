@@ -101,6 +101,14 @@ public class HotelManager {
         this._hotel.registerVaccine(id, name);
     }
 
+    /**
+    * @see Hotel#registerVaccine(String, String, String)
+    */
+    public void registerVaccineWithSpecies(String id, String name, String idSpecies) 
+                            throws DuplicateVaccineKeyException, UnknownSpeciesException {
+        this._hotel.registerVaccineWithSpecies(id, name, idSpecies);
+    }
+
 
 
     /**
