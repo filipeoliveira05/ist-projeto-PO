@@ -4,6 +4,8 @@ import hva.vaccine.Vaccination;
 
 import hva.exceptions.DuplicateAnimalKeyException;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -68,6 +70,10 @@ public class Animal implements Serializable{
 
     public void addVaccination(Vaccination vaccination) {
         vaccinations.add(vaccination);
+    }
+
+    public List<Vaccination> getVaccinations() {
+        return Collections.unmodifiableList(vaccinations);
     }
 
 
