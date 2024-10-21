@@ -6,6 +6,7 @@ import hva.exceptions.UnknownEmployeeException;
 import hva.exceptions.UnknownAnimalException;
 
 import hva.exceptions.DuplicateVaccineKeyException;
+import hva.exceptions.DuplicateSpeciesNameException;
 import hva.exceptions.DuplicateAnimalKeyException;
 import hva.exceptions.DuplicateHabitatKeyException;
 import hva.exceptions.DuplicateTreeKeyException;
@@ -359,7 +360,11 @@ public class Hotel implements Serializable {
     *               separator
     */
     private void importSpecies(String[] fields) {
-        this.registerSpecies(fields[1], fields[2]);
+        try {
+            this.registerSpecies(fields[1], fields[2]);
+        } catch (DuplicateSpeciesNameException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -370,13 +375,21 @@ public class Hotel implements Serializable {
     * @param id      The key of the species
     * @param name    The name of the species
     * @return The {@link Species} that was just created
+    * @throws DuplicateSpeciesNameException if a species with the same name already exists
     */
-    public Species registerSpecies(String id, String name) {
+    public Species registerSpecies(String id, String name) throws DuplicateSpeciesNameException {
+        for (Species species : _species.values()) {
+            if (species.getName().equalsIgnoreCase(name)) {
+                throw new DuplicateSpeciesNameException(name);
+            }
+        }
+
         Species s = new Species(id, name);
         this._species.put(id, s);
         this.dirty();
         return s;
     }
+
 
 
 

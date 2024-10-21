@@ -34,7 +34,7 @@ public class HotelManager {
     /**
     * @see Hotel#registerSpecies(String, String)
     */
-    public void registerSpecies(String id, String name) {
+    public void registerSpecies(String id, String name)  throws DuplicateSpeciesNameException {
         this._hotel.registerSpecies(id, name);
     }
 
