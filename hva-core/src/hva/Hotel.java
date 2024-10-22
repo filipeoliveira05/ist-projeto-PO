@@ -451,8 +451,11 @@ public class Hotel implements Serializable {
     */
     public Tree registerTree(String id, String name, int age, int difficulty, String type) 
                              throws DuplicateTreeKeyException {
-        if (this._trees.containsKey(id)) {
-            throw new DuplicateTreeKeyException(id);
+        
+        for (String existingId : this._trees.keySet()) {
+            if (existingId.equalsIgnoreCase(id)) {
+                throw new DuplicateTreeKeyException(id);
+            }
         }
 
         Tree t = null;
@@ -488,8 +491,11 @@ public class Hotel implements Serializable {
     */
     public Tree registerTreeInHabitat(String idHabitat, String id, String name, int age, int difficulty, String type) 
                              throws DuplicateTreeKeyException, UnknownHabitatException {
-        if (this._trees.containsKey(id)) {
-            throw new DuplicateTreeKeyException(id);
+        
+        for (String existingId : this._trees.keySet()) {
+            if (existingId.equalsIgnoreCase(id)) {
+                throw new DuplicateTreeKeyException(id);
+            }
         }
 
         Habitat habitat = _habitats.get(idHabitat);
@@ -556,8 +562,11 @@ public class Hotel implements Serializable {
     */
     public Habitat registerHabitat(String id, String name, int area) 
                                    throws DuplicateHabitatKeyException {
-        if (this._habitats.containsKey(id)) {
-            throw new DuplicateHabitatKeyException(id);
+        
+        for (String existingId : this._habitats.keySet()) {
+            if (existingId.equalsIgnoreCase(id)) {
+                throw new DuplicateHabitatKeyException(id);
+            }
         }
 
         Habitat h = new Habitat(id, name, area);
@@ -616,8 +625,10 @@ public class Hotel implements Serializable {
             throw new UnknownHabitatException(idHabitat);
         }
 
-        if (this._animals.containsKey(id)) {
-            throw new DuplicateAnimalKeyException(id);
+        for (String existingId : this._animals.keySet()) {
+            if (existingId.equalsIgnoreCase(id)) {
+                throw new DuplicateAnimalKeyException(id);
+            }
         }
 
         Animal a = new Animal(id, name, idSpecies, idHabitat);
@@ -669,8 +680,11 @@ public class Hotel implements Serializable {
     */
     public CaretakerEmployee registerCaretaker(String id, String name) 
                                    throws DuplicateEmployeeKeyException {
-        if (this._employees.containsKey(id)) {
-            throw new DuplicateEmployeeKeyException(id);
+        
+        for (String existingId : this._employees.keySet()) {
+            if (existingId.equalsIgnoreCase(id)) {
+                throw new DuplicateEmployeeKeyException(id);
+            }
         }
 
         CaretakerEmployee c = new CaretakerEmployee(id, name);
@@ -724,8 +738,11 @@ public class Hotel implements Serializable {
     */
     public VetEmployee registerVet(String id, String name) 
                                    throws DuplicateEmployeeKeyException {
-        if (this._employees.containsKey(id)) {
-            throw new DuplicateEmployeeKeyException(id);
+                                    
+        for (String existingId : this._employees.keySet()) {
+            if (existingId.equalsIgnoreCase(id)) {
+                throw new DuplicateEmployeeKeyException(id);
+            }
         }
 
         VetEmployee v = new VetEmployee(id, name);
@@ -779,8 +796,11 @@ public class Hotel implements Serializable {
     */
     public Vaccine registerVaccine(String id, String name) 
                                    throws DuplicateVaccineKeyException {
-        if (this._vaccines.containsKey(id.toLowerCase())) {
-            throw new DuplicateVaccineKeyException(id);
+        
+        for (String existingId : this._vaccines.keySet()) {
+            if (existingId.equalsIgnoreCase(id)) {
+                throw new DuplicateVaccineKeyException(id);
+            }
         }
 
         Vaccine v = new Vaccine(id, name);
@@ -1041,8 +1061,10 @@ public class Hotel implements Serializable {
     public Vaccine registerVaccineWithSpecies(String id, String name, String idSpecies) 
                                            throws DuplicateVaccineKeyException, UnknownSpeciesException {
         
-        if (this._vaccines.containsKey(id.toLowerCase())) {
-            throw new DuplicateVaccineKeyException(id);
+        for (String existingId : this._vaccines.keySet()) {
+            if (existingId.equalsIgnoreCase(id)) {
+                throw new DuplicateVaccineKeyException(id);
+            }
         }
         
         String[] speciesIds = idSpecies.split(",");
@@ -1053,7 +1075,7 @@ public class Hotel implements Serializable {
         }
         
         Vaccine v = new Vaccine(id, name);
-        this._vaccines.put(id.toLowerCase(), v);
+        this._vaccines.put(id, v);
         
         for (String speciesId : speciesIds) {
             Species s = getSpecies(speciesId);
