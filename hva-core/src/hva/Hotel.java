@@ -8,6 +8,7 @@ import hva.exceptions.UnknownVaccineException;
 import hva.exceptions.UnknownAnimalException;
 
 import hva.exceptions.VeterinarianNotAuthorizedException;
+import hva.exceptions.InappropriateVaccineException;
 
 import hva.exceptions.DuplicateVaccineKeyException;
 import hva.exceptions.DuplicateSpeciesNameException;
@@ -1092,7 +1093,7 @@ public class Hotel implements Serializable {
 
 
     public void vaccinateAnimal(String idVaccine, String idVet, String idAnimal) 
-            throws UnknownVaccineException, UnknownVeterinarianException, UnknownAnimalException, VeterinarianNotAuthorizedException {
+            throws UnknownVaccineException, UnknownVeterinarianException, UnknownAnimalException, VeterinarianNotAuthorizedException, InappropriateVaccineException {
         
         Vaccine vaccine = _vaccines.get(idVaccine);
         if (vaccine == null) {
@@ -1115,19 +1116,21 @@ public class Hotel implements Serializable {
         }
 
 
-        if (vaccine.getSpeciesIdsAsString().contains(idSpecies)) {
-            animal.addHealthEvent(0);
-        } else {
-            int damage = calculateDamage(animal, vaccine);
-            animal.addHealthEvent(damage);
-        }
-
-        
         Vaccination v = new Vaccination(idVaccine, idVet, idAnimal, idSpecies);
         this._vaccinations.add(v);
         vaccine.addVaccination(v);
         vet.addVaccination(v);
         animal.addVaccination(v);
+
+
+        if (vaccine.getSpeciesIdsAsString().contains(idSpecies)) {
+            animal.addHealthEvent(0);
+        } else {
+            int damage = calculateDamage(animal, vaccine);
+            animal.addHealthEvent(damage);
+            throw new InappropriateVaccineException(idVaccine, idAnimal);
+        }
+
         this.dirty();
     }
 

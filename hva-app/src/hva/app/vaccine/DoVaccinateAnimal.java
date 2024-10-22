@@ -4,6 +4,7 @@ import hva.Hotel;
 import hva.exceptions.UnknownVaccineException;
 import hva.exceptions.UnknownVeterinarianException;
 import hva.exceptions.UnknownAnimalException;
+import hva.exceptions.InappropriateVaccineException;
 
 import hva.app.exceptions.UnknownVaccineKeyException;
 import hva.app.exceptions.UnknownVeterinarianKeyException;
@@ -41,6 +42,9 @@ class DoVaccinateAnimal extends Command<Hotel> {
         
         } catch (hva.exceptions.VeterinarianNotAuthorizedException e) {
             throw new VeterinarianNotAuthorizedException(e.getIdVet(), e.getIdSpecies());
+        
+        } catch (InappropriateVaccineException e) {
+            _display.popup(Message.wrongVaccine(e.getIdVaccine(), e.getIdAnimal()));
         }
     }
 }
