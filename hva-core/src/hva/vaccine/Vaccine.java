@@ -7,6 +7,8 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Vaccine implements Serializable{
     
@@ -21,7 +23,7 @@ public class Vaccine implements Serializable{
     private String name;
     private int numberApplications;
     private Map<String, Species> speciess;
-    private Map<String, Vaccination> vaccinations;
+    private List<Vaccination> vaccinations;
     
     
     public Vaccine(String id, String name) {
@@ -29,7 +31,7 @@ public class Vaccine implements Serializable{
         this.name = name;
         this.numberApplications = 0;
         this.speciess = new HashMap<>();
-        this.vaccinations = new HashMap<>();
+        this.vaccinations = new ArrayList<>();
     }
 
 
@@ -55,5 +57,10 @@ public class Vaccine implements Serializable{
 
     public String getSpeciesIdsAsString() {
         return String.join(",", speciess.keySet());
+    }
+
+
+    public void addVaccination(Vaccination vaccination) {
+        vaccinations.add(vaccination);
     }
 }

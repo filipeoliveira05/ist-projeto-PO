@@ -1103,8 +1103,9 @@ public class Hotel implements Serializable {
         
         Vaccination v = new Vaccination(idVaccine, idVet, idAnimal, idSpecies);
         this._vaccinations.add(v);
-        animal.addVaccination(v);
+        vaccine.addVaccination(v);
         vet.addVaccination(v);
+        animal.addVaccination(v);
         this.dirty();
     }
 
