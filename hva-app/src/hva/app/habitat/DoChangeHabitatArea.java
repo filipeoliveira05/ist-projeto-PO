@@ -1,7 +1,5 @@
 package hva.app.habitat;
 
-import java.text.Normalizer.Form;
-
 import hva.Hotel;
 import hva.habitat.Habitat;
 import hva.exceptions.UnknownHabitatException;
@@ -10,6 +8,7 @@ import hva.app.exceptions.UnknownHabitatKeyException;
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
+
 
 class DoChangeHabitatArea extends Command<Hotel> {
 

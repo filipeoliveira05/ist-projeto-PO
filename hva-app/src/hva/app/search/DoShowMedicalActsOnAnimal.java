@@ -13,6 +13,7 @@ import java.util.Collections;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 
+
 class DoShowMedicalActsOnAnimal extends Command<Hotel> {
 
     DoShowMedicalActsOnAnimal(Hotel receiver) {
@@ -38,7 +39,6 @@ class DoShowMedicalActsOnAnimal extends Command<Hotel> {
                                    + vaccination.getIdSpecies();
             _display.addLine(vaccinationInfo);
         }
-        
 
         _display.display();
     }

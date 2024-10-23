@@ -1,14 +1,15 @@
 package hva.app.search;
 
+import hva.Hotel;
+import hva.vaccine.Vaccination;
+
 import java.util.List;
 import java.util.Collection;
 import java.util.Collections;
 
-import hva.Hotel;
-import hva.vaccine.Vaccination;
-
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
+
 
 class DoShowWrongVaccinations extends Command<Hotel> {
 

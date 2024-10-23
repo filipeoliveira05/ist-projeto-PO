@@ -7,6 +7,7 @@ import hva.app.exceptions.DuplicateHabitatKeyException;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 
+
 class DoRegisterHabitat extends Command<Hotel> {
 
     DoRegisterHabitat(Hotel receiver) {
@@ -24,9 +25,9 @@ class DoRegisterHabitat extends Command<Hotel> {
                     stringField("name"),
                     integerField("area")
             );
+          
           } catch (hva.exceptions.DuplicateHabitatKeyException e) {
             throw new DuplicateHabitatKeyException(e.getKey());
           }
-        
     }
 }

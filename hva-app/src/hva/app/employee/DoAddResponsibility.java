@@ -9,7 +9,6 @@ import hva.app.exceptions.UnknownEmployeeKeyException;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 
-import java.text.Normalizer.Form;
 
 class DoAddResponsibility extends Command<Hotel> {
 
@@ -23,10 +22,12 @@ class DoAddResponsibility extends Command<Hotel> {
     protected void execute() throws CommandException{
         try {
             _receiver.addResponsibilityToEmployee(stringField("idEmployee"), stringField("idResponsability"));
+        
         } catch (hva.exceptions.NoResponsibilityException e) {
             throw new NoResponsibilityException(e.getEmployeeKey(), e.getResponsabilityKey());
-        }  catch (UnknownEmployeeException e1) {
-            throw new UnknownEmployeeKeyException(e1.getKey());
+        
+        }  catch (UnknownEmployeeException e) {
+            throw new UnknownEmployeeKeyException(e.getKey());
         }
     }
 }

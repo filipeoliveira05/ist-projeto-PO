@@ -8,9 +8,10 @@ import hva.exceptions.UnknownSpeciesException;
 import hva.app.exceptions.UnknownHabitatKeyException;
 import hva.app.exceptions.UnknownSpeciesKeyException;
 
+import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-import pt.tecnico.uilib.forms.Form;
+
 
 class DoChangeHabitatInfluence extends Command<Hotel> {
 

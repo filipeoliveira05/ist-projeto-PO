@@ -1,12 +1,12 @@
 package hva.app.habitat;
 
-import java.util.Map;
-import java.util.Collection;
-import java.util.Collections;
-
 import hva.Hotel;
 import hva.habitat.Habitat;
 import hva.tree.Tree;
+
+import java.util.Map;
+import java.util.Collection;
+import java.util.Collections;
 
 import pt.tecnico.uilib.menus.Command;
 

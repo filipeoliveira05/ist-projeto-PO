@@ -1,7 +1,9 @@
 package hva.app.main;
 
 import hva.HotelManager;
+
 import pt.tecnico.uilib.menus.Command;
+
 
 class DoOpenEmployeesMenu extends Command<HotelManager> {
     DoOpenEmployeesMenu(HotelManager receiver) {

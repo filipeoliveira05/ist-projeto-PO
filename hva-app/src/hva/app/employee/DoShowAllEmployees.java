@@ -1,13 +1,13 @@
 package hva.app.employee;
 
-import java.util.Map;
-import java.util.Collection;
-import java.util.Collections;
-
 import hva.Hotel;
 import hva.employee.Employee;
 import hva.employee.CaretakerEmployee;
 import hva.employee.VetEmployee;
+
+import java.util.Map;
+import java.util.Collection;
+import java.util.Collections;
 
 import pt.tecnico.uilib.menus.Command;
 

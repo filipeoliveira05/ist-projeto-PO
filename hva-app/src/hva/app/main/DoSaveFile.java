@@ -2,12 +2,14 @@ package hva.app.main;
 
 import hva.HotelManager;
 import hva.exceptions.MissingFileAssociationException;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 class DoSaveFile extends Command<HotelManager> {
   DoSaveFile(HotelManager receiver) {

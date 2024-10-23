@@ -1043,6 +1043,7 @@ public class Hotel implements Serializable {
         return totalWork;
     }
 
+    //FIXME Somatório Esforço Limpeza
     public int workCaretaker(CaretakerEmployee caretaker) {
         int totalWork = 0;
         Collection<Habitat> responsibilities = caretaker.getResponsibilities();
@@ -1068,6 +1069,27 @@ public class Hotel implements Serializable {
     }
 
 
+    public int globalSatisfaction() {
+        int totalSatisfaction = 0;
+
+        for (Animal animal : getAllAnimals()) {
+            try {
+                totalSatisfaction += satisfactionAnimal(animal.getId());
+            } catch (UnknownAnimalException e) {
+                e.printStackTrace();
+            }
+        }
+
+        for (Employee<?> employee : getAllEmployees()) {
+            try {
+                totalSatisfaction += satisfactionEmployee(employee.getId());
+            } catch (UnknownEmployeeException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return Math.round(totalSatisfaction);
+    }
 
 
     public Vaccine registerVaccineWithSpecies(String id, String name, String idSpecies) 
@@ -1231,28 +1253,6 @@ public class Hotel implements Serializable {
         }
     
         habitat.setSpeciesInfluence(species, influenceValue);
-    }
-
-    public int globalSatisfaction() {
-        int totalSatisfaction = 0;
-
-        for (Animal animal : getAllAnimals()) {
-            try {
-                totalSatisfaction += satisfactionAnimal(animal.getId());
-            } catch (UnknownAnimalException e) {
-                e.printStackTrace();
-            }
-        }
-
-        for (Employee<?> employee : getAllEmployees()) {
-            try {
-                totalSatisfaction += satisfactionEmployee(employee.getId());
-            } catch (UnknownEmployeeException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return Math.round(totalSatisfaction);
     }
     
 }

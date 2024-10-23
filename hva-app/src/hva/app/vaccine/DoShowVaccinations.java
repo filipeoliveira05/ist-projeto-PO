@@ -1,11 +1,11 @@
 package hva.app.vaccine;
 
+import hva.Hotel;
+import hva.vaccine.Vaccination;
+
 import java.util.List;
 import java.util.Collection;
 import java.util.Collections;
-
-import hva.Hotel;
-import hva.vaccine.Vaccination;
 
 import pt.tecnico.uilib.menus.Command;
 

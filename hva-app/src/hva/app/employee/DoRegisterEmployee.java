@@ -4,9 +4,10 @@ import hva.Hotel;
 
 import hva.app.exceptions.DuplicateEmployeeKeyException;
 
+import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-import pt.tecnico.uilib.forms.Form;
+
 
 class DoRegisterEmployee extends Command<Hotel> {
 
@@ -32,6 +33,7 @@ class DoRegisterEmployee extends Command<Hotel> {
             } else if (typeEmployee.equals("TRT")) {
                 _receiver.registerCaretaker(stringField("id"), stringField("name"));
             }
+        
         } catch (hva.exceptions.DuplicateEmployeeKeyException e) {
             throw new DuplicateEmployeeKeyException(e.getKey());
         }

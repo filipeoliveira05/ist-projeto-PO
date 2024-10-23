@@ -6,9 +6,9 @@ import hva.exceptions.UnknownHabitatException;
 import hva.app.exceptions.DuplicateTreeKeyException;
 import hva.app.exceptions.UnknownHabitatKeyException;
 
+import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-import pt.tecnico.uilib.forms.Form;
 
 
 class DoAddTreeToHabitat extends Command<Hotel> {
@@ -56,10 +56,8 @@ class DoAddTreeToHabitat extends Command<Hotel> {
         } catch (hva.exceptions.DuplicateTreeKeyException e) {
             throw new DuplicateTreeKeyException(e.getKey());
 
-        } catch (UnknownHabitatException e1) {
-            throw new UnknownHabitatKeyException(e1.getKey());
+        } catch (UnknownHabitatException e) {
+            throw new UnknownHabitatKeyException(e.getKey());
         }
     }
 }
-
-

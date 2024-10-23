@@ -13,6 +13,7 @@ import java.util.Collections;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 
+
 class DoShowMedicalActsByVeterinarian extends Command<Hotel> {
 
     DoShowMedicalActsByVeterinarian(Hotel receiver) {

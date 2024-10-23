@@ -11,11 +11,9 @@ import hva.app.exceptions.UnknownVeterinarianKeyException;
 import hva.app.exceptions.UnknownAnimalKeyException;
 import hva.app.exceptions.VeterinarianNotAuthorizedException;
 
-import java.text.Normalizer;
-import java.text.Normalizer.Form;
-
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
+
 
 class DoVaccinateAnimal extends Command<Hotel> {
 
