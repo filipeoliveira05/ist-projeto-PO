@@ -1,50 +1,46 @@
 package hva;
 
-import hva.exceptions.UnknownSpeciesException;
-import hva.exceptions.UnknownHabitatException;
-import hva.exceptions.UnknownEmployeeException;
-import hva.exceptions.UnknownVeterinarianException;
-import hva.exceptions.UnknownVaccineException;
-import hva.exceptions.UnknownAnimalException;
-
-import hva.exceptions.VeterinarianNotAuthorizedException;
-import hva.exceptions.InappropriateVaccineException;
-
-import hva.exceptions.DuplicateVaccineKeyException;
-import hva.exceptions.DuplicateSpeciesNameException;
-import hva.exceptions.DuplicateAnimalKeyException;
-import hva.exceptions.DuplicateHabitatKeyException;
-import hva.exceptions.DuplicateTreeKeyException;
-import hva.exceptions.DuplicateEmployeeKeyException;
-import hva.exceptions.NoResponsibilityException;
-import hva.exceptions.ImportFileException;
-import hva.vaccine.Vaccine;
-import hva.vaccine.Vaccination;
-import hva.species.Species;
 import hva.animal.Animal;
+import hva.employee.CaretakerEmployee;
+import hva.employee.Employee;
+import hva.employee.VetEmployee;
+import hva.exceptions.DuplicateAnimalKeyException;
+import hva.exceptions.DuplicateEmployeeKeyException;
+import hva.exceptions.DuplicateHabitatKeyException;
+import hva.exceptions.DuplicateSpeciesNameException;
+import hva.exceptions.DuplicateTreeKeyException;
+import hva.exceptions.DuplicateVaccineKeyException;
+import hva.exceptions.ImportFileException;
+import hva.exceptions.InappropriateVaccineException;
+import hva.exceptions.NoResponsibilityException;
+import hva.exceptions.UnknownAnimalException;
+import hva.exceptions.UnknownEmployeeException;
+import hva.exceptions.UnknownHabitatException;
+import hva.exceptions.UnknownSpeciesException;
+import hva.exceptions.UnknownVaccineException;
+import hva.exceptions.UnknownVeterinarianException;
+import hva.exceptions.VeterinarianNotAuthorizedException;
 import hva.habitat.Habitat;
+import hva.species.Species;
 import hva.tree.CaducaTree;
 import hva.tree.PereneTree;
 import hva.tree.Tree;
-import hva.employee.Employee;
-import hva.employee.CaretakerEmployee;
-import hva.employee.VetEmployee;
-
+import hva.vaccine.Vaccination;
+import hva.vaccine.Vaccine;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 
 
@@ -1218,6 +1214,28 @@ public class Hotel implements Serializable {
         }
     
         habitat.setSpeciesInfluence(species, influenceValue);
+    }
+
+    public int globalSatisfaction() {
+        int totalSatisfaction = 0;
+
+        for (Animal animal : getAllAnimals()) {
+            try {
+                totalSatisfaction += satisfactionAnimal(animal.getId());
+            } catch (UnknownAnimalException e) {
+                e.printStackTrace();
+            }
+        }
+
+        for (Employee<?> employee : getAllEmployees()) {
+            try {
+                totalSatisfaction += satisfactionEmployee(employee.getId());
+            } catch (UnknownEmployeeException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return Math.round(totalSatisfaction);
     }
     
 }
