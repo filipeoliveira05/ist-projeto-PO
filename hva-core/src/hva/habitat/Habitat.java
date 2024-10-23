@@ -3,6 +3,7 @@ package hva.habitat;
 import hva.tree.Tree;
 import hva.animal.Animal;
 import hva.employee.Employee;
+import hva.species.Species;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -13,7 +14,7 @@ import java.util.TreeMap;
 import java.util.Collection;
 import java.util.Collections;
 
-public class Habitat implements Serializable{
+public class Habitat implements Serializable {
     
     /**
     * Serial number for serialization.
@@ -27,6 +28,7 @@ public class Habitat implements Serializable{
     private Map<String, Tree> trees;
     private Map<String, Animal> animals;
     private Map<String, Employee> employees;
+    private Map<Species, Integer> speciesInfluence;
     
     
     public Habitat(String id, String name, int area) {
@@ -36,6 +38,7 @@ public class Habitat implements Serializable{
         this.trees = new HashMap<>();
         this.animals = new HashMap<>();
         this.employees = new HashMap<>();
+        this.speciesInfluence = new HashMap<>();
     }
 
 
@@ -54,9 +57,21 @@ public class Habitat implements Serializable{
     * 
     * @param animal The {@link Animal} object to be added.
     */
-    public void addAnimal(Animal animal){
+    public void addAnimal(Animal animal) {
         animals.put(animal.getId(), animal);
     }
+
+
+    public void addSpecies(Species species) {
+        speciesInfluence.putIfAbsent(species, 0);
+    }
+
+    public void setSpeciesInfluence(Species species, int influence) {
+        if (speciesInfluence.containsKey(species)) {
+            speciesInfluence.put(species, influence);
+        }
+    }
+
 
     public void removeAnimal(Animal animal) {
         animals.remove(animal.getId(), animal);
@@ -118,6 +133,4 @@ public class Habitat implements Serializable{
     public void setArea(int newArea) {
         this.area = newArea;
     }
-
-
 }

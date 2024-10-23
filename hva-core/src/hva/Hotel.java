@@ -635,6 +635,7 @@ public class Hotel implements Serializable {
         Animal a = new Animal(id, name, idSpecies, idHabitat);
         this._animals.put(id, a);
         habitat.addAnimal(a);
+        habitat.addSpecies(species);
         this.dirty();
         return a;
     }
@@ -1181,4 +1182,37 @@ public class Hotel implements Serializable {
     }
 
 
+
+
+    public void changeHabitatInfluence(String idHabitat, String idSpecies, String influenceType)
+                                       throws UnknownHabitatException, UnknownSpeciesException {
+        
+        Habitat habitat = _habitats.get(idHabitat);
+        if (habitat == null) {
+            throw new UnknownHabitatException(idHabitat);
+        }
+        
+        Species species = _species.get(idSpecies);
+        if (species == null) {
+            throw new UnknownSpeciesException(idSpecies);
+        }
+
+        
+        int influenceValue = 0;
+    
+        switch (influenceType.toUpperCase()) {
+            case "POS":
+                influenceValue = 20;
+                break;
+            case "NEG":
+                influenceValue = -20;
+                break;
+            case "NEU":
+                influenceValue = 0;
+                break;
+        }
+    
+        habitat.setSpeciesInfluence(species, influenceValue);
+    }
+    
 }
