@@ -23,6 +23,7 @@ class DoChangeHabitatArea extends Command<Hotel> {
     protected void execute() throws CommandException {
         try {
             _receiver.changeHabitatArea(stringField("id"), integerField("area"));
+        
         } catch (UnknownHabitatException e) {
             throw new UnknownHabitatKeyException(e.getKey());
         }
