@@ -66,6 +66,12 @@ public class Habitat implements Serializable {
         speciesInfluence.putIfAbsent(species, 0);
     }
 
+
+    public int getSpeciesInfluence(Species species) {
+        return speciesInfluence.getOrDefault(species, 0);
+    }
+
+
     public void setSpeciesInfluence(Species species, int influence) {
         if (speciesInfluence.containsKey(species)) {
             speciesInfluence.put(species, influence);
