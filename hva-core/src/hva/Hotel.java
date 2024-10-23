@@ -978,12 +978,17 @@ public class Hotel implements Serializable {
     }
 
     public int getHabitatInfluence(Animal animal, Habitat habitat) {
-        // Implemente a lógica para determinar a influência do habitat
-        // Retorne 20 para positivo, -20 para negativo, 0 para neutro
-        // Esta é uma implementação simplificada, você pode ajustá-la conforme necessário
-       
-        return 0; // Neutro para habitats médios
+        String speciesId = animal.getIdSpecies();
+        
+        Species species = _species.get(speciesId);
+    
+        if (species != null) {
+            return habitat.getSpeciesInfluence(species);
+        }
+        
+        return 0;
     }
+    
 
     
     public int satisfactionEmployee(String idEmployee) throws UnknownEmployeeException{
