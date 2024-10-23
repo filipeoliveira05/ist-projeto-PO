@@ -1,0 +1,17 @@
+package hva.state;
+
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Season {
+    private SeasonState _state = new PrimaveraState(this);
+
+    public void setState (SeasonState state) {
+        _state = state;
+    }
+
+    public void advanceSeason() {
+        _state.advanceSeason();
+    }
+
+}
