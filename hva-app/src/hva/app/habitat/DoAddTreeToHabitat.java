@@ -1,10 +1,11 @@
 package hva.app.habitat;
 
-
 import hva.Hotel;
 import hva.exceptions.UnknownHabitatException;
+
 import hva.app.exceptions.DuplicateTreeKeyException;
 import hva.app.exceptions.UnknownHabitatKeyException;
+
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import pt.tecnico.uilib.forms.Form;
@@ -23,17 +24,15 @@ class DoAddTreeToHabitat extends Command<Hotel> {
 
     @Override
     protected void execute() throws CommandException {
-        // Loop para garantir que a resposta seja "PERENE" ou "CADUCA"
         String typeTree;
         while (true) {
             typeTree = Form.requestString(Prompt.treeType());
             if (typeTree.equals("PERENE") || typeTree.equals("CADUCA")) {
-                break; // Sai do loop se o tipo for válido
+                break;
             }
         }
 
         try {
-            // Tenta registrar a árvore no habitat
             _receiver.registerTreeInHabitat(
                     stringField("id"),
                     stringField("idTree"),
@@ -43,7 +42,6 @@ class DoAddTreeToHabitat extends Command<Hotel> {
                     typeTree
             );
 
-            // Exibição das informações da árvore registrada
             String treeInfo = "ÁRVORE|"
                             + stringField("idTree") + "|"
                             + stringField("nameTree") + "|"

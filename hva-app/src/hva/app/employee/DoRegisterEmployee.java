@@ -6,8 +6,7 @@ import hva.app.exceptions.DuplicateEmployeeKeyException;
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-
-import java.text.Normalizer;
+import pt.tecnico.uilib.forms.Form;
 
 class DoRegisterEmployee extends Command<Hotel> {
 
@@ -15,22 +14,22 @@ class DoRegisterEmployee extends Command<Hotel> {
         super(Label.REGISTER_EMPLOYEE, receiver);
         addStringField("id", Prompt.employeeKey());
         addStringField("name", Prompt.employeeName());
-        addStringField("type", Prompt.employeeType());
     }
 
     @Override
     protected void execute() throws CommandException {
-        //FIXME VET/TRT únicos inputs válidos
-        String type;
-
-        do {
-            type = stringField("type").toUpperCase();
-        } while (!type.equals("VET") && !type.equals("TRT"));
+        String typeEmployee;
+        while (true) {
+            typeEmployee = Form.requestString(Prompt.employeeType());
+            if (typeEmployee.equals("VET") || typeEmployee.equals("TRT")) {
+                break;
+            }
+        }
 
         try {
-            if (type.equals("VET")) {
+            if (typeEmployee.equals("VET")) {
                 _receiver.registerVet(stringField("id"), stringField("name"));
-            } else if (type.equals("TRT")) {
+            } else if (typeEmployee.equals("TRT")) {
                 _receiver.registerCaretaker(stringField("id"), stringField("name"));
             }
         } catch (hva.exceptions.DuplicateEmployeeKeyException e) {
