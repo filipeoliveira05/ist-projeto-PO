@@ -22,13 +22,15 @@ public class Vaccination implements Serializable{
     private String idVet;
     private String idAnimal;
     private String idSpecies;
+    private String rightOrWrong;
     
     
-    public Vaccination(String idVaccine, String idVet, String idAnimal, String idSpecies) {
+    public Vaccination(String idVaccine, String idVet, String idAnimal, String idSpecies, String rightOrWrong) {
         this.idVaccine = idVaccine;
         this.idVet = idVet;
         this.idAnimal = idAnimal;
         this.idSpecies = idSpecies;
+        this.rightOrWrong = rightOrWrong;
     }
 
 
@@ -48,5 +50,9 @@ public class Vaccination implements Serializable{
 
     public String getIdSpecies() {
         return this.idSpecies;
+    }
+
+    public String isRightOrWrong() {
+        return this.rightOrWrong;
     }
 }

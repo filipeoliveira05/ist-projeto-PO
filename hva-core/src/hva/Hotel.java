@@ -1115,15 +1115,21 @@ public class Hotel implements Serializable {
             throw new VeterinarianNotAuthorizedException(idVet, idSpecies);
         }
 
+        String rightOrWrong = "";
+        if (vaccine.getSpeciesIdsAsString().contains(idSpecies)) {
+            rightOrWrong = "right";
+        } else {
+            rightOrWrong = "wrong";
+        }
 
-        Vaccination v = new Vaccination(idVaccine, idVet, idAnimal, idSpecies);
+        Vaccination v = new Vaccination(idVaccine, idVet, idAnimal, idSpecies, rightOrWrong);
         this._vaccinations.add(v);
         vaccine.addVaccination(v);
         vet.addVaccination(v);
         animal.addVaccination(v);
 
 
-        if (vaccine.getSpeciesIdsAsString().contains(idSpecies)) {
+        if (rightOrWrong.equals("right")) {
             animal.addHealthEvent(0);
         } else {
             int damage = calculateDamage(animal, vaccine);
