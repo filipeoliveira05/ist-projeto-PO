@@ -1141,10 +1141,10 @@ public class Hotel implements Serializable {
 
 
         if (rightOrWrong.equals("right")) {
-            animal.addHealthEvent(0, idSpecies);
+            animal.addHealthEvent(0, "right");
         } else {
             int damage = calculateDamage(animal, vaccine);
-            animal.addHealthEvent(damage, idSpecies);
+            animal.addHealthEvent(damage, "wrong");
             throw new InappropriateVaccineException(idVaccine, idAnimal);
         }
 
