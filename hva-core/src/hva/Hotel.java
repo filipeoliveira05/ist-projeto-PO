@@ -952,8 +952,8 @@ public class Hotel implements Serializable {
         String idHabitat = animal.getIdHabitat();
         Habitat habitat = _habitats.get(idHabitat);
 
-        return 20 + 3 * countSameSpecies(animal, habitat) - 2 * countDifferentSpecies(animal, habitat) + 
-               (habitat.getArea() / habitat.getPopulation()) + getHabitatInfluence(animal, habitat);
+        return Math.round(20 + 3 * countSameSpecies(animal, habitat) - 2 * countDifferentSpecies(animal, habitat) + 
+               (habitat.getArea() / habitat.getPopulation()) + getHabitatInfluence(animal, habitat));
     }
 
     public int countSameSpecies(Animal animal, Habitat habitat) {
@@ -1014,7 +1014,7 @@ public class Hotel implements Serializable {
             satisfaction = 300 - workCaretaker((CaretakerEmployee) employee);
         }
 
-        return satisfaction;
+        return Math.round(satisfaction);
     }
 
     public int workVet(VetEmployee vet) {
