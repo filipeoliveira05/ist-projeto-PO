@@ -77,18 +77,21 @@ public class Animal implements Serializable{
     }
 
 
-    public void addHealthEvent(int damage) {
-        String event;
+    public void addHealthEvent(int damage, String speciesId) {
+        String event = "";
+    
         if (damage == 0) {
-            event = "NORMAL";
+            if (this.idSpecies.equals(speciesId)) {
+                event = "NORMAL";
+            } else {
+                event = "CONFUSÃO";
+            }
         } else if (damage >= 1 && damage <= 4) {
             event = "ACIDENTE";
         } else if (damage >= 5) {
             event = "ERRO";
-        } else {
-            event = "CONFUSÃO";
         }
-
+    
         if (this.healthHistory.equals("VOID")) {
             this.healthHistory = event;
         } else {

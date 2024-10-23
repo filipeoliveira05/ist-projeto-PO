@@ -1,9 +1,6 @@
 package hva;
 
-import hva.animal.Animal;
-import hva.employee.CaretakerEmployee;
-import hva.employee.Employee;
-import hva.employee.VetEmployee;
+
 import hva.exceptions.DuplicateAnimalKeyException;
 import hva.exceptions.DuplicateEmployeeKeyException;
 import hva.exceptions.DuplicateHabitatKeyException;
@@ -20,6 +17,11 @@ import hva.exceptions.UnknownSpeciesException;
 import hva.exceptions.UnknownVaccineException;
 import hva.exceptions.UnknownVeterinarianException;
 import hva.exceptions.VeterinarianNotAuthorizedException;
+
+import hva.animal.Animal;
+import hva.employee.CaretakerEmployee;
+import hva.employee.Employee;
+import hva.employee.VetEmployee;
 import hva.habitat.Habitat;
 import hva.species.Species;
 import hva.tree.CaducaTree;
@@ -27,6 +29,13 @@ import hva.tree.PereneTree;
 import hva.tree.Tree;
 import hva.vaccine.Vaccination;
 import hva.vaccine.Vaccine;
+import hva.state.Season;
+import hva.state.SeasonState;
+import hva.state.PrimaveraState;
+import hva.state.VeraoState;
+import hva.state.OutonoState;
+import hva.state.InvernoState;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -1132,10 +1141,10 @@ public class Hotel implements Serializable {
 
 
         if (rightOrWrong.equals("right")) {
-            animal.addHealthEvent(0);
+            animal.addHealthEvent(0, idSpecies);
         } else {
             int damage = calculateDamage(animal, vaccine);
-            animal.addHealthEvent(damage);
+            animal.addHealthEvent(damage, idSpecies);
             throw new InappropriateVaccineException(idVaccine, idAnimal);
         }
 
@@ -1144,7 +1153,9 @@ public class Hotel implements Serializable {
 
 
     private int calculateDamage(Animal animal, Vaccine vaccine) {
-        String animalSpecies = animal.getIdSpecies(); 
+        String animalSpeciesId = animal.getIdSpecies();
+        Species s = getSpecies(animalSpeciesId);
+        String speciesName = s.getName(); 
         Set<String> vaccineSpeciesNames = new HashSet<>();
 
         for (String speciesId : vaccine.getSpeciesIdsAsString().split(",")) {
@@ -1157,7 +1168,7 @@ public class Hotel implements Serializable {
         int maxDamage = 0;
 
         for (String vaccineSpecies : vaccineSpeciesNames) {
-            int damage = calculateMaxDamage(animalSpecies, vaccineSpecies);
+            int damage = calculateMaxDamage(speciesName, vaccineSpecies);
             maxDamage = Math.max(maxDamage, damage);
         }
 
@@ -1172,13 +1183,19 @@ public class Hotel implements Serializable {
     }
 
 
-    private int countCommonCharacters(String species1, String species2) {
-        Set<Character> commonChars = new HashSet<>();
-        for (char c : species1.toCharArray()) {
-            if (species2.indexOf(c) >= 0) {
+    public int countCommonCharacters(String s1, String s2) {
+        HashSet<Character> charsInS1 = new HashSet<>();
+        for (char c : s1.toCharArray()) {
+            charsInS1.add(c);
+        }
+
+        HashSet<Character> commonChars = new HashSet<>();
+        for (char c : s2.toCharArray()) {
+            if (charsInS1.contains(c)) {
                 commonChars.add(c);
             }
         }
+
         return commonChars.size();
     }
 
