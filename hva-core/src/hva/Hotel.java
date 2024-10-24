@@ -113,7 +113,6 @@ public class Hotel implements Serializable {
 
     private Season _season = new Season(); // Campo para rastrear a estação
 
-    //FIXME TreeMap para HashMap
     public void advanceSeason() {
         _season.advanceSeason();
 
