@@ -1,6 +1,9 @@
 package hva.app.animal;
 
 import hva.Hotel;
+import hva.animal.Animal;
+import hva.satisfaction.SatisfactionStrategy;
+import hva.satisfaction.AnimalSatisfactionStrategy;
 import hva.exceptions.UnknownAnimalException;
 
 import hva.app.exceptions.UnknownAnimalKeyException;
@@ -14,17 +17,20 @@ class DoShowSatisfactionOfAnimal extends Command<Hotel> {
 
     DoShowSatisfactionOfAnimal(Hotel receiver) {
         super(Label.SHOW_SATISFACTION_OF_ANIMAL, receiver);
-        addStringField("id", Prompt.animalKey());
+        addStringField("idAnimal", Prompt.animalKey());
     }
 
     @Override
     protected final void execute() throws CommandException {
-        int satisfaction;
+        int satisfaction = 0;
+    
         try {
-            satisfaction = _receiver.satisfactionAnimal(stringField("id"));
+            Animal animal = _receiver.getAnimal(stringField("idAnimal"));
+
+            satisfaction = new AnimalSatisfactionStrategy(_receiver).calculateSatisfaction(stringField("idAnimal"));        
         
-        } catch (UnknownAnimalException e2) {
-            throw new UnknownAnimalKeyException(e2.getKey());
+        } catch (UnknownAnimalException e) {
+            throw new UnknownAnimalKeyException(e.getKey());
         }
 
         _display.addLine(satisfaction);
