@@ -111,7 +111,18 @@ public class Hotel implements Serializable {
     private Map<String, CaretakerEmployee> _caretakers = new HashMap<>();
 
 
-    private Season _season = new Season();
+    private Season _season = new Season(); // Campo para rastrear a estação
+
+    // Método para avançar a estação
+    public void advanceSeason() {
+        _season.advanceSeason();
+        this.dirty();
+    }
+
+    // Método para obter o número da estação atual
+    public int getCurrentSeasonNumber() {
+        return _season.getCurrentSeasonNumber();
+    }
 
     
     /**
