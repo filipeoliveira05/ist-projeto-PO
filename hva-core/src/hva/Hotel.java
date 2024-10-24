@@ -113,11 +113,19 @@ public class Hotel implements Serializable {
 
     private Season _season = new Season(); // Campo para rastrear a estação
 
-    // Método para avançar a estação
+    //FIXME TreeMap para HashMap
     public void advanceSeason() {
         _season.advanceSeason();
+
+        for (Tree tree : getAllTrees()) {
+            tree.setSeason(_season);
+            tree.passSeason();
+            tree.upgradeAge();
+        }
+
         this.dirty();
     }
+
 
     // Método para obter o número da estação atual
     public int getCurrentSeasonNumber() {
@@ -540,8 +548,8 @@ public class Hotel implements Serializable {
 
         Tree t = null;
         switch (type.toUpperCase()) {
-            case "PERENE" -> t = new PereneTree(id, name, age, difficulty);
-            case "CADUCA" -> t = new CaducaTree(id, name, age, difficulty);
+            case "PERENE" -> t = new PereneTree(id, name, age, difficulty, _season);
+            case "CADUCA" -> t = new CaducaTree(id, name, age, difficulty, _season);
         }
 
         if (t != null) {
@@ -585,8 +593,8 @@ public class Hotel implements Serializable {
 
         Tree t = null;
         switch (type.toUpperCase()) {
-            case "PERENE" -> t = new PereneTree(id, name, age, difficulty);
-            case "CADUCA" -> t = new CaducaTree(id, name, age, difficulty);
+            case "PERENE" -> t = new PereneTree(id, name, age, difficulty, _season);
+            case "CADUCA" -> t = new CaducaTree(id, name, age, difficulty, _season);
         }
 
         if (t != null) {
