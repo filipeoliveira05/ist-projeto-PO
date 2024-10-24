@@ -21,7 +21,6 @@ public class Vaccine implements Serializable{
 
     private String id;
     private String name;
-    private int numberApplications;
     private Map<String, Species> speciess;
     private List<Vaccination> vaccinations;
     
@@ -29,7 +28,6 @@ public class Vaccine implements Serializable{
     public Vaccine(String id, String name) {
         this.id = id;
         this.name = name;
-        this.numberApplications = 0;
         this.speciess = new HashMap<>();
         this.vaccinations = new ArrayList<>();
     }
