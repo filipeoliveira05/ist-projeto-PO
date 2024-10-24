@@ -35,7 +35,7 @@ class DoShowAllTreesInHabitat extends Command<Hotel> {
                                     + tree.getAge() + "|"
                                     + tree.getDifficulty() + "|"
                                     + tree.getType() + "|"
-                                    + "GERARFOLHAS"; //FIXME
+                                    + tree.getBiologicalCycle();
                     _display.addLine(treeInfo);
                 }
             }

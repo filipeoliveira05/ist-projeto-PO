@@ -1,6 +1,7 @@
 package hva.app.habitat;
 
 import hva.Hotel;
+import hva.tree.Tree;
 import hva.exceptions.DuplicateTreeException;
 import hva.exceptions.UnknownHabitatException;
 
@@ -38,13 +39,16 @@ class DoAddTreeToHabitat extends Command<Hotel> {
                     typeTree
             );
 
+            Tree tree = _receiver.getTree(stringField("idTree"));
+            String biologicalCycle = tree.getBiologicalCycle();
+
             String treeInfo = "ÁRVORE|"
                             + stringField("idTree") + "|"
                             + stringField("nameTree") + "|"
                             + integerField("ageTree") + "|"
                             + integerField("difficultyTree") + "|"
                             + typeTree + "|"
-                            + "GERARFOLHAS"; // FIXME: substituir "GERARFOLHAS" pela lógica correta do ciclo biológico
+                            + biologicalCycle;
 
             _display.addLine(treeInfo);
             _display.display();
