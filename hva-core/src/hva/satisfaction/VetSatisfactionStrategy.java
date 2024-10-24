@@ -14,7 +14,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 
-public class VetSatisfactionStrategy implements SatisfactionStrategy {
+public class VetSatisfactionStrategy implements SatisfactionStrategy, Serializable {
     
     private Hotel _hotel;
 

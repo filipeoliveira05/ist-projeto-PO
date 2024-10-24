@@ -13,7 +13,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 
-public class CaretakerSatisfactionStrategy implements SatisfactionStrategy {
+public class CaretakerSatisfactionStrategy implements SatisfactionStrategy, Serializable {
     
     private Hotel _hotel;
 

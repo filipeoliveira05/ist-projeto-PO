@@ -12,7 +12,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 
-public class AnimalSatisfactionStrategy implements SatisfactionStrategy {
+public class AnimalSatisfactionStrategy implements SatisfactionStrategy, Serializable {
     
     private Hotel _hotel;
 
