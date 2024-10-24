@@ -865,6 +865,7 @@ public class Hotel implements Serializable {
 
             Species s = getSpecies(idResponsibility);
             ((VetEmployee) employee).addResponsibility(idResponsibility, s);
+            this.dirty();
 
         } else if (employee.isCaretaker()) {
             if (!_habitats.containsKey(idResponsibility)) {
@@ -877,6 +878,7 @@ public class Hotel implements Serializable {
 
             Habitat h = getHabitat(idResponsibility);
             ((CaretakerEmployee) employee).addResponsibility(idResponsibility, h);
+            this.dirty();
         }
     }
 
@@ -905,6 +907,7 @@ public class Hotel implements Serializable {
             }
 
             employee.removeResponsibility(idResponsibility);
+            this.dirty();
 
         } else if (employee.isCaretaker()) {
             if (!_habitats.containsKey(idResponsibility) || !employee.getResponsibilitiesAsString().contains(idResponsibility)) {
@@ -912,6 +915,7 @@ public class Hotel implements Serializable {
             }
 
             employee.removeResponsibility(idResponsibility);
+            this.dirty();
         }
     }
     
@@ -936,7 +940,6 @@ public class Hotel implements Serializable {
 
         animal.setHabitatId(newHabitatId);
         newHabitat.addAnimal(animal);
-
         this.dirty();
     }
 
@@ -1090,6 +1093,7 @@ public class Hotel implements Serializable {
 
         return Math.round(totalSatisfaction);
     }
+
 
 
     public Vaccine registerVaccineWithSpecies(String id, String name, String idSpecies) 
@@ -1253,6 +1257,7 @@ public class Hotel implements Serializable {
         }
     
         habitat.setSpeciesInfluence(species, influenceValue);
+        this.dirty();
     }
     
 }
