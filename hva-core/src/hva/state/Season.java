@@ -1,6 +1,5 @@
 package hva.state;
 
-import java.io.Serial;
 import java.io.Serializable;
 
 public class Season implements Serializable{
@@ -10,11 +9,15 @@ public class Season implements Serializable{
         _state = state;
     }
 
+    public SeasonState getState() {
+        return _state;
+    }
+
+
     public void advanceSeason() {
         _state.advanceSeason();
     }
 
-    // Método para obter o número da estação atual
     public int getCurrentSeasonNumber() {
         return _state.getNumSeason();
     }
