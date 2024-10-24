@@ -111,6 +111,8 @@ public class Hotel implements Serializable {
     private Map<String, CaretakerEmployee> _caretakers = new HashMap<>();
 
 
+    private Season _season = new Season();
+
     
     /**
     * Whether the hotel is in a dirty state, that is, if it was modified

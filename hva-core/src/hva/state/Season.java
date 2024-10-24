@@ -3,7 +3,7 @@ package hva.state;
 import java.io.Serial;
 import java.io.Serializable;
 
-public class Season {
+public class Season implements Serializable{
     private SeasonState _state = new PrimaveraState(this);
 
     public void setState (SeasonState state) {

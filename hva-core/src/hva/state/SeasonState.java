@@ -3,7 +3,7 @@ package hva.state;
 import java.io.Serial;
 import java.io.Serializable;
 
-public abstract class SeasonState {
+public abstract class SeasonState implements Serializable {
 	private Season _season;
 	private int _numSeason;
 
