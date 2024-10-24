@@ -35,6 +35,10 @@ import hva.state.PrimaveraState;
 import hva.state.VeraoState;
 import hva.state.OutonoState;
 import hva.state.InvernoState;
+import hva.satisfaction.SatisfactionStrategy;
+import hva.satisfaction.AnimalSatisfactionStrategy;
+import hva.satisfaction.CaretakerSatisfactionStrategy;
+import hva.satisfaction.VetSatisfactionStrategy;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -340,6 +344,19 @@ public class Hotel implements Serializable {
     public Animal getAnimal(String key) {
         Animal a = this._animals.get(key);
         return a;
+    }
+
+
+    /**
+    * Get a employee by its key. Two employees are the same if their keys are 
+    * the same
+    *
+    * @param key The key of the caretaker to get
+    * @return The {@link Employee} associated with the given key
+    */
+    public Employee getEmployee(String key) {
+        Employee e = this._employees.get(key);
+        return e;
     }
 
 
@@ -989,155 +1006,39 @@ public class Hotel implements Serializable {
 
 
 
-
-    public int satisfactionAnimal(String idAnimal) throws UnknownAnimalException{
-        Animal animal = _animals.get(idAnimal);
-        if (animal == null) {
-            throw new UnknownAnimalException(idAnimal);
-        }
-
-        String idHabitat = animal.getIdHabitat();
-        Habitat habitat = _habitats.get(idHabitat);
-
-        return Math.round(20 + 3 * countSameSpecies(animal, habitat) - 2 * countDifferentSpecies(animal, habitat) + 
-               (habitat.getArea() / habitat.getPopulation()) + getHabitatInfluence(animal, habitat));
-    }
-
-    public int countSameSpecies(Animal animal, Habitat habitat) {
-        int count = 0;
-        Collection<Animal> animalsInHabitat = habitat.getAllAnimalsInHabitat();
-
-        for (Animal otherAnimal : animalsInHabitat) {
-            if (otherAnimal.getIdSpecies().equals(animal.getIdSpecies()) && otherAnimal != animal) {
-                count++;
-            }
-        }
-        
-        return count;
-    }
-
-    public int countDifferentSpecies(Animal animal, Habitat habitat) {
-        int count = 0;
-        Collection<Animal> animalsInHabitat = habitat.getAllAnimalsInHabitat();
-
-        for (Animal otherAnimal : animalsInHabitat) {
-            if (!otherAnimal.getIdSpecies().equals(animal.getIdSpecies()) && otherAnimal != animal) {
-                count++;
-            }
-        }
-        
-        return count;
-    }
-
-    public int getHabitatInfluence(Animal animal, Habitat habitat) {
-        String speciesId = animal.getIdSpecies();
-        
-        Species species = _species.get(speciesId);
-    
-        if (species != null) {
-            return habitat.getSpeciesInfluence(species);
-        }
-        
-        return 0;
-    }
-    
-
-    
-    public int satisfactionEmployee(String idEmployee) throws UnknownEmployeeException{
-        Employee employee = _employees.get(idEmployee);
-
-        int satisfaction = 0;
-
-        if (employee == null) {
-            throw new UnknownEmployeeException(idEmployee);
-        }
-
-        
-        if (employee.isVet()){
-            satisfaction = 20 - workVet((VetEmployee) employee);
-        }
-
-        if (employee.isCaretaker()){
-            satisfaction = 300 - workCaretaker((CaretakerEmployee) employee);
-        }
-
-        return Math.round(satisfaction);
-    }
-
-    public int workVet(VetEmployee vet) {
-        int totalWork = 0;
-        Collection<Species> responsibilities = vet.getResponsibilities();
-
-        for (Species species : responsibilities) {
-            int population = 0;
-            int numVets = 0;
-
-            for (Animal animal : getAllAnimals()) {
-                if (animal.getIdSpecies().equals(species.getId())) {
-                    population++;
-                }
-            }
-
-            for (Employee<?> emp : getAllEmployees()) {
-                if (emp.isVet() && ((VetEmployee) emp).getResponsibilities().contains(species)) {
-                    numVets++;
-                }
-            }
-
-            totalWork += population / numVets;
-        }
-
-        return totalWork;
-    }
-
-    //FIXME Somatório Esforço Limpeza
-    public int workCaretaker(CaretakerEmployee caretaker) {
-        int totalWork = 0;
-        Collection<Habitat> responsibilities = caretaker.getResponsibilities();
-
-        for (Habitat habitat : responsibilities) {
-            int numCareTakers = 0;
-            int habitatWork = habitat.getArea() + 3 * habitat.getPopulation();
-
-            for (Tree tree : habitat.getAllTreesInHabitat()) {
-                habitatWork += tree.getDifficulty();
-            }
-
-            for (Employee<?> emp : getAllEmployees()) {
-                if (emp.isCaretaker() && ((CaretakerEmployee) emp).getResponsibilities().contains(habitat)) {
-                    numCareTakers++;
-                }
-            }
-
-            totalWork += habitatWork / numCareTakers;
-        }
-
-        return totalWork;
-    }
-
-
     public int globalSatisfaction() {
         int totalSatisfaction = 0;
-
+    
         for (Animal animal : getAllAnimals()) {
             try {
-                totalSatisfaction += satisfactionAnimal(animal.getId());
+                totalSatisfaction += new AnimalSatisfactionStrategy(this).calculateSatisfaction(animal.getId());
             } catch (UnknownAnimalException e) {
                 e.printStackTrace();
             }
         }
-
+    
         for (Employee<?> employee : getAllEmployees()) {
-            try {
-                totalSatisfaction += satisfactionEmployee(employee.getId());
-            } catch (UnknownEmployeeException e) {
-                e.printStackTrace();
+            
+            if (employee.isCaretaker()) {
+                try {
+                    totalSatisfaction += new CaretakerSatisfactionStrategy(this).calculateSatisfaction(employee.getId());
+                } catch (UnknownEmployeeException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (employee.isVet()) {
+                try {
+                    totalSatisfaction += new VetSatisfactionStrategy(this).calculateSatisfaction(employee.getId());
+                } catch (UnknownEmployeeException e) {
+                    e.printStackTrace();
+                }
             }
         }
-
+    
         return Math.round(totalSatisfaction);
     }
-
+    
 
 
     public Vaccine registerVaccineWithSpecies(String id, String name, String idSpecies) 
