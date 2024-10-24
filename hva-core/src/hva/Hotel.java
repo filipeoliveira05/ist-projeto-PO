@@ -246,6 +246,17 @@ public class Hotel implements Serializable {
 
 
 
+    public Collection<Tree> getTreesInHabitat (String idHabitat) throws UnknownHabitatException {
+        Habitat habitat = _habitats.get(idHabitat);
+        if (habitat == null) {
+            throw new UnknownHabitatException(idHabitat);
+        }
+
+        Collection<Tree> treesInHabitat = habitat.getAllTreesInHabitat();
+        return treesInHabitat;
+    }
+    
+    
     public Collection<Animal> getAnimalsInHabitat (String idHabitat) throws UnknownHabitatException {
         Habitat habitat = _habitats.get(idHabitat);
         if (habitat == null) {

@@ -3,6 +3,7 @@ package hva.app.habitat;
 import hva.Hotel;
 import hva.habitat.Habitat;
 import hva.tree.Tree;
+import hva.exceptions.UnknownHabitatException;
 
 import hva.app.exceptions.UnknownHabitatKeyException;
 
@@ -22,28 +23,27 @@ class DoShowAllTreesInHabitat extends Command<Hotel> {
 
     @Override
     protected void execute() throws CommandException {
-        String habitatId = stringField("idHabitat");
-        Habitat habitat = _receiver.getHabitat(habitatId);
-
-        if (habitat == null) {
-            throw new UnknownHabitatKeyException(habitatId);
-        }
-
-        Collection<Tree> treesInHabitat = habitat.getAllTreesInHabitat();
-
-        if (!treesInHabitat.isEmpty()) {
-            for (Tree tree : treesInHabitat) {
-                String treeInfo = "ÁRVORE|"
-                                + tree.getId() + "|"
-                                + tree.getName() + "|"
-                                + tree.getAge() + "|"
-                                + tree.getDifficulty() + "|"
-                                + tree.getType() + "|"
-                                + "GERARFOLHAS"; //FIXME
-                _display.addLine(treeInfo);
-            }
-        }
         
-        _display.display();
+        try {
+            Collection<Tree> treesInHabitat = _receiver.getTreesInHabitat(stringField("idHabitat"));
+            
+            if (!treesInHabitat.isEmpty()) {
+                for (Tree tree : treesInHabitat) {
+                    String treeInfo = "ÁRVORE|"
+                                    + tree.getId() + "|"
+                                    + tree.getName() + "|"
+                                    + tree.getAge() + "|"
+                                    + tree.getDifficulty() + "|"
+                                    + tree.getType() + "|"
+                                    + "GERARFOLHAS"; //FIXME
+                    _display.addLine(treeInfo);
+                }
+            }
+            
+            _display.display();
+        
+        } catch (UnknownHabitatException e) {
+            throw new UnknownHabitatKeyException(e.getKey());
+        }
     }
 }
