@@ -1,7 +1,5 @@
 package hva.tree;
 
-import hva.exceptions.DuplicateTreeKeyException;
-
 import java.io.Serial;
 import java.io.Serializable;
 

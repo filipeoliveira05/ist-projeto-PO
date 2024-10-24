@@ -2,8 +2,6 @@ package hva.animal;
 
 import hva.vaccine.Vaccination;
 
-import hva.exceptions.DuplicateAnimalKeyException;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
