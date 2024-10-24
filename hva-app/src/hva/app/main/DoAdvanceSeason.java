@@ -12,11 +12,9 @@ class DoAdvanceSeason extends Command<HotelManager> {
 
     @Override
     protected final void execute() {
-        // Chama o método para avançar a estação no HotelManager
         _receiver.getHotel().advanceSeason();
         int seasonNumber = _receiver.getHotel().getCurrentSeasonNumber();
         _display.addLine(seasonNumber);
         _display.display();
     }
 }
-

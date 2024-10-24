@@ -1,6 +1,5 @@
 package hva.state;
 
-import java.io.Serial;
 import java.io.Serializable;
 
 public class VeraoState extends SeasonState {
