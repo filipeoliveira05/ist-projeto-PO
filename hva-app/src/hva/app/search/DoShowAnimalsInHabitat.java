@@ -3,6 +3,7 @@ package hva.app.search;
 import hva.Hotel;
 import hva.habitat.Habitat;
 import hva.animal.Animal;
+import hva.exceptions.UnknownHabitatException;
 
 import hva.app.exceptions.UnknownHabitatKeyException;
 
@@ -22,27 +23,26 @@ class DoShowAnimalsInHabitat extends Command<Hotel> {
 
     @Override
     protected void execute() throws CommandException {
-        String habitatId = stringField("idHabitat");
-        Habitat habitat = _receiver.getHabitat(habitatId);
-
-        if (habitat == null) {
-            throw new UnknownHabitatKeyException(habitatId);
-        }
-
-        Collection<Animal> animalsInHabitat = habitat.getAllAnimalsInHabitat();
-
-        if (!animalsInHabitat.isEmpty()) {
-            for (Animal animal : animalsInHabitat) {
-                String animalInfo = "ANIMAL|"
-                                    + animal.getId() + "|"
-                                    + animal.getName() + "|"
-                                    + animal.getIdSpecies() + "|"
-                                    + animal.getHealthHistory() + "|"
-                                    + animal.getIdHabitat();
-                _display.addLine(animalInfo);
-            }
-        }
         
-        _display.display();
+        try {
+            Collection<Animal> animalsInHabitat = _receiver.getAnimalsInHabitat(stringField("idHabitat"));
+            
+            if (!animalsInHabitat.isEmpty()) {
+                for (Animal animal : animalsInHabitat) {
+                    String animalInfo = "ANIMAL|"
+                                        + animal.getId() + "|"
+                                        + animal.getName() + "|"
+                                        + animal.getIdSpecies() + "|"
+                                        + animal.getHealthHistory() + "|"
+                                        + animal.getIdHabitat();
+                    _display.addLine(animalInfo);
+                }
+            }
+            
+            _display.display();
+        
+        } catch (UnknownHabitatException e) {
+            throw new UnknownHabitatKeyException(e.getKey());
+        }
     }
 }

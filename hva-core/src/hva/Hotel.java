@@ -246,6 +246,17 @@ public class Hotel implements Serializable {
 
 
 
+    public Collection<Animal> getAnimalsInHabitat (String idHabitat) throws UnknownHabitatException {
+        Habitat habitat = _habitats.get(idHabitat);
+        if (habitat == null) {
+            throw new UnknownHabitatException(idHabitat);
+        }
+
+        Collection<Animal> animalsInHabitat = habitat.getAllAnimalsInHabitat();
+        return animalsInHabitat;
+    }
+
+
 
     /**
     * Get a species by its key. Two species are the same if their keys are the
