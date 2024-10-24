@@ -268,6 +268,17 @@ public class Hotel implements Serializable {
     }
 
 
+    public List<Vaccination> getMedicalActsOnAnimal (String idAnimal) throws UnknownAnimalException {
+        Animal animal = _animals.get(idAnimal);
+        if (animal == null) {
+            throw new UnknownAnimalException(idAnimal);
+        }
+
+        List<Vaccination> medicalActsOnAnimal = animal.getVaccinations();
+        return medicalActsOnAnimal;
+    }
+
+
 
     /**
     * Get a species by its key. Two species are the same if their keys are the

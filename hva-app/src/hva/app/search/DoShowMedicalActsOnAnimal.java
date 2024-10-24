@@ -3,6 +3,7 @@ package hva.app.search;
 import hva.Hotel;
 import hva.animal.Animal;
 import hva.vaccine.Vaccination;
+import hva.exceptions.UnknownAnimalException;
 
 import hva.app.exceptions.UnknownAnimalKeyException;
 
@@ -23,23 +24,22 @@ class DoShowMedicalActsOnAnimal extends Command<Hotel> {
 
     @Override
     protected void execute() throws CommandException {
-        String animalId = stringField("idAnimal");
-        Animal animal = _receiver.getAnimal(animalId);
-
-        if (animal == null) {
-            throw new UnknownAnimalKeyException(animalId);
+        
+        try {
+            List<Vaccination> vaccinations = _receiver.getMedicalActsOnAnimal(stringField("idAnimal"));
+            
+            for (Vaccination vaccination : vaccinations) {
+                String vaccinationInfo = "REGISTO-VACINA|"
+                                       + vaccination.getIdVaccine() + "|"
+                                       + vaccination.getIdVet() + "|"
+                                       + vaccination.getIdSpecies();
+                _display.addLine(vaccinationInfo);
+            }
+            
+            _display.display();
+        
+        } catch (UnknownAnimalException e) {
+            throw new UnknownAnimalKeyException(e.getKey());
         }
-
-        List<Vaccination> vaccinations = animal.getVaccinations();
-
-        for (Vaccination vaccination : vaccinations) {
-            String vaccinationInfo = "REGISTO-VACINA|"
-                                   + vaccination.getIdVaccine() + "|"
-                                   + vaccination.getIdVet() + "|"
-                                   + vaccination.getIdSpecies();
-            _display.addLine(vaccinationInfo);
-        }
-
-        _display.display();
     }
 }
