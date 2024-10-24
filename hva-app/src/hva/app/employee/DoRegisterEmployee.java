@@ -16,17 +16,12 @@ class DoRegisterEmployee extends Command<Hotel> {
         super(Label.REGISTER_EMPLOYEE, receiver);
         addStringField("id", Prompt.employeeKey());
         addStringField("name", Prompt.employeeName());
+        addOptionField("type", Prompt.employeeType(), "VET", "TRT");
     }
 
     @Override
     protected void execute() throws CommandException {
-        String typeEmployee;
-        while (true) {
-            typeEmployee = Form.requestString(Prompt.employeeType());
-            if (typeEmployee.equals("VET") || typeEmployee.equals("TRT")) {
-                break;
-            }
-        }
+        String typeEmployee = optionField("type");
 
         try {
             if (typeEmployee.equals("VET")) {

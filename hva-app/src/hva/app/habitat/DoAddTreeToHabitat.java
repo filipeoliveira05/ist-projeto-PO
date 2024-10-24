@@ -21,17 +21,12 @@ class DoAddTreeToHabitat extends Command<Hotel> {
         addStringField("nameTree", Prompt.treeName());
         addIntegerField("ageTree", Prompt.treeAge());
         addIntegerField("difficultyTree", Prompt.treeDifficulty());
+        addOptionField("typeTree", Prompt.treeType(), "PERENE", "CADUCA");
     }
 
     @Override
     protected void execute() throws CommandException {
-        String typeTree;
-        while (true) {
-            typeTree = Form.requestString(Prompt.treeType());
-            if (typeTree.equals("PERENE") || typeTree.equals("CADUCA")) {
-                break;
-            }
-        }
+        String typeTree = optionField("typeTree");
 
         try {
             _receiver.registerTreeInHabitat(

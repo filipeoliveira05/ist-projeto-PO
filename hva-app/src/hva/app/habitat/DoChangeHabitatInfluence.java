@@ -19,17 +19,12 @@ class DoChangeHabitatInfluence extends Command<Hotel> {
         super(Label.CHANGE_HABITAT_INFLUENCE, receiver);
         addStringField("idHabitat", Prompt.habitatKey());
         addStringField("idSpecies", hva.app.animal.Prompt.speciesKey());
+        addOptionField("influenceHabitat", Prompt.habitatInfluence(), "POS", "NEG", "NEU");
     }
 
     @Override
     protected void execute() throws CommandException {
-        String habitatInfluence;
-        while (true) {
-            habitatInfluence = Form.requestString(Prompt.habitatInfluence());
-            if (habitatInfluence.equals("POS") || habitatInfluence.equals("NEG") || habitatInfluence.equals("NEU")) {
-                break;
-            }
-        }
+        String habitatInfluence = optionField("influenceHabitat");
 
         try {
             _receiver.changeHabitatInfluence(stringField("idHabitat"), stringField("idSpecies"), habitatInfluence);
