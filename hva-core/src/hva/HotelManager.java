@@ -19,6 +19,7 @@ import hva.exceptions.UnknownVeterinarianException;
 import hva.exceptions.UnrecognizedEntryException;
 import hva.exceptions.VeterinarianNotAuthorizedExcept;
 
+import hva.state.Season;
 
 import java.io.*;
 import hva.exceptions.*;
@@ -212,5 +213,17 @@ public class HotelManager {
     */
     public boolean dirty() {
         return _hotel.isDirty();
+    }
+
+    private Season _season = new Season(); // Campo para rastrear a estação
+
+    // Método para avançar a estação
+    public void advanceSeason() {
+        _season.advanceSeason();
+    }
+
+    // Método para obter o número da estação atual
+    public int getCurrentSeasonNumber() {
+        return _season.getCurrentSeasonNumber();
     }
 }

@@ -14,4 +14,9 @@ public class Season {
         _state.advanceSeason();
     }
 
+    // Método para obter o número da estação atual
+    public int getCurrentSeasonNumber() {
+        return _state.getNumSeason();
+    }
+
 }
