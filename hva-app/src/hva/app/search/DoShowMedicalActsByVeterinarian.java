@@ -3,6 +3,7 @@ package hva.app.search;
 import hva.Hotel;
 import hva.employee.VetEmployee;
 import hva.vaccine.Vaccination;
+import hva.exceptions.UnknownVeterinarianException;
 
 import hva.app.exceptions.UnknownVeterinarianKeyException;
 
@@ -23,23 +24,22 @@ class DoShowMedicalActsByVeterinarian extends Command<Hotel> {
 
     @Override
     protected void execute() throws CommandException {
-        String vetId = stringField("idVet");
-        VetEmployee vet = _receiver.getVet(vetId);
 
-        if (vet == null || !vet.isVet()) {
-            throw new UnknownVeterinarianKeyException(vetId);
-        }
-
-        List<Vaccination> vaccinations = vet.getVaccinations();
-
-        for (Vaccination vaccination : vaccinations) {
-            String vaccinationInfo = "REGISTO-VACINA|"
-                                   + vaccination.getIdVaccine() + "|"
-                                   + vaccination.getIdVet() + "|"
-                                   + vaccination.getIdSpecies();
-            _display.addLine(vaccinationInfo);
-        }
+        try {
+            List<Vaccination> vaccinations = _receiver.getMedicalActsByVet(stringField("idVet"));
+            
+            for (Vaccination vaccination : vaccinations) {
+                String vaccinationInfo = "REGISTO-VACINA|"
+                                       + vaccination.getIdVaccine() + "|"
+                                       + vaccination.getIdVet() + "|"
+                                       + vaccination.getIdSpecies();
+                _display.addLine(vaccinationInfo);
+            }
+            
+            _display.display();
         
-        _display.display();
+        } catch (UnknownVeterinarianException e) {
+            throw new UnknownVeterinarianKeyException(e.getKey());
+        }
     }
 }
