@@ -1,14 +1,14 @@
 package hva;
 
-import hva.exceptions.DuplicateAnimalKeyException;
-import hva.exceptions.DuplicateEmployeeKeyException;
-import hva.exceptions.DuplicateHabitatKeyException;
+import hva.exceptions.DuplicateAnimalException;
+import hva.exceptions.DuplicateEmployeeException;
+import hva.exceptions.DuplicateHabitatException;
 import hva.exceptions.DuplicateSpeciesNameException;
-import hva.exceptions.DuplicateTreeKeyException;
-import hva.exceptions.DuplicateVaccineKeyException;
+import hva.exceptions.DuplicateTreeException;
+import hva.exceptions.DuplicateVaccineException;
 import hva.exceptions.ImportFileException;
 import hva.exceptions.MissingFileAssociationException;
-import hva.exceptions.NoResponsibilityException;
+import hva.exceptions.NoResponsibilityExcept;
 import hva.exceptions.UnavailableFileException;
 import hva.exceptions.UnknownAnimalException;
 import hva.exceptions.UnknownEmployeeException;
@@ -17,7 +17,7 @@ import hva.exceptions.UnknownSpeciesException;
 import hva.exceptions.UnknownVaccineException;
 import hva.exceptions.UnknownVeterinarianException;
 import hva.exceptions.UnrecognizedEntryException;
-import hva.exceptions.VeterinarianNotAuthorizedException;
+import hva.exceptions.VeterinarianNotAuthorizedExcept;
 
 
 import java.io.*;
@@ -47,7 +47,7 @@ public class HotelManager {
     * @see Hotel#registerTree(String, String, int, int, String)
     */
     public void registerTree(String id, String name, int age, int difficulty, 
-                             String type) throws DuplicateTreeKeyException {
+                             String type) throws DuplicateTreeException {
         this._hotel.registerTree(id, name, age, difficulty, type);
     }
 
@@ -56,7 +56,7 @@ public class HotelManager {
     * @see Hotel#registerTreeInHabitat(String, String, String, int, int, String)
     */
     public void registerTreeInHabitat(String idHabitat, String id, String name, int age, int difficulty, 
-                             String type) throws DuplicateTreeKeyException, UnknownHabitatException {
+                             String type) throws DuplicateTreeException, UnknownHabitatException {
         this._hotel.registerTreeInHabitat(idHabitat, id, name, age, difficulty, type);
     }
 
@@ -65,7 +65,7 @@ public class HotelManager {
     * @see Hotel#registerHabitat(String, String, int)
     */
     public void registerHabitat(String id, String name, int area) 
-                             throws DuplicateHabitatKeyException {
+                             throws DuplicateHabitatException {
         this._hotel.registerHabitat(id, name, area);
     }
 
@@ -74,7 +74,7 @@ public class HotelManager {
     * @see Hotel#registerAnimal(String, String, String, String)
     */
     public void registerAnimal(String id, String name, String idSpecies, String idHabitat) 
-                            throws UnknownSpeciesException, UnknownHabitatException, DuplicateAnimalKeyException {
+                            throws UnknownSpeciesException, UnknownHabitatException, DuplicateAnimalException {
         this._hotel.registerAnimal(id, name, idSpecies, idHabitat);
     }
 
@@ -83,7 +83,7 @@ public class HotelManager {
     * @see Hotel#registerCaretaker(String, String)
     */
     public void registerCaretaker(String id, String name) 
-                                  throws DuplicateEmployeeKeyException {
+                                  throws DuplicateEmployeeException {
         this._hotel.registerCaretaker(id, name);
     }
 
@@ -92,7 +92,7 @@ public class HotelManager {
     * @see Hotel#registerVet(String, String)
     */
     public void registerVet(String id, String name) 
-                            throws DuplicateEmployeeKeyException {
+                            throws DuplicateEmployeeException {
         this._hotel.registerVet(id, name);
     }
 
@@ -101,7 +101,7 @@ public class HotelManager {
     * @see Hotel#registerVaccine(String, String)
     */
     public void registerVaccine(String id, String name) 
-                                throws DuplicateVaccineKeyException {
+                                throws DuplicateVaccineException {
         this._hotel.registerVaccine(id, name);
     }
 
@@ -109,7 +109,7 @@ public class HotelManager {
     * @see Hotel#registerVaccine(String, String, String)
     */
     public void registerVaccineWithSpecies(String id, String name, String idSpecies) 
-                            throws DuplicateVaccineKeyException, UnknownSpeciesException {
+                            throws DuplicateVaccineException, UnknownSpeciesException {
         this._hotel.registerVaccineWithSpecies(id, name, idSpecies);
     }
 

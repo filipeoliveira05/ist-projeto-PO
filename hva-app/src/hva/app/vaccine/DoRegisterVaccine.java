@@ -1,6 +1,7 @@
 package hva.app.vaccine;
 
 import hva.Hotel;
+import hva.exceptions.DuplicateVaccineException;
 import hva.exceptions.UnknownSpeciesException;
 
 import hva.app.exceptions.DuplicateVaccineKeyException;
@@ -27,7 +28,7 @@ class DoRegisterVaccine extends Command<Hotel> {
                     stringField("name"),
                     stringField("species"));
         
-        } catch (hva.exceptions.DuplicateVaccineKeyException e) {
+        } catch (DuplicateVaccineException e) {
             throw new DuplicateVaccineKeyException(e.getKey());
         
         }  catch (UnknownSpeciesException e) {

@@ -1,6 +1,7 @@
 package hva.app.employee;
 
 import hva.Hotel;
+import hva.exceptions.DuplicateEmployeeException;
 
 import hva.app.exceptions.DuplicateEmployeeKeyException;
 
@@ -34,7 +35,7 @@ class DoRegisterEmployee extends Command<Hotel> {
                 _receiver.registerCaretaker(stringField("id"), stringField("name"));
             }
         
-        } catch (hva.exceptions.DuplicateEmployeeKeyException e) {
+        } catch (DuplicateEmployeeException e) {
             throw new DuplicateEmployeeKeyException(e.getKey());
         }
     }

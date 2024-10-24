@@ -2,7 +2,7 @@ package hva.exceptions;
 
 import java.io.Serial;
 
-public class DuplicateHabitatKeyException extends Exception {
+public class DuplicateEmployeeException extends Exception {
 
     /**
      * Class serial number.
@@ -12,7 +12,7 @@ public class DuplicateHabitatKeyException extends Exception {
   
     private final String key;   
   
-    public DuplicateHabitatKeyException(String key) {
+    public DuplicateEmployeeException(String key) {
       this.key = key;
     }
   

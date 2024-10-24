@@ -2,7 +2,7 @@ package hva.exceptions;
 
 import java.io.Serial;
 
-public class NoResponsibilityException extends Exception {
+public class NoResponsibilityExcept extends Exception {
 
     /**
      * Class serial number.
@@ -13,7 +13,7 @@ public class NoResponsibilityException extends Exception {
     private String employeeKey;
     private String responsabilityKey;  
   
-    public NoResponsibilityException(String employeeKey, String responsibilityKey) {
+    public NoResponsibilityExcept(String employeeKey, String responsibilityKey) {
       this.employeeKey = employeeKey;
       this.responsabilityKey = responsibilityKey;
     }

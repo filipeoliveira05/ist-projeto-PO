@@ -1,6 +1,7 @@
 package hva.app.employee;
 
 import hva.Hotel;
+import hva.exceptions.NoResponsibilityExcept;
 import hva.exceptions.UnknownEmployeeException;
 
 import hva.app.exceptions.NoResponsibilityException;
@@ -23,7 +24,7 @@ class DoRemoveResponsibility extends Command<Hotel> {
         try {
             _receiver.removeResponsibilityOfEmployee(stringField("idEmployee"), stringField("idResponsability"));
         
-        } catch (hva.exceptions.NoResponsibilityException e) {
+        } catch (NoResponsibilityExcept e) {
             throw new NoResponsibilityException(e.getEmployeeKey(), e.getResponsabilityKey());
         
         } catch (UnknownEmployeeException e) {

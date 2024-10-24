@@ -1,6 +1,7 @@
 package hva.app.employee;
 
 import hva.Hotel;
+import hva.exceptions.NoResponsibilityExcept;
 import hva.exceptions.UnknownEmployeeException;
 
 import hva.app.exceptions.NoResponsibilityException;
@@ -23,10 +24,10 @@ class DoAddResponsibility extends Command<Hotel> {
         try {
             _receiver.addResponsibilityToEmployee(stringField("idEmployee"), stringField("idResponsability"));
         
-        } catch (hva.exceptions.NoResponsibilityException e) {
+        } catch (NoResponsibilityExcept e) {
             throw new NoResponsibilityException(e.getEmployeeKey(), e.getResponsabilityKey());
         
-        }  catch (UnknownEmployeeException e) {
+        } catch (UnknownEmployeeException e) {
             throw new UnknownEmployeeKeyException(e.getKey());
         }
     }

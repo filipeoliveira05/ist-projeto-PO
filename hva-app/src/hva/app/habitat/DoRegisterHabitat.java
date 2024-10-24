@@ -1,6 +1,7 @@
 package hva.app.habitat;
 
 import hva.Hotel;
+import hva.exceptions.DuplicateHabitatException;
 
 import hva.app.exceptions.DuplicateHabitatKeyException;
 
@@ -26,7 +27,7 @@ class DoRegisterHabitat extends Command<Hotel> {
                     integerField("area")
             );
           
-          } catch (hva.exceptions.DuplicateHabitatKeyException e) {
+          } catch (DuplicateHabitatException e) {
             throw new DuplicateHabitatKeyException(e.getKey());
           }
     }

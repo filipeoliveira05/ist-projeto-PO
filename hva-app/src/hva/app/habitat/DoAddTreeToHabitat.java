@@ -1,6 +1,7 @@
 package hva.app.habitat;
 
 import hva.Hotel;
+import hva.exceptions.DuplicateTreeException;
 import hva.exceptions.UnknownHabitatException;
 
 import hva.app.exceptions.DuplicateTreeKeyException;
@@ -53,7 +54,7 @@ class DoAddTreeToHabitat extends Command<Hotel> {
             _display.addLine(treeInfo);
             _display.display();
 
-        } catch (hva.exceptions.DuplicateTreeKeyException e) {
+        } catch (DuplicateTreeException e) {
             throw new DuplicateTreeKeyException(e.getKey());
 
         } catch (UnknownHabitatException e) {

@@ -2,7 +2,7 @@ package hva.exceptions;
 
 import java.io.Serial;
 
-public class VeterinarianNotAuthorizedException extends Exception {
+public class VeterinarianNotAuthorizedExcept extends Exception {
 
     /**
      * Class serial number.
@@ -13,7 +13,7 @@ public class VeterinarianNotAuthorizedException extends Exception {
     private String idVet;
     private String idSpecies;  
   
-    public VeterinarianNotAuthorizedException(String idVet, String idSpecies) {
+    public VeterinarianNotAuthorizedExcept(String idVet, String idSpecies) {
       this.idVet = idVet;
       this.idSpecies = idSpecies;
     }

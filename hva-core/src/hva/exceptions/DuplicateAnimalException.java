@@ -2,7 +2,7 @@ package hva.exceptions;
 
 import java.io.Serial;
 
-public class DuplicateVaccineKeyException extends Exception {
+public class DuplicateAnimalException extends Exception {
 
     /**
      * Class serial number.
@@ -12,7 +12,7 @@ public class DuplicateVaccineKeyException extends Exception {
   
     private final String key;   
   
-    public DuplicateVaccineKeyException(String key) {
+    public DuplicateAnimalException(String key) {
       this.key = key;
     }
   
