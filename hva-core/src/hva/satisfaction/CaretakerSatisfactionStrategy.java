@@ -32,14 +32,13 @@ public class CaretakerSatisfactionStrategy implements SatisfactionStrategy, Seri
         return Math.round(satisfaction);
     }
 
-    //FIXME Somatório Esforço Limpeza
     private int workCaretaker(CaretakerEmployee caretaker) {
         int totalWork = 0;
         Collection<Habitat> responsibilities = caretaker.getResponsibilities();
 
         for (Habitat habitat : responsibilities) {
             int numCareTakers = 0;
-            int habitatWork = habitat.getArea() + 3 * habitat.getPopulation();
+            double habitatWork = habitat.getArea() + 3 * habitat.getPopulation() + habitat.getTotalCleaningEffort();
 
             for (Tree tree : habitat.getAllTreesInHabitat()) {
                 habitatWork += tree.getDifficulty();

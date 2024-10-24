@@ -131,6 +131,16 @@ public class Habitat implements Serializable {
     }   
 
 
+    public double getTotalCleaningEffort() {
+        double totalEffort = 0.0;
+        for (Tree tree : getAllTreesInHabitat()) {
+            totalEffort += tree.cleaningEffort();
+        }
+        return totalEffort;
+    }
+    
+
+
     /**
     * Updates the area of the habitat.
     * 
